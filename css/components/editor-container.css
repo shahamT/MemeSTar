@@ -1,5 +1,12 @@
 .editor-container {
     grid-column: 3;
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+
     height: 400px;
+
+
+
     background-color: rgb(var(--clr-content-bg-dark-base));
 }

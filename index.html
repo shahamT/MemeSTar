@@ -28,7 +28,7 @@
 
     <!--main -->
     <main class="main-content full main-vertical-layout">
-<!-- 
+        <!-- 
         <section hidden class="templates-gallery-screen">
         </section> -->
 
@@ -38,7 +38,41 @@
 
                 </canvas>
             </div>
-            <div class="editor-container"></div>
+            <div class="editor-container">
+                <nav class="editor-tabs">
+                    <ul class="clean-list flex">
+                        <li><a class="tab icon-tab delete disabled flex align-center justify-center"></a></li>
+                        <li><a class="tab text-tab flex align-center justify-center">Text</a></li>
+                        <li><a class="tab text-tab flex align-center justify-center">stickers</a></li>
+                    </ul>
+                </nav>
+
+                <section class="text-tools">
+                    <button class="add-txt-element-btn">Add Text</button>
+                    <form>
+                        <input type="text" class="text-editor" placeholder="Add Text Here">
+                        <select name="fonts">
+                            <option value="Arial">Arial</option>
+                        </select>
+                        <input name="text-color" type="color">
+                        <input name="text-size" type="range" min="5" max="60">
+                        <p class="toolbar-section-title">Stroke</p>
+                        <input name="stroke-color" type="color">
+                        <p class="range-indicator stroke-size">7</p>
+                        <input name="stroke-size" type="range" min="0" max="10">
+                        <p class="toolbar-section-title">Shadow</p>
+                        <p class="range-indicator stroke-size">7</p>
+                        <input name="shadow-color" type="color">
+                        <input name="shadow-size" type="range" min="0" max="20">
+                    </form>
+                </section>
+
+                <section class="sharing-container flex">
+                    <button>Share</button>
+                    <button>Save Meme</button>
+                    <button>Download</button>
+                </section>
+            </div>
         </section>
 
         <!-- <section hidden class="saved-memes-screen">
