@@ -1,0 +1,59 @@
+/* RESET CSS */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,body{
+    height: 100%;
+}
+
+html {
+    font-family: var(--font-body);
+    font-weight: 400;
+    color: rgb(var(--clr-light-base));
+
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: rgb(var(--clr-bg-dark-base));
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ol,
+ul {
+    margin: 0;
+}
+
+button,
+input,
+select {
+    font-family: inherit;
+    margin: 0;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+
+input {
+    cursor: text;
+}

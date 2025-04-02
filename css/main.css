@@ -1,0 +1,36 @@
+/* UI LIB */
+@import url(../lib/animate.css); /* animate.style */
+@import url(../lib/fa.css); /* font awesome */
+
+
+/* SETUP */
+@import url(setup/variables.css);
+@import url(setup/typography.css);
+@import url(setup/animations.css);
+
+
+
+/* BASICS */
+@import url(basics/base.css);
+@import url(basics/helpers.css);
+@import url(basics/layout.css);
+
+/* DESIGN-SYSTEM */
+@import url(setup/design-system/buttons.css);
+
+/* COMPONENTS */
+@import url(components/main-header.css);
+@import url(components/main-content.css);
+@import url(components/main-footer.css);
+@import url(components/main-nav.css);
+@import url(components/logo.css);
+
+/* editor */
+@import url(components/editor-screen.css);
+@import url(components/meme-container.css);
+@import url(components/editor-container.css);
+
+
+
+/* MEDIA QUERIES */
+@import url(setup/mq.css);

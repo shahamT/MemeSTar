@@ -1,0 +1,17 @@
+.main-vertical-layout{
+display: grid;
+grid-template-columns: minmax(32px, 1fr) 450px 350px minmax(32px, 1fr);
+column-gap: 24px;
+}
+
+.main-horizontal-layout{
+    grid-template-rows: auto 1fr auto;
+}
+
+.full{
+grid-column: 1/-1;
+}
+
+/* .content-section-layout{
+    grid-column: 2/-2;
+} */

@@ -1,0 +1,5 @@
+.editor-container {
+    grid-column: 3;
+    height: 400px;
+    background-color: rgb(var(--clr-content-bg-dark-base));
+}
