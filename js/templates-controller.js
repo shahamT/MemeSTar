@@ -13,7 +13,8 @@ var gFilterParams = {
 
 function initGalleryScreen() {
 
-    
+    resetCurrMeme()
+
     renderGallery()
     addGalleryEventListeners()
 
@@ -38,22 +39,24 @@ function hideGalleryScreen() {
 
 function addGalleryEventListeners() {
     //add txt btn
-    const elTemplates = document.querySelectorAll('.templates-gallery img')
-     elTemplates.forEach(elTemp => {
-         elTemp.addEventListener('click', (ev) => onTempClick(ev))
+    const elTemplates = document.querySelectorAll('.templates-gallery .template-card')
+    elTemplates.forEach(elTemp => {
+        elTemp.addEventListener('click', (ev) => onTempClick(ev))
 
-     })
+    })
 
 }
 
 function onTempClick(ev) {
-    const tempId = ev.target.dataset.id
+    
+    const img = ev.target.querySelector('img')
+    const tempId = img.dataset.id
+
     const paramObj = {
         param: 'selectedTempId',
         val: +tempId
     }
 
-    resetCurrMeme()
     updateCurrMeme(paramObj)
     initEditorScreen()
 }
@@ -71,7 +74,7 @@ function renderGallery() {
     let strHtml = ''
 
     temps.forEach(temp => {
-        strHtml += `<img class="template-card" data-id="${temp.id}" src="${temp.url}">
+        strHtml += `<div class="template-card" ><img data-id="${temp.id}" src="${temp.url}"></div>
         `
     })
 

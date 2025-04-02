@@ -10,10 +10,9 @@ let gCtx
 // =======
 
 function initEditorScreen() {
+
     initCanvas()
     renderMeme()
-    addEditorEventListeners()
-    addCanvasEventListeners()
 
     setTextInputsState()
     setDeleteButtonState()
@@ -48,6 +47,10 @@ function initCanvas() {
 
 // === editor listeners ===
 function addEditorEventListeners() {
+    // start from scratch btn
+    const elStartScratchBtn = document.querySelector('.start-from-scratch-btn')
+    elStartScratchBtn.addEventListener('click', (ev) => onStartFromScratch(ev))
+
     //delete element btn
     const elDeleteElement = document.querySelector('.editor-container .editor-tabs .delete')
     elDeleteElement.addEventListener('click', (ev) => onDeleteElement(ev))
@@ -75,6 +78,7 @@ function addEditorEventListeners() {
 }
 
 function onAddText(ev) {
+
     //add element and get it's current idx and update selected element idx
     const elementIdx = addElement('text')
 
@@ -104,6 +108,10 @@ function onDeleteElement() {
     setTextInputsState()
     setDeleteButtonState()
 
+}
+
+function onStartFromScratch() {
+    initGalleryScreen()
 }
 
 

@@ -1,13 +1,13 @@
-.templates-gallery-container{
+.templates-gallery-container {
     grid-column: 2/-2;
-    
+
 
 
 
     background-color: rgb(var(--clr-content-bg-dark-base));
 }
 
-.templates-gallery{
+.templates-gallery {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
     gap: var(--px-spacing-md);
@@ -16,16 +16,44 @@
     padding: var(--px-spacing-md);
 }
 
-
-.template-card {
-    height: 200px;
-    object-fit: cover;
+.templates-gallery .template-card{
+    position: relative;
     
+    height: 200px;
+   
     cursor: pointer;
-    transition: var(--transition-fast);
+
+}
+.templates-gallery .template-card img{
+    height: 100%;
+    width: 100%;
+
+    object-fit: cover;
+    object-position: center;
 }
 
+.templates-gallery .template-card::after{
+    content: "EDIT \A TEMPLATE";
+    white-space: pre;
+    position: absolute;
+    inset: 0 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    text-align: center;
 
-.template-card:hover {
+    font-size: 1.3rem;
+    font-weight: 900;
+    background-color: rgba(var(--clr-bg-light-base),0.4);
+    color: rgb(var(--clr-accent-base));
+    text-shadow: 0px 0px 8px rgba(0, 0, 0, 1);
+    
+    transition: var(--transition-fast);
+    opacity: 0;
+}
 
+.templates-gallery .template-card:hover:after {
+    opacity: 1;
 }

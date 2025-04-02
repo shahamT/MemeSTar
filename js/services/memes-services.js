@@ -8,18 +8,18 @@ const gSavedMemes = [
 
 ]
 
-var gCurrMeme =
-{
-    id: null,
-    selectedTempId: 5,
-    selectedElementIdx: 0,
-    elements: []
-}
+var gCurrMeme
+
+
 
 function resetCurrMeme() {
-    gCurrMeme.selectedTempId = null
-    gCurrMeme.selectedElementIdx = 0
-    gCurrMeme.elements = []
+    gCurrMeme = {
+        id: null,
+        selectedTempId: null,
+        selectedElementIdx: 0,
+        elements: []
+    }
+
 }
 
 function getCurrMeme() {
@@ -31,6 +31,7 @@ function updateCurrMeme(paramObj) {
 }
 
 function addElement(type) {
+
     //create default element with user prefs
     const newElementObj = getUserPrefsFromStorage()
     newElementObj.type = type
@@ -48,8 +49,9 @@ function addElement(type) {
         }
     }
 
-
     gCurrMeme.elements.push(newElementObj)
+
+    console.log("gCurrMeme: ", gCurrMeme)
 
     //return the idx of the new element
     return gCurrMeme.elements.length - 1

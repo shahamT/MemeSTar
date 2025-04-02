@@ -25,6 +25,7 @@
 
 /* editor */
 @import url(components/editor-screen.css);
+@import url(components/start-from-scratch-btn.css);
 @import url(components/meme-container.css);
 @import url(components/editor-container.css);
 @import url(components/editor-tabs.css);

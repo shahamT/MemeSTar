@@ -1,5 +1,6 @@
 .editor-container {
     grid-column: 3;
+    align-self: start;
 
     display: grid;
     grid-template-rows: auto 1fr auto;
