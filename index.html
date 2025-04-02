@@ -29,7 +29,8 @@
     <!--main -->
     <main class="main-content full main-vertical-layout ">
 
-        <section class="templates-gallery-screen full main-vertical-layout gallery-screen-horizontal-layout grid-align-center hidden">
+        <section
+            class="templates-gallery-screen full main-vertical-layout gallery-screen-horizontal-layout grid-align-center hidden">
 
             <div class="search-container flex column align-center justify-center">
                 <input type="text" placeholder="Search">
@@ -50,7 +51,7 @@
             </div>
 
             <div class="templates-gallery-container">
-                
+
                 <nav class="gallery-tabs tabs-container">
                     <ul class="clean-list flex">
                         <li><a class="tab text-tab flex align-center justify-center">General Templates</a></li>
@@ -59,7 +60,7 @@
                 </nav>
 
                 <div class="templates-gallery">
-            
+
                 </div>
 
             </div>
@@ -82,24 +83,43 @@
                     </ul>
                 </nav>
 
-                <section class="text-tools">
-                    <button name="add-text" class="">Add Text</button>
-                    <form class="text-inputs">
-                        <input name="text-editor" data-param="txt" type="text" class="param" placeholder="Add Text Here">
-                        <select name="font-picker" data-param="fontFamily" class="param" >
-                            <option value="Arial">Arial</option>
-                            <option value="other font">other font</option>
-                        </select>
-                        <input name="text-color-picker" data-param="fillStyle" type="color" class="param" >
-                        <input name="text-size-range" data-param="fontSize" type="range" min="5" max="60" class="param">
-                        <p class="toolbar-section-title">Stroke</p>
-                        <input name="stroke-color-picker" type="color" class="param" >
-                        <p class="range-indicator stroke-size">7</p>
-                        <input name="stroke-size-range" type="range" min="0" max="10" class="param" >
-                        <p class="toolbar-section-title">Shadow</p>
-                        <p class="range-indicator stroke-size">7</p>
-                        <input name="shadow-color-picker" type="color" class="param" >
-                        <input name="shadow-size-range" type="range" min="0" max="20" class="param" >
+                <section class="text-tools flex column">
+                    
+                    <button name="add-text" class="add-text-btn">Add Text</button>
+                    
+                    <form class="text-inputs flex column">
+
+                        <!-- text inputs -->
+                        <input name="text-editor" data-param="txt" type="text" class="param"
+                            placeholder="Add Text Here">
+
+                        <div class="input-group">
+                            <select name="font-picker" data-param="fontFamily" class="param">
+                                <option value="Arial">Arial</option>
+                                <option value="other font">other font</option>
+                            </select>
+                            <p name="text-size-range-label" class="range-indicator stroke-size">7</p>
+                            <input name="text-size-range" data-param="fontSize" type="range" min="5" max="60"
+                                class="param">
+                            <input name="text-color-picker" data-param="fillStyle" type="color" class="param">
+                        </div>
+
+                        <!-- stroke inputs -->
+                        <div class="input-group border-top">
+                            <p class="section-title">Stroke</p>
+                            <p name="stroke-size-range-label" class="range-indicator stroke-size">7</p>
+                            <input name="stroke-size-range" data-param="lineWidth" type="range" min="0" max="10" class="param">
+                            <input name="stroke-color-picker" data-param="strokeStyle" type="color" class="param">
+                        </div>
+
+                        <!-- shadow inputs -->
+                        <div class="input-group border-top">
+                            <p class="section-title">Shadow</p>
+                            <p name="shadow-size-range-label" class="range-indicator stroke-size">7</p>
+                            <input name="shadow-size-range" data-param="shadowBlur" type="range" min="0" max="20" class="param">
+                            <input name="shadow-color-picker" data-param="shadowColor" type="color" class="param">
+                        </div>
+
                     </form>
                 </section>
 

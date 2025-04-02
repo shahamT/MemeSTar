@@ -1,0 +1,20 @@
+.text-tools .add-text-btn{
+    background-color: rgb(var(--clr-content-bg-dark-base));
+    border-color: rgb(var(--clr-accent-base));
+    color: rgb(var(--clr-accent-base));
+    text-transform: uppercase;
+}
+
+.text-tools .add-text-btn::before{
+    content: '\2b';
+    font-family: fa;
+    padding-inline-end: 12px;
+}
+
+.text-tools .add-text-btn:hover{
+    background-color: rgb(var(--clr-accent-base),0.1);
+}
+
+.text-tools .add-text-btn:active{
+    background-color: rgb(var(--clr-accent-base),0.4);
+}

@@ -1,26 +1,33 @@
-
 /* SMALL */
 
 @media (width < 900px) {
-    
+
+    .main-vertical-layout {
+        grid-template-columns: minmax(24px, 1fr) minmax(auto, 600px) minmax(24px, 1fr);
+    }
+
+    .editor-container {
+        grid-column: 2;
+        grid-row: 3;
+    }
+
+    .main-content{
+        padding-block: 0px;
+    }
+
+
 }
+
+
 
 /* MEDIUM */
 
-@media (width < 900px) {
-
-}
+@media (width < 900px) {}
 
 /* Large */
 
-@media (width < 1200px) {
-
-
-}
+@media (width < 1200px) {}
 
 /* X-Large */
 
-@media (width >= 1200px) {
-
-
-}
+@media (width >=1200px) {}

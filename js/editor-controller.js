@@ -70,10 +70,32 @@ function addEditorEventListeners() {
     //text color picker
     const elTxtColorP = document.querySelector('.editor-container .text-tools [name="text-color-picker"]')
     elTxtColorP.addEventListener('input', (ev) => onUpdateElement(ev))
+    elTxtColorP.addEventListener('input', (ev) => renderColorPickerColor(ev.target))
 
     //text size range
     const elTxtSizeR = document.querySelector('.editor-container .text-tools [name="text-size-range"]')
     elTxtSizeR.addEventListener('input', (ev) => onUpdateElement(ev))
+    elTxtSizeR.addEventListener('input', (ev) => renderRangeLabel(ev.target))
+
+    //stroke size range
+    const elStrokeSizeR = document.querySelector('.editor-container .text-tools [name="stroke-size-range"]')
+    elStrokeSizeR.addEventListener('input', (ev) => onUpdateElement(ev))
+    elStrokeSizeR.addEventListener('input', (ev) => renderRangeLabel(ev.target))
+
+    //stroke color picker
+    const elStrokeColorP = document.querySelector('.editor-container .text-tools [name="stroke-color-picker"]')
+    elStrokeColorP.addEventListener('input', (ev) => onUpdateElement(ev))
+    elStrokeColorP.addEventListener('input', (ev) => renderColorPickerColor(ev.target))
+
+    //Shadow size range
+    const elShadowSizeR = document.querySelector('.editor-container .text-tools [name="shadow-size-range"]')
+    elShadowSizeR.addEventListener('input', (ev) => onUpdateElement(ev))
+    elShadowSizeR.addEventListener('input', (ev) => renderRangeLabel(ev.target))
+
+    //Shadow color picker
+    const elShadowColorP = document.querySelector('.editor-container .text-tools [name="shadow-color-picker"]')
+    elShadowColorP.addEventListener('input', (ev) => onUpdateElement(ev))
+    elShadowColorP.addEventListener('input', (ev) => renderColorPickerColor(ev.target))
 
 }
 
@@ -213,13 +235,29 @@ function renderToolBarPrefs() {
     const paramsObj = getUserPrefsFromStorage()
     const elInputs = document.querySelectorAll('.editor-container .param')
 
-    elInputs.forEach(input => {
-        const param = input.dataset.param
+    elInputs.forEach(elInput => {
+        const param = elInput.dataset.param
         if (paramsObj[param]) {
-            input.value = paramsObj[param]
+            elInput.value = paramsObj[param]
+        }
+        if (elInput.type === 'color') {
+            renderColorPickerColor(elInput)
+        }
+        if (elInput.type === 'range') {
+            renderRangeLabel(elInput)
         }
     })
 
+}
+
+function renderColorPickerColor(elInput) {
+    elInput.style.backgroundColor = elInput.value
+}
+
+function renderRangeLabel(elRange) {
+    const identifier = elRange.name + '-label'
+    const elRangeLabel = document.querySelector(`.editor-container .text-tools [name="${identifier}"]`)
+    elRangeLabel.innerText = elRange.value
 }
 
 function setTextInputsState() {
@@ -231,12 +269,12 @@ function setTextInputsState() {
 
 function hideTextInputs() {
     const elTextTools = document.querySelector('.text-tools .text-inputs')
-    elTextTools.classList.add('hidden')
+    elTextTools.classList.add('disabled-section')
 }
 
 function showTextInputs() {
     const elTextTools = document.querySelector('.text-tools .text-inputs')
-    elTextTools.classList.remove('hidden')
+    elTextTools.classList.remove('disabled-section')
 }
 
 function setDeleteButtonState() {

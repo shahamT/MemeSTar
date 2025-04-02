@@ -1,3 +1,37 @@
-.text-tools{
+.text-tools {
     padding: var(--px-spacing-mdl);
+}
+
+.text-tools .text-inputs {
+    padding-block-start: var(--px-spacing-md);
+    gap: var(--px-spacing-md);
+}
+
+.text-tools .input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+}
+
+.text-tools .input-group.border-top {
+    padding-block-start: var(--px-spacing-md);
+    border-block-start: 2px solid rgb(var(--clr-bg-dark-l-200));
+}
+
+
+
+.text-tools p {
+    text-align: center;
+    width: 20px;
+}
+
+.text-tools .section-title {
+    color: rgb(var(--clr-accent-base));
+    margin-inline-end: auto;
+}
+
+.text-inputs.disabled-section{
+    pointer-events: none;
+    opacity: 0.5;
 }

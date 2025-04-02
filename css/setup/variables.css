@@ -3,9 +3,9 @@
     /* ============ PALETTE ============ */
 
        /* primary */
-       --clr-primary-l-100: 177, 115, 255;
-       --clr-primary-base: 162, 89, 255; /* violet purple */
-       --clr-primary-d-100: 136, 77, 255;
+       --clr-primary-l-100: 153, 112, 242;  
+       --clr-primary-base: 117, 64, 232; /* violet purple */
+       --clr-primary-d-100: 85, 37, 174;
    
        /* secondary */
        --clr-secondary-l-100: 254, 230, 255;
@@ -32,6 +32,7 @@
        --clr-bg-light-base: 248, 248, 248; /* light gray-white */
        --clr-bg-light-d-100: 224, 224, 224;
    
+       --clr-bg-dark-l-200: 42, 43, 55;
        --clr-bg-dark-l-100: 26, 26, 46;
        --clr-bg-dark-base: 13, 15, 19; /* main dark background */
        --clr-bg-dark-d-100: 10, 10, 20;
