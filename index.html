@@ -29,7 +29,7 @@
     <!--main -->
     <main class="main-content full main-vertical-layout ">
 
-        <section class="templates-gallery-screen full main-vertical-layout gallery-screen-horizontal-layout">
+        <section class="templates-gallery-screen full main-vertical-layout gallery-screen-horizontal-layout grid-align-center hidden">
 
             <div class="search-container flex column align-center justify-center">
                 <input type="text" placeholder="Search">
@@ -57,7 +57,7 @@
                     </ul>
                 </nav>
                 <div class="templates-gallery">
-                    <img class="template-card" src="img\meme-templates\1.jpg">
+                    <img class="template-card" data-id="1" src="img\meme-templates\1.jpg">
                     <img class="template-card" src="img\meme-templates\1.jpg">
                     <img class="template-card" src="img\meme-templates\1.jpg">
                     <img class="template-card" src="img\meme-templates\1.jpg">
@@ -70,7 +70,7 @@
 
         </section>
 
-        <section class="hidden editor-screen full main-vertical-layout">
+        <section class="hidden editor-screen full main-vertical-layout grid-align-center hidden">
             <div class="meme-container">
                 <canvas class="meme-canvas" width="400" height="400">
 
@@ -79,7 +79,7 @@
             <div class="editor-container container-tabs">
                 <nav class="editor-tabs">
                     <ul class="clean-list flex">
-                        <li><a class="tab icon-tab delete disabled flex align-center justify-center"></a></li>
+                        <li><a class="tab icon-tab delete flex align-center justify-center"></a></li>
                         <li><a class="tab text-tab flex align-center justify-center">Text</a></li>
                         <li><a class="tab text-tab flex align-center justify-center">stickers</a></li>
                     </ul>
@@ -87,22 +87,22 @@
 
                 <section class="text-tools">
                     <button name="add-text" class="">Add Text</button>
-                    <form>
-                        <input name="text-editor" data-param="txt" type="text" class="" placeholder="Add Text Here">
-                        <select name="font-picker" data-param="fontFamily">
+                    <form class="text-inputs">
+                        <input name="text-editor" data-param="txt" type="text" class="param" placeholder="Add Text Here">
+                        <select name="font-picker" data-param="fontFamily" class="param" >
                             <option value="Arial">Arial</option>
                             <option value="other font">other font</option>
                         </select>
-                        <input name="text-color-picker" data-param="fillStyle" type="color">
-                        <input name="text-size-range" data-param="fontSize" type="range" min="5" max="60">
+                        <input name="text-color-picker" data-param="fillStyle" type="color" class="param" >
+                        <input name="text-size-range" data-param="fontSize" type="range" min="5" max="60" class="param">
                         <p class="toolbar-section-title">Stroke</p>
-                        <input name="stroke-color-picker" type="color">
+                        <input name="stroke-color-picker" type="color" class="param" >
                         <p class="range-indicator stroke-size">7</p>
-                        <input name="stroke-size-range" type="range" min="0" max="10">
+                        <input name="stroke-size-range" type="range" min="0" max="10" class="param" >
                         <p class="toolbar-section-title">Shadow</p>
                         <p class="range-indicator stroke-size">7</p>
-                        <input name="shadow-color-picker" type="color">
-                        <input name="shadow-size-range" type="range" min="0" max="20">
+                        <input name="shadow-color-picker" type="color" class="param" >
+                        <input name="shadow-size-range" type="range" min="0" max="20" class="param" >
                     </form>
                 </section>
 
@@ -133,6 +133,7 @@
     <script src="js/services/util.js"></script>
     <script src="js/main-controller.js"></script>
     <script src="js/editor-controller.js"></script>
+    <script src="js/templates-controller.js"></script>
 
 
     <script src="js/services/templates-services.js"></script>

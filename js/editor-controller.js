@@ -5,18 +5,34 @@
 let gElCanvas
 let gCtx
 
-window.onload = () => oninit()
-
 // =======
 // ======== init ========
 // =======
 
-function oninit() {
+function initEditorScreen() {
     initCanvas()
     renderMeme()
     addEditorEventListeners()
     addCanvasEventListeners()
+
+    setTextInputsState()
+    setDeleteButtonState()
+    renderToolBarPrefs()
+
+    //present only current screen
+    hideGalleryScreen()
+    showEditorScreen()
 }
+
+function showEditorScreen() {
+    const elEditorScreen = document.querySelector('.editor-screen')
+    elEditorScreen.classList.remove('hidden')
+}
+function hideEditorScreen() {
+    const elEditorScreen = document.querySelector('.editor-screen')
+    elEditorScreen.classList.add('hidden')
+}
+
 
 function initCanvas() {
     gElCanvas = document.querySelector('.meme-canvas')
@@ -32,6 +48,10 @@ function initCanvas() {
 
 // === editor listeners ===
 function addEditorEventListeners() {
+    //delete element btn
+    const elDeleteElement = document.querySelector('.editor-container .editor-tabs .delete')
+    elDeleteElement.addEventListener('click', (ev) => onDeleteElement(ev))
+
     //add txt btn
     const elAddTextBtn = document.querySelector('.editor-container .text-tools [name="add-text"]')
     elAddTextBtn.addEventListener('click', (ev) => onAddText(ev))
@@ -55,17 +75,35 @@ function addEditorEventListeners() {
 }
 
 function onAddText(ev) {
-    console.log('got here')
+    //add element and get it's current idx and update selected element idx
+    const elementIdx = addElement('text')
+
+    updateSelectedElement(elementIdx)
+    renderMeme()
+    renderToolBarPrefs()
+    setTextInputsState()
+    setDeleteButtonState()
 }
 
 function onUpdateElement(ev) {
     const val = ev.target.value
     const param = ev.target.dataset.param
-    const paramObj = {param, val}
+    const paramObj = { param, val }
+
     updateElement(paramObj)
     renderMeme()
+    saveUserPrefsToStorage()
+}
 
-    
+function onDeleteElement() {
+    if (getLastElementIdx() < 0) return
+
+    deleteCurrElement()
+    updateSelectedElement(getLastElementIdx())
+    renderMeme()
+    setTextInputsState()
+    setDeleteButtonState()
+
 }
 
 
@@ -83,30 +121,31 @@ function addCanvasEventListeners() {
 
 //render the template of current meme and initiates the rendering of the meme elements
 function renderMeme() {
-    const tempId = gCurrMeme.selectedTempId;
-    const temp = getTempById(tempId);
+    const currMeme = getCurrMeme()
+    const tempId = currMeme.selectedTempId
+    const temp = getTempById(tempId)
 
-    const tempURL = temp.url;
-    const img = new Image();
+    const tempURL = temp.url
+    const img = new Image()
 
     img.onload = () => {
-        const width = gElCanvas.width;
-        const height = gElCanvas.height;
-        gCtx.drawImage(img, 0, 0, width, height);
+        const width = gElCanvas.width
+        const height = gElCanvas.height
+        gCtx.drawImage(img, 0, 0, width, height)
         renderElements()
-    };
+    }
 
-    img.src = tempURL;
+    img.src = tempURL
 }
 
 // runing over the array of meme elements and initiate element rendering for each
 function renderElements() {
-    gCurrMeme.elements.forEach(element => renderElement(element))
+    const currMeme = getCurrMeme()
+    currMeme.elements.forEach(element => renderElement(element))
 }
 
 //checking the element type and initiaties the suitable rendering function
 function renderElement(element) {
-    console.log("element.type: ", element.type)
     switch (element.type) {
         case 'text':
             renderText(element)
@@ -148,5 +187,53 @@ function renderText(element) {
 
 // renders sticker elements
 function renderSticker(element) {
+
+}
+
+
+// =======
+// ======== render toolbar ========
+// =======
+
+function clearTextInput() {
+    // document.querySelector('.editor-container .text-tools [name="text-editor"]').value = ''
+}
+
+function renderToolBarPrefs() {
+
+    const paramsObj = getUserPrefsFromStorage()
+    const elInputs = document.querySelectorAll('.editor-container .param')
+
+    elInputs.forEach(input => {
+        const param = input.dataset.param
+        if (paramsObj[param]) {
+            input.value = paramsObj[param]
+        }
+    })
+
+}
+
+function setTextInputsState() {
+
+    if (getLastElementIdx() >= 0 && getLastElementType() === 'text') {
+        showTextInputs()
+    } else hideTextInputs()
+}
+
+function hideTextInputs() {
+    const elTextTools = document.querySelector('.text-tools .text-inputs')
+    elTextTools.classList.add('hidden')
+}
+
+function showTextInputs() {
+    const elTextTools = document.querySelector('.text-tools .text-inputs')
+    elTextTools.classList.remove('hidden')
+}
+
+function setDeleteButtonState() {
+    const elDeleteElement = document.querySelector('.editor-container .editor-tabs .delete')
+    if (getLastElementIdx() >= 0) {
+        elDeleteElement.classList.remove('disabled')
+    } else elDeleteElement.classList.add('disabled')
 
 }

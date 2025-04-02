@@ -1,81 +1,119 @@
 'use strict'
 
+const DB_USER_PREFS_KEY = 'USER_PREFS'
+const DB_SAVED_MEMES_KEY = 'SAVED_MEMES'
+
+
 const gSavedMemes = [
 
 ]
 
-let gCurrMeme =
+var gCurrMeme =
 {
     id: null,
     selectedTempId: 5,
     selectedElementIdx: 0,
-    elements: [
-        {
-            type: 'text',
+    elements: []
+}
 
-            // text params
-            txt: 'I sometimes eat Falafel',
-            fontSize: 40,
-            fontFamily: 'Arial',
-            lineWidth: 2,
-            strokeStyle: 'black',
-            fillStyle: 'red',
-            textAlign: 'center',
-            textBaseline: 'middle',
+function resetCurrMeme() {
+    gCurrMeme.selectedTempId = null
+    gCurrMeme.selectedElementIdx = 0
+    gCurrMeme.elements = []
+}
 
-            //sticker params
-            stickerId: null,
+function getCurrMeme() {
+    return gCurrMeme
+}
 
-            // shadow params
-            shadowColor: 'rgba(0, 0, 0, 0.6)',
-            shadowOffsetX: 4,
-            shadowOffsetY: 4,
-            shadowBlur: 3,
+function updateCurrMeme(paramObj) {
+    gCurrMeme[paramObj.param] = paramObj.val
+}
 
-            // position params
-            pos: { x: null, y: null },
+function addElement(type) {
+    //create default element with user prefs
+    const newElementObj = getUserPrefsFromStorage()
+    newElementObj.type = type
+    newElementObj.pos = { x: null, y: null }
+    if (type === 'text') newElementObj.txt = 'Your Text'
 
 
-            // dimens: {width,height}
-        },
+    gCurrMeme.elements.push(newElementObj)
 
-        {
-            type: 'text',
+    //return the idx of the new element
+    return gCurrMeme.elements.length - 1
+}
 
-            // text params
-            txt: 'b;ah blah',
-            fontSize: 40,
-            fontFamily: 'Arial',
-            lineWidth: 2,
-            strokeStyle: 'black',
-            fillStyle: 'red',
-            textAlign: 'center',
-            textBaseline: 'middle',
+function updateSelectedElement(idx = null) {
+    gCurrMeme.selectedElementIdx = idx
+    saveUserPrefsToStorage()
 
-            //sticker params
-            stickerId: null,
-
-            // shadow params
-            shadowColor: 'rgba(0, 0, 0, 0.6)',
-            shadowOffsetX: 4,
-            shadowOffsetY: 4,
-            shadowBlur: 3,
-
-            // position params
-            pos: { x: 20, y: 50 },
-
-
-            // dimens: {width,height}
-        }
-
-    ]
 }
 
 function updateElement(paramObj) {
     const element = gCurrMeme.elements[gCurrMeme.selectedElementIdx]
-    console.log(paramObj)
     element[paramObj.param] = paramObj.val
-    console.log(element)
 }
 
+function deleteCurrElement(){
+  gCurrMeme.elements.splice(gCurrMeme.selectedElementIdx,1)
+}
+
+function getLastElementIdx(){
+    return gCurrMeme.elements.length-1
+}
+
+function getLastElementType(){
+    const lastElement = gCurrMeme.elements[getLastElementIdx()] 
+    return lastElement.type 
+}
+
+
+
+
+function _createDefaultUserPrefs() {
+    const paramsObj = {
+
+        type: null,
+
+        // text params
+        txt: '',
+        fontSize: 16,
+        fontFamily: 'Arial',
+        lineWidth: 0,
+        strokeStyle: 'black',
+        fillStyle: 'white',
+        textAlign: 'center',
+        textBaseline: 'middle',
+
+        //sticker params
+        stickerId: null,
+
+        // shadow params
+        shadowColor: 'rgba(0, 0, 0, 0.6)',
+        shadowOffsetX: 0,
+        shadowOffsetY: 0,
+        shadowBlur: 0,
+
+        // position params
+        pos: { x: null, y: null },
+
+        // dimens: {width,height}
+    }
+    return paramsObj
+}
+
+function saveUserPrefsToStorage(paramsObj = gCurrMeme.elements[gCurrMeme.selectedElementIdx] ) {
+    if (getLastElementIdx() < 0){
+        paramsObj = _createDefaultUserPrefs()
+    }
+
+    saveToLocalStorage(DB_USER_PREFS_KEY, paramsObj)
+}
+
+function getUserPrefsFromStorage() {
+    let paramsObj = getFromLocalStorage(DB_USER_PREFS_KEY)
+    if (!paramsObj) paramsObj = _createDefaultUserPrefs()
+    return paramsObj
+}
 

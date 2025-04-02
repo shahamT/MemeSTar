@@ -37,7 +37,7 @@ function getRandColor() {
    * Returns null if the key doesn't exist.
    */
   function getFromLocalStorage(key) {
-    var storedValue = localStorage.getItem(key);
+    const storedValue = localStorage.getItem(key);
     return storedValue ? JSON.parse(storedValue) : null;
   }
   
