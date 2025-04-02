@@ -21,3 +21,6 @@ const gTemps = [
     { id: 18, type: 'basic', url: '../../img/meme-templates/18.jpg', keywords: [] }
 ]
 
+function getTempById(id) {
+    return gTemps.find(temp => temp.id === id)
+}

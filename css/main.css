@@ -15,8 +15,6 @@
 @import url(basics/helpers.css);
 @import url(basics/layout.css);
 
-/* DESIGN-SYSTEM */
-@import url(setup/design-system/buttons.css);
 
 /* COMPONENTS */
 @import url(components/main-header.css);
