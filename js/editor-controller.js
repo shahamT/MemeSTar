@@ -7,10 +7,15 @@ let gCtx
 
 window.onload = () => oninit()
 
+// =======
+// ======== init ========
+// =======
 
 function oninit() {
     initCanvas()
     renderMeme()
+    addEditorEventListeners()
+    addCanvasEventListeners()
 }
 
 function initCanvas() {
@@ -20,10 +25,62 @@ function initCanvas() {
 
 
 
+
+// =======
+// ======== adding event listeners ========
+// =======
+
+// === editor listeners ===
+function addEditorEventListeners() {
+    //add txt btn
+    const elAddTextBtn = document.querySelector('.editor-container .text-tools [name="add-text"]')
+    elAddTextBtn.addEventListener('click', (ev) => onAddText(ev))
+
+    //text editor
+    const elTextEditor = document.querySelector('.editor-container .text-tools [name="text-editor"]')
+    elTextEditor.addEventListener('input', (ev) => onUpdateElement(ev))
+
+    //text font picker
+    const elFontPicker = document.querySelector('.editor-container .text-tools [name="font-picker"]')
+    elFontPicker.addEventListener('change', (ev) => onUpdateElement(ev))
+
+    //text color picker
+    const elTxtColorP = document.querySelector('.editor-container .text-tools [name="text-color-picker"]')
+    elTxtColorP.addEventListener('input', (ev) => onUpdateElement(ev))
+
+    //text size range
+    const elTxtSizeR = document.querySelector('.editor-container .text-tools [name="text-size-range"]')
+    elTxtSizeR.addEventListener('input', (ev) => onUpdateElement(ev))
+
+}
+
+function onAddText(ev) {
+    console.log('got here')
+}
+
+function onUpdateElement(ev) {
+    const val = ev.target.value
+    const param = ev.target.dataset.param
+    const paramObj = {param, val}
+    updateElement(paramObj)
+    renderMeme()
+
+}
+
+
+// === canvas listeners ===
+function addCanvasEventListeners() {
+
+}
+
+
+// =======
 // ======== rendering template and elements ========
+// =======
+
+
 
 //render the template of current meme and initiates the rendering of the meme elements
-
 function renderMeme() {
     const tempId = gCurrMeme.selectedTempId;
     const temp = getTempById(tempId);
@@ -42,13 +99,11 @@ function renderMeme() {
 }
 
 // runing over the array of meme elements and initiate element rendering for each
-
 function renderElements() {
     gCurrMeme.elements.forEach(element => renderElement(element))
 }
 
 //checking the element type and initiaties the suitable rendering function
-
 function renderElement(element) {
     console.log("element.type: ", element.type)
     switch (element.type) {
@@ -63,7 +118,6 @@ function renderElement(element) {
 }
 
 // renders text elements
-
 function renderText(element) {
     //if there are no defined positions, set the text in the middle
     const offsetX = element.pos.x ? element.pos.x : gElCanvas.width / 2
@@ -92,7 +146,6 @@ function renderText(element) {
 }
 
 // renders sticker elements
-
 function renderSticker(element) {
 
 }

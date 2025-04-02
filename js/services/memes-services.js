@@ -8,7 +8,7 @@ let gCurrMeme =
 {
     id: null,
     selectedTempId: 5,
-    selectedLineIdx: 0,
+    selectedElementIdx: 0,
     elements: [
         {
             type: 'text',
@@ -71,6 +71,11 @@ let gCurrMeme =
     ]
 }
 
-function updateTextElement(){
-    
+function updateElement(paramObj) {
+    const element = gCurrMeme.elements[gCurrMeme.selectedElementIdx]
+    console.log(paramObj)
+    element[paramObj.param] = paramObj.val
+    console.log(element)
 }
+
+

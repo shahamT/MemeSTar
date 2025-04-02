@@ -48,22 +48,23 @@
                 </nav>
 
                 <section class="text-tools">
-                    <button class="add-txt-element-btn">Add Text</button>
+                    <button name="add-text" class="">Add Text</button>
                     <form>
-                        <input type="text" class="text-editor" placeholder="Add Text Here">
-                        <select name="fonts">
+                        <input name="text-editor" data-param="txt" type="text" class="" placeholder="Add Text Here">
+                        <select name="font-picker" data-param="fontFamily">
                             <option value="Arial">Arial</option>
+                            <option value="other font">other font</option>
                         </select>
-                        <input name="text-color" type="color">
-                        <input name="text-size" type="range" min="5" max="60">
+                        <input name="text-color-picker" data-param="fillStyle" type="color">
+                        <input name="text-size-range" data-param="fontSize" type="range" min="5" max="60">
                         <p class="toolbar-section-title">Stroke</p>
-                        <input name="stroke-color" type="color">
+                        <input name="stroke-color-picker" type="color">
                         <p class="range-indicator stroke-size">7</p>
-                        <input name="stroke-size" type="range" min="0" max="10">
+                        <input name="stroke-size-range" type="range" min="0" max="10">
                         <p class="toolbar-section-title">Shadow</p>
                         <p class="range-indicator stroke-size">7</p>
-                        <input name="shadow-color" type="color">
-                        <input name="shadow-size" type="range" min="0" max="20">
+                        <input name="shadow-color-picker" type="color">
+                        <input name="shadow-size-range" type="range" min="0" max="20">
                     </form>
                 </section>
 
