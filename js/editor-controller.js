@@ -159,6 +159,7 @@ function renderElement(element) {
 
 // renders text elements
 function renderText(element) {
+
     //if there are no defined positions, set the text in the middle
     const offsetX = element.pos.x ? element.pos.x : gElCanvas.width / 2
     const offsetY = element.pos.y ? element.pos.y : gElCanvas.height / 2

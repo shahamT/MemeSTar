@@ -35,7 +35,18 @@ function addElement(type) {
     const newElementObj = getUserPrefsFromStorage()
     newElementObj.type = type
     newElementObj.pos = { x: null, y: null }
-    if (type === 'text') newElementObj.txt = 'Your Text'
+    if (type === 'text') {
+        newElementObj.txt = 'Your Text'
+
+        switch (getAmountOfElementsByType('text')) {
+            case 0:
+                newElementObj.pos.y = 40
+                break
+            case 1:
+                newElementObj.pos.y = gElCanvas.height - 40
+                break
+        }
+    }
 
 
     gCurrMeme.elements.push(newElementObj)
@@ -50,22 +61,28 @@ function updateSelectedElement(idx = null) {
 
 }
 
+
 function updateElement(paramObj) {
     const element = gCurrMeme.elements[gCurrMeme.selectedElementIdx]
     element[paramObj.param] = paramObj.val
 }
 
-function deleteCurrElement(){
-  gCurrMeme.elements.splice(gCurrMeme.selectedElementIdx,1)
+function deleteCurrElement() {
+    gCurrMeme.elements.splice(gCurrMeme.selectedElementIdx, 1)
 }
 
-function getLastElementIdx(){
-    return gCurrMeme.elements.length-1
+function getLastElementIdx() {
+    return gCurrMeme.elements.length - 1
 }
 
-function getLastElementType(){
-    const lastElement = gCurrMeme.elements[getLastElementIdx()] 
-    return lastElement.type 
+function getLastElementType() {
+    const lastElement = gCurrMeme.elements[getLastElementIdx()]
+    return lastElement.type
+}
+
+function getAmountOfElementsByType(type) {
+    const filteredEls = gCurrMeme.elements.filter(element => element.type === type)
+    return filteredEls.length
 }
 
 
@@ -78,7 +95,7 @@ function _createDefaultUserPrefs() {
 
         // text params
         txt: '',
-        fontSize: 16,
+        fontSize: 32,
         fontFamily: 'Arial',
         lineWidth: 0,
         strokeStyle: 'black',
@@ -103,8 +120,8 @@ function _createDefaultUserPrefs() {
     return paramsObj
 }
 
-function saveUserPrefsToStorage(paramsObj = gCurrMeme.elements[gCurrMeme.selectedElementIdx] ) {
-    if (getLastElementIdx() < 0){
+function saveUserPrefsToStorage(paramsObj = gCurrMeme.elements[gCurrMeme.selectedElementIdx]) {
+    if (getLastElementIdx() < 0) {
         paramsObj = _createDefaultUserPrefs()
     }
 
