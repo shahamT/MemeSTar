@@ -1,0 +1,31 @@
+.templates-gallery-container{
+    grid-column: 2/-2;
+    
+
+
+
+    background-color: rgb(var(--clr-content-bg-dark-base));
+}
+
+.templates-gallery{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--px-spacing-md);
+    align-items: start;
+
+    padding: var(--px-spacing-md);
+}
+
+
+.template-card {
+    height: 200px;
+    object-fit: cover;
+    
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+
+.template-card:hover {
+
+}

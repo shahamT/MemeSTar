@@ -30,6 +30,11 @@
 @import url(components/editor-tabs.css);
 @import url(components/text-tools.css);
 
+/* templates-gallery */
+@import url(components/templates-gallery-screen.css);
+@import url(components/search-container.css);
+@import url(components/upload-img-container.css);
+@import url(components/templates-gallery-container.css);
 
 
 

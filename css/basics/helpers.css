@@ -75,3 +75,11 @@
 .text-right {
     text-align: right;
 }
+
+
+/* visibility */
+.hidden {
+    display: none !important;
+    pointer-events: none !important;
+    
+}

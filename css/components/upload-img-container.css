@@ -1,0 +1,5 @@
+.upload-img-container{
+    grid-column: 2/-2;
+    
+    background-color: rgb(var(--clr-content-bg-dark-base));
+}

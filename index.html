@@ -27,18 +27,56 @@
     </header>
 
     <!--main -->
-    <main class="main-content full main-vertical-layout">
-        <!-- 
-        <section hidden class="templates-gallery-screen">
-        </section> -->
+    <main class="main-content full main-vertical-layout ">
 
-        <section class="editor-screen full main-vertical-layout grid-align-center">
+        <section class="templates-gallery-screen full main-vertical-layout gallery-screen-horizontal-layout">
+
+            <div class="search-container flex column align-center justify-center">
+                <input type="text" placeholder="Search">
+                <section class="search-keys-cloud flex">
+                    <p>text</p>
+                    <p>text</p>
+                    <p>text</p>
+                    <p>text</p>
+                </section>
+            </div>
+
+            <div class="upload-img-container flex align-center justify-center">
+                <section class="upload-area flex align-center justify-center">
+                    <p>upload here</p>
+                    <button>upload</button>
+                </section>
+
+            </div>
+
+            <div class="templates-gallery-container">
+                <nav class="gallery-tabs container-tabs">
+                    <ul class="clean-list flex">
+                        <li><a class="tab text-tab flex align-center justify-center">General Templates</a></li>
+                        <li><a class="tab text-tab flex align-center justify-center">My Templates</a></li>
+                    </ul>
+                </nav>
+                <div class="templates-gallery">
+                    <img class="template-card" src="img\meme-templates\1.jpg">
+                    <img class="template-card" src="img\meme-templates\1.jpg">
+                    <img class="template-card" src="img\meme-templates\1.jpg">
+                    <img class="template-card" src="img\meme-templates\1.jpg">
+                    <img class="template-card" src="img\meme-templates\1.jpg">
+                    <img class="template-card" src="img\meme-templates\1.jpg">
+                    <img class="template-card" src="img\meme-templates\1.jpg">
+                  
+                </div>
+            </div>
+
+        </section>
+
+        <section class="hidden editor-screen full main-vertical-layout">
             <div class="meme-container">
                 <canvas class="meme-canvas" width="400" height="400">
 
                 </canvas>
             </div>
-            <div class="editor-container">
+            <div class="editor-container container-tabs">
                 <nav class="editor-tabs">
                     <ul class="clean-list flex">
                         <li><a class="tab icon-tab delete disabled flex align-center justify-center"></a></li>

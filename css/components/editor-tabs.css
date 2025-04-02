@@ -1,8 +1,8 @@
-.editor-tabs {
+.container-tabs {
     border-bottom: 2px solid rgb(var(--clr-content-bg-dark-l-100));
 }
 
-.editor-tabs .tab {
+.container-tabs .tab {
     height: 40px;
     padding-inline: var(--px-spacing-md);
 
@@ -13,12 +13,12 @@
 
 }
 
-.editor-tabs .tab.delete::after {
+.container-tabs .tab.delete::after {
     content: '\f2ed';
     font-family: fa;
     color: rgb(var(--clr-error-base));
 }
 
-.editor-tabs .tab.delete.disabled::after {
+.container-tabs .tab.delete.disabled::after {
     color: rgb(var(--clr-disabled-base), 0.5);
 }
