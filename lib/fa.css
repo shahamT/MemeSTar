@@ -14,18 +14,3 @@
     src: url('../../fonts/fontAwesome/fa-solid-900.ttf') format('truetype');
 }
 
-
-.fa-solid{
-    font-weight: solid;
-}
-
-.fa-regular{
-    font-weight: regular;
-}
-
-
-.fa-home::before{
-content: '\f015';
-font-family: fa;
-}
-
