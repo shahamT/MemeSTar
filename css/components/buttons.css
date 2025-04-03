@@ -1,20 +1,17 @@
-.text-tools .add-text-btn{
-    background-color: rgb(var(--clr-content-bg-dark-base));
+.secondary-btn{
+    background-color: transparent;
     border-color: rgb(var(--clr-accent-base));
     color: rgb(var(--clr-accent-base));
-    text-transform: uppercase;
 }
 
-.text-tools .add-text-btn::before{
-    content: '\2b';
-    font-family: fa;
-    padding-inline-end: 12px;
-}
-
-.text-tools .add-text-btn:hover{
+.secondary-btn:hover{
     background-color: rgb(var(--clr-accent-base),0.1);
+    border-color: rgb(var(--clr-accent-base));
 }
 
-.text-tools .add-text-btn:active{
+.secondary-btn:active{
     background-color: rgb(var(--clr-accent-base),0.4);
 }
+
+
+

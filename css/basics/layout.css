@@ -8,8 +8,6 @@ row-gap: 24px;
 
 .main-horizontal-layout{
     grid-template-rows: auto 1fr auto;
-    
-
 }
 
 .full{
@@ -18,7 +16,7 @@ grid-column: 1/-1;
 
 
 .gallery-screen-horizontal-layout{
-    grid-template-rows: 80px 120px 1fr;
+    grid-template-rows: auto auto 1fr;
     row-gap: 24px;
     align-items: stretch;
     

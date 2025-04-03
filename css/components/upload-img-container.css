@@ -1,5 +1,37 @@
-.upload-img-container{
+.upload-img-container {
     grid-column: 2/-2;
-    
+
+    padding: var(--px-spacing-md);
+
     background-color: rgb(var(--clr-content-bg-dark-base));
 }
+
+.upload-img-container .upload-area {
+    width: 100%;
+    border: 3px dashed rgb(var(--clr-gray-base));
+    padding: var(--px-spacing-md);
+    gap: var(--px-spacing-md);
+    
+    font-size: 1rem;
+    color: rgb(var(--clr-gray-base));
+    text-align: center;
+    border-radius: var(--border-radius-lg);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.upload-img-container .upload-area:hover{
+    color: rgba(var(--clr-accent-base),0.8);
+    border-color: rgba(var(--clr-accent-base),0.8);
+}
+
+.upload-img-container .upload-area p.upload-icon::after{
+   content: '\f0ee'; 
+   font-family: fa;
+   font-size: 60px;
+}
+
+.upload-img-container .upload-area p span{
+    font-weight: 800;
+}
+

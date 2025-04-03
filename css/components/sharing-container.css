@@ -1,12 +1,12 @@
-.start-from-scratch-container {
-    grid-column: 2;
+.sharing-container{
+    grid-column: 3;
+    grid-row: 3;
+    align-self: end;
+
+    gap: var(--px-spacing-sm);
 
     padding-block: var(--px-spacing-md);
     padding-inline: var(--px-spacing-mdl);
 
     background-color: rgb(var(--clr-content-bg-dark-base));
-}
-
-.start-from-scratch-btn {
-    width: 100%;
 }

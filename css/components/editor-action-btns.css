@@ -1,0 +1,44 @@
+.action-btns {
+    grid-column: 3;
+    grid-row: 1;
+
+    justify-content: center;
+    gap: var(--px-spacing-sm);
+
+    padding-block: var(--px-spacing-md);
+    padding-inline: var(--px-spacing-mdl);
+    background-color: rgb(var(--clr-content-bg-dark-base));
+
+}
+
+.action-btn {
+    text-transform: uppercase;
+}
+
+.action-btn::before {
+    font-family: fa;
+
+}
+
+.action-btn.add-text-btn::before,
+.action-btn.add-sticker-btn::before {
+    content: '\2b';
+    padding-inline-end: 12px;
+}
+
+.action-btn.delete-element-btn {
+    border-color: rgb(var(--clr-error-base));
+}
+
+.action-btn.delete-element-btn:hover {
+    background-color: rgba(var(--clr-error-base), 0.1);
+}
+
+.action-btn.delete-element-btn::before {
+    content: '\f2ed';
+    color: rgb(var(--clr-error-base));
+}
+
+.action-btn.delete-element-btn.disabled::before {
+    color: rgb(var(--clr-disabled-base), 0.5);
+}

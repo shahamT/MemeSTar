@@ -3,7 +3,6 @@
 }
 
 .text-tools .text-inputs {
-    padding-block-start: var(--px-spacing-md);
     gap: var(--px-spacing-md);
 }
 
@@ -19,7 +18,9 @@
     border-block-start: 2px solid rgb(var(--clr-bg-dark-l-200));
 }
 
-
+.text-tools select {
+width: 120px;
+}
 
 .text-tools p {
     text-align: center;

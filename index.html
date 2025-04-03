@@ -33,7 +33,10 @@
             class="templates-gallery-screen full main-vertical-layout gallery-screen-horizontal-layout grid-align-center hidden">
 
             <div class="search-container flex column align-center justify-center">
-                <input type="text" placeholder="Search">
+                <div class="search-wraper flex">
+                    <input type="text" placeholder="Search" class="gallery-search-input">
+                    <button class="clear-search-btn secondary-btn">Clear</button>
+                </div>
                 <section class="search-keys-cloud flex">
                     <p>text</p>
                     <p>text</p>
@@ -42,10 +45,10 @@
                 </section>
             </div>
 
-            <div class="upload-img-container flex align-center justify-center">
-                <section class="upload-area flex align-center justify-center">
-                    <p>upload here</p>
-                    <button>upload</button>
+            <div class="upload-img-container flex">
+                <section class="upload-area flex column align-center justify-center">
+                    <p class="upload-icon"></p>
+                    <p><span>Choose a file</span> or drag it here</p>
                 </section>
 
             </div>
@@ -67,26 +70,30 @@
 
         </section>
 
-        <section class="hidden editor-screen full main-vertical-layout grid-align-center hidden">
-            <button class="start-from-scratch-btn">Start With Another Template</button>
+        <section class="hidden editor-screen full main-vertical-layout main-horizontal-layout grid-align-center hidden">
+            <div class="start-from-scratch-container">
+                <button class="start-from-scratch-btn">Start With Another Template</button>
+            </div>
             <div class="meme-container">
                 <canvas class="meme-canvas" width="400" height="400">
 
                 </canvas>
             </div>
-            <div class="editor-container tabs-container">
-                <nav class="editor-tabs">
-                    <ul class="clean-list flex">
-                        <li><a class="tab icon-tab delete flex align-center justify-center"></a></li>
-                        <li><a class="tab text-tab flex align-center justify-center">Text</a></li>
-                        <li><a class="tab text-tab flex align-center justify-center">stickers</a></li>
-                    </ul>
-                </nav>
+            <nav class="action-btns flex">
+                <!-- <ul class="clean-list flex"> -->
+                <!-- <li><a class="tab icon-tab delete flex align-center justify-center"></a></li> -->
+                <button name="delete-element" class="delete-element-btn action-btn secondary-btn"></button>
+                <button name="add-text" class="add-text-btn action-btn secondary-btn">Text</button>
+                <button name="add-sticker" class="add-sticker-btn action-btn secondary-btn">Sticker</button>
+                <!-- </ul> -->
+            </nav>
+
+            <div class="editor-container">
 
                 <section class="text-tools flex column">
-                    
-                    <button name="add-text" class="add-text-btn">Add Text</button>
-                    
+
+                    <!-- <button name="add-text" class="add-text-btn secondary-btn">Add Text</button> -->
+
                     <form class="text-inputs flex column">
 
                         <!-- text inputs -->
@@ -95,8 +102,14 @@
 
                         <div class="input-group">
                             <select name="font-picker" data-param="fontFamily" class="param">
-                                <option value="Arial">Arial</option>
-                                <option value="other font">other font</option>
+                                <option value="Impact">Impact</option>
+                                <option value="Arial Black">Arial Black</option>
+                                <option value="Franklin Gothic Heavy">Franklin Gothic Heavy</option>
+                                <option value="Tahoma">Tahoma Bold</option>
+                                <option value="Verdana">Verdana Bold</option>
+                                <option value="Helvetica">Helvetica Bold</option>
+                                <option value="Trebuchet MS">Trebuchet MS Bold</option>
+                                <option value="Courier New">Courier Bold</option>
                             </select>
                             <p name="text-size-range-label" class="range-indicator stroke-size">7</p>
                             <input name="text-size-range" data-param="fontSize" type="range" min="5" max="60"
@@ -108,7 +121,8 @@
                         <div class="input-group border-top">
                             <p class="section-title">Stroke</p>
                             <p name="stroke-size-range-label" class="range-indicator stroke-size">7</p>
-                            <input name="stroke-size-range" data-param="lineWidth" type="range" min="0" max="10" class="param">
+                            <input name="stroke-size-range" data-param="lineWidth" type="range" min="0" max="10"
+                                class="param">
                             <input name="stroke-color-picker" data-param="strokeStyle" type="color" class="param">
                         </div>
 
@@ -116,19 +130,20 @@
                         <div class="input-group border-top">
                             <p class="section-title">Shadow</p>
                             <p name="shadow-size-range-label" class="range-indicator stroke-size">7</p>
-                            <input name="shadow-size-range" data-param="shadowBlur" type="range" min="0" max="20" class="param">
+                            <input name="shadow-size-range" data-param="shadowBlur" type="range" min="0" max="20"
+                                class="param">
                             <input name="shadow-color-picker" data-param="shadowColor" type="color" class="param">
                         </div>
 
                     </form>
                 </section>
 
-                <section class="sharing-container flex">
-                    <button>Share</button>
-                    <button>Save Meme</button>
-                    <button>Download</button>
-                </section>
             </div>
+            <section class="sharing-container flex">
+                <button>Share</button>
+                <button>Save Meme</button>
+                <button>Download</button>
+            </section>
         </section>
 
         <!-- <section hidden class="saved-memes-screen">

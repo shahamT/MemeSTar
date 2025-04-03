@@ -16,7 +16,12 @@
        --clr-br-green-l-100: 106, 255, 176;
        --clr-br-green-base: 0, 255, 133; /* neon green */
        --clr-br-green-d-100: 0, 212, 111;
-   
+       
+       /* accent */
+       --clr-accent-l-100: 255, 233, 127;
+       --clr-accent-base: 255, 213, 0; /* meme yellow (logo star) */
+       --clr-accent-d-100: 217, 180, 0;
+       
        /* dark & light */
    
        --clr-light-l-100: 244, 244, 244;
@@ -41,10 +46,11 @@
        --clr-content-bg-dark-base: 21, 22, 30; /* elevated content bg */
        --clr-content-bg-dark-d-100: 13, 14, 20;
    
-       /* accent */
-       --clr-accent-l-100: 255, 233, 127;
-       --clr-accent-base: 255, 213, 0; /* meme yellow (logo star) */
-       --clr-accent-d-100: 217, 180, 0;
+        /* gray */
+        --clr-gray-l-100: 200, 200, 200; /* Light gray */
+        --clr-gray-base: 128, 128, 128; /* Neutral medium gray */
+        --clr-gray-d-100: 51, 51, 51; /* Dark gray */
+
    
        /* success */
        --clr-success-l-100: 106, 247, 177;

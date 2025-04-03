@@ -1,12 +1,12 @@
 .editor-container {
     grid-column: 3;
-    grid-row: 1/3;
+    grid-row: 2;
     align-self: center;
 
     display: grid;
     grid-template-rows: auto 1fr auto;
 
-    height: 474px;
+    height: 100%;
 
     background-color: rgb(var(--clr-content-bg-dark-base));
 }

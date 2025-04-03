@@ -1,8 +1,9 @@
 .meme-container {
     grid-column: 2;
+    grid-row: 2/4;
     align-self: start;
 
-    height: 400px;
+    height: 100%;
     background-color: rgb(var(--clr-content-bg-dark-base));
 
 }

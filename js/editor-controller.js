@@ -52,11 +52,11 @@ function addEditorEventListeners() {
     elStartScratchBtn.addEventListener('click', (ev) => onStartFromScratch(ev))
 
     //delete element btn
-    const elDeleteElement = document.querySelector('.editor-container .editor-tabs .delete')
+    const elDeleteElement = document.querySelector('.action-btns [name="delete-element"]')
     elDeleteElement.addEventListener('click', (ev) => onDeleteElement(ev))
 
     //add txt btn
-    const elAddTextBtn = document.querySelector('.editor-container .text-tools [name="add-text"]')
+    const elAddTextBtn = document.querySelector('.action-btns [name="add-text"]')
     elAddTextBtn.addEventListener('click', (ev) => onAddText(ev))
 
     //text editor
@@ -278,7 +278,7 @@ function showTextInputs() {
 }
 
 function setDeleteButtonState() {
-    const elDeleteElement = document.querySelector('.editor-container .editor-tabs .delete')
+    const elDeleteElement = document.querySelector('.action-btns [name="delete-element"]')
     if (getLastElementIdx() >= 0) {
         elDeleteElement.classList.remove('disabled')
     } else elDeleteElement.classList.add('disabled')
