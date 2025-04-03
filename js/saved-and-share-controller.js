@@ -76,6 +76,7 @@ function onCloseShareModal() {
 
 function onSaveMeme() {
     saveMeme()
+    showFlashMsg('success', 'Meme was save to your gallery!')
 }
 
 function currMemeToDataURL() {
@@ -111,4 +112,57 @@ function onDownload() {
     a.click();
     document.body.removeChild(a);
     showFlashMsg('success', 'Download has started')
+}
+
+
+
+
+
+
+// ============================== saved memes ===================================
+
+// =======
+// ======== init ========
+// =======
+
+function initSavedMemesScreen() {
+    console.log('got here')
+
+    resetCurrMeme()
+
+    renderSavedMemesGallery()
+    addMemesGalleryEventListeners()
+
+    //present only current screen
+    hideEditorScreen()
+    hideGalleryScreen()
+    showMemesGalleryScreen()
+}
+
+function showMemesGalleryScreen() {
+    const elMemeGalleryScreen = document.querySelector('.saved-memes-screen')
+    elMemeGalleryScreen.classList.remove('hidden')
+}
+function hideMemesGalleryScreen() {
+    const elMemeGalleryScreen = document.querySelector('.saved-memes-screen')
+    elMemeGalleryScreen.classList.add('hidden')
+}
+
+function renderSavedMemesGallery() {
+
+    const memes = getMemesForDisplay()
+
+    const elGallery = document.querySelector('.saved-memes-gallery')
+    let strHtml = ''
+
+    memes.forEach((meme, idx) => {
+        strHtml += `<div class="meme-card" ><img data-idx="${idx}" src="${meme.memeLink}"></div>
+        `
+    })
+
+    elGallery.innerHTML = strHtml
+}
+
+function addMemesGalleryEventListeners() {
+
 }

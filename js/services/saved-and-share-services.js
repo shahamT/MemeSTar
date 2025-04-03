@@ -6,10 +6,28 @@ const gSavedMemes = [
 ]
 
 function saveMeme() {
-
-
+    gSavedMemes.push(getCurrMeme())
+    console.log("gSavedMemes: ", gSavedMemes)
 }
 
+function getMemesForDisplay(){
+    return gSavedMemes
+}
+
+
+
+
+
+function deleteMeme(idx) {
+    gSavedMemes.splice(idx, 1)
+}
+
+
+
+
+
+
+// =========================== Save and Share ==========================
 
 
 function onUploadImg(memeDataURL, func) {
@@ -42,9 +60,5 @@ async function uploadImg(imgData, onSuccess) {
 
 
 
-
-function deleteMeme(idx) {
-
-}
 
 

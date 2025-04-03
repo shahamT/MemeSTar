@@ -26,6 +26,7 @@ function initEditorScreen() {
 
     //present only current screen
     hideGalleryScreen()
+    hideMemesGalleryScreen()
     showEditorScreen()
 
     resizeCanvas()

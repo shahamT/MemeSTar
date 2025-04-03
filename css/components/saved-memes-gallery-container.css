@@ -1,0 +1,57 @@
+.saved-memes-gallery-container {
+    grid-column: 2/-2;
+
+
+    background-color: rgb(var(--clr-content-bg-dark-base));
+}
+
+.saved-memes-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--px-spacing-md);
+    align-items: start;
+
+    padding: var(--px-spacing-md);
+}
+
+.saved-memes-gallery .meme-card{
+    position: relative;
+    
+    height: 200px;
+   
+    cursor: pointer;
+
+}
+.saved-memes-gallery .meme-card img{
+    height: 100%;
+    width: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+.saved-memes-gallery .meme-card::after{
+    content: "EDIT \A TEMPLATE";
+    white-space: pre;
+    position: absolute;
+    inset: 0 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    text-align: center;
+
+    font-size: 1.3rem;
+    font-weight: 900;
+    background-color: rgba(var(--clr-bg-light-base),0.4);
+    color: rgb(var(--clr-accent-base));
+    text-shadow: 0px 0px 8px rgba(0, 0, 0, 1);
+    
+    transition: var(--transition-fast);
+    opacity: 0;
+}
+
+.saved-memes-gallery .meme-card:hover:after {
+    opacity: 1;
+}

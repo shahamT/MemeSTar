@@ -41,6 +41,10 @@
 @import url(components/upload-img-container.css);
 @import url(components/templates-gallery-container.css);
 
+/* saved-memes-gallery */
+@import url(components/saved-memes-gallery-container.css);
+
+
 /* share modal */
 @import url(components/share-modal.css);
 

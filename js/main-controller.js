@@ -5,7 +5,7 @@ window.onload = () => oninit()
 function oninit() {
     initCanvas()
 
-    
+    addNavBarEvenlisteners()
     addOnResizeEvListenre()
     addEditorEventListeners()
     addSaveAndShareEventListeners()
@@ -17,6 +17,15 @@ function oninit() {
 
 function addOnResizeEvListenre(){  
     window.addEventListener('resize', onResize);
+}
+
+function addNavBarEvenlisteners(){
+    const elMemesBtn = document.querySelector('.memes-gallery-nav-btn')
+    elMemesBtn.addEventListener('click', initSavedMemesScreen)
+
+    const elTempsBtn = document.querySelector('.templates-gallery-nav-btn')
+    elTempsBtn.addEventListener('click', initGalleryScreen)
+    
 }
 
 

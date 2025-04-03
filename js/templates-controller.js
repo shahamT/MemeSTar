@@ -20,6 +20,7 @@ function initGalleryScreen() {
 
     //present only current screen
     hideEditorScreen()
+    hideMemesGalleryScreen()
     showGalleryScreen()
 }
 
