@@ -39,6 +39,15 @@
     color: rgb(var(--clr-error-base));
 }
 
+.action-btn.delete-element-btn.disabled{
+    border-color: rgb(var(--clr-disabled-base), 0.5);
+    cursor: default;  
+}
+
+.action-btn.delete-element-btn.disabled:hover{
+background-color: transparent;
+}
+
 .action-btn.delete-element-btn.disabled::before {
     color: rgb(var(--clr-disabled-base), 0.5);
 }

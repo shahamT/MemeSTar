@@ -1,20 +1,38 @@
 /* SMALL */
 
 @media (width < 900px) {
+    
+    .main-content{
+        padding-block: 0px;
+    }
 
     .main-vertical-layout {
         grid-template-columns: minmax(24px, 1fr) minmax(auto, 600px) minmax(24px, 1fr);
     }
 
-    .editor-container {
+    .start-from-scratch-container{
+        grid-column: 2;
+        grid-row: 1;
+    }
+    .action-btns {
+        grid-column: 2;
+        grid-row: 2;
+    }
+
+    .meme-container {
         grid-column: 2;
         grid-row: 3;
     }
 
-    .main-content{
-        padding-block: 0px;
+    .editor-container {
+        grid-column: 2;
+        grid-row: 4;
     }
 
+    .sharing-container{
+        grid-column: 2;
+        grid-row: 5;
+    }
 
 }
 

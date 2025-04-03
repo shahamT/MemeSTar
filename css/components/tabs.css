@@ -12,13 +12,3 @@
 
 
 }
-
-.tabs-container .tab.delete::after {
-    content: '\f2ed';
-    font-family: fa;
-    color: rgb(var(--clr-error-base));
-}
-
-.tabs-container .tab.delete.disabled::after {
-    color: rgb(var(--clr-disabled-base), 0.5);
-}

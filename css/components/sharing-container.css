@@ -4,6 +4,7 @@
     align-self: end;
 
     gap: var(--px-spacing-sm);
+    justify-content: center;
 
     padding-block: var(--px-spacing-md);
     padding-inline: var(--px-spacing-mdl);
