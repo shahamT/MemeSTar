@@ -1,9 +1,10 @@
 'use strict'
 
 
+var gElCanvas
+var gCtx
 
-let gElCanvas
-let gCtx
+var gLastPos
 
 // =======
 // ======== init ========
@@ -12,9 +13,6 @@ let gCtx
 function initEditorScreen() {
 
     const elContainer = document.querySelector('.meme-container')
-
-    initCanvas()
-
     setTextInputsState()
     setDeleteButtonState()
     renderToolBarPrefs()
@@ -50,7 +48,7 @@ function initCanvas() {
 // ======== adding event listeners ========
 // =======
 
-// === editor listeners ===
+// === editor events ===
 function addEditorEventListeners() {
     // start from scratch btn
     const elStartScratchBtn = document.querySelector('.start-from-scratch-btn')
@@ -111,7 +109,7 @@ function onAddText(ev) {
 
     updateSelectedElement(elementIdx)
     onMemeChange()
-    
+
 }
 
 function onUpdateElement(ev) {
@@ -139,13 +137,55 @@ function onStartFromScratch() {
 }
 
 
-// === canvas listeners ===
+// === canvas events ===
 function addCanvasEventListeners() {
+    gElCanvas.addEventListener('mousedown', (ev) => onDown(ev))
+    gElCanvas.addEventListener('touchstart', (ev) => onDown(ev))
+    gElCanvas.addEventListener('mousemove', (ev) => onMove(ev))
+    gElCanvas.addEventListener('touchmove', (ev) => onMove(ev))
+    gElCanvas.addEventListener('mouseup', (ev) => onUp(ev))
+    gElCanvas.addEventListener('touchend', (ev) => onUp(ev))
+}
 
+function onDown(ev) {
+    const elementIdx = getClickedElement(ev)
+    if (elementIdx === -1) return
+    updateSelectedElement(elementIdx)
+
+    const element = getSelectedElement()
+    element.isDragged = true
+    const pos = getEvPos(ev)
+    gLastPos = pos
+
+    onMemeChange()
+}
+
+function onMove(ev) {
+    const element = getSelectedElement()
+    if (element === null) return
+    if (!element.isDragged) return
+
+    const pos = getEvPos(ev)
+
+    //* Calculate distance moved from drag start position
+    const dx = pos.x - gLastPos.x
+    const dy = pos.y - gLastPos.y
+    updateElementPos(dx, dy)
+
+    //* Update start position for next move calculation
+    gLastPos = pos
+
+    renderMeme()
+}
+
+function onUp(ev) {
+    const element = getSelectedElement()
+    if (element === null) return
+    element.isDragged = false
 }
 
 // === general functions to apply on change ===
-function onMemeChange(){
+function onMemeChange() {
     resetFileAttributes()
     renderMeme()
     renderToolBarPrefs()
@@ -219,6 +259,22 @@ function renderText(element) {
     gCtx.shadowOffsetX = element.shadowOffsetX
     gCtx.shadowOffsetY = element.shadowOffsetY
     gCtx.shadowBlur = element.shadowBlur
+
+    //calculate and update element size
+    const textMat = gCtx.measureText(text)
+    const textW = textMat.width
+    const textH = textMat.actualBoundingBoxAscent + textMat.actualBoundingBoxDescent
+    element.size = { w: textW, h: textH }
+
+    //update element pos
+    element.pos = { x: offsetX, y: offsetY }
+
+    // update element bounding box
+    element.boundBox = {}
+    element.boundBox.x1 = offsetX - (textW / 2)
+    element.boundBox.x2 = offsetX + (textW / 2)
+    element.boundBox.y1 = offsetY - (textH / 2)
+    element.boundBox.y2 = offsetY + (textH / 2)
 
     //draw the text
     gCtx.fillText(text, offsetX, offsetY)
@@ -305,26 +361,67 @@ function onResize() {
 function resizeCanvas() {
     const elContainer = document.querySelector('.meme-container')
     gElCanvas.width = elContainer.offsetWidth - 32
-    console.log("gElCanvas.width: ", gElCanvas.width)
 
     const meme = getCurrMeme()
     const imgObj = getTempById(meme.selectedTempId)
     const img = new Image()
     img.src = imgObj.url
-    
+
     img.onload = function () {
         const width = img.naturalWidth
         const height = img.naturalHeight
-        const ratio = width/height
-        console.log("ratio: ", ratio)
+        const ratio = width / height
 
         gElCanvas.height = gElCanvas.width / ratio
-        console.log("gElCanvas.height: ", gElCanvas.height)
         renderMeme()
-      }
-    
+    }
+}
 
-    
-    
-    
+
+// drag & drop functions
+function getClickedElement(ev) {
+    const pos = getEvPos(ev)
+    const meme = getCurrMeme()
+    const elements = meme.elements
+
+    const clickedElement = elements.findIndex(element => {
+
+        let isClicked = false
+        const { x1, x2, y1, y2 } = element.boundBox
+        if (pos.x >= x1 && pos.x <= x2 && pos.y >= y1 && pos.y <= y2) {
+            isClicked = true
+        }
+        return isClicked
+    })
+    return clickedElement
+}
+
+
+function getEvPos(ev) {
+    const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
+
+    let pos = {
+        x: ev.offsetX,
+        y: ev.offsetY,
+    }
+
+    if (TOUCH_EVS.includes(ev.type)) {
+        //* Prevent triggering the default mouse behavior
+        ev.preventDefault()
+
+        //* Gets the first touch point (could be multiple in touch event)
+        ev = ev.changedTouches[0]
+
+        /* 
+        * Calculate touch coordinates relative to canvas 
+        * position by subtracting canvas offsets (left and top) from page coordinates
+        */
+        pos = {
+            x: ev.pageX - ev.target.offsetLeft - ev.target.clientLeft,
+            y: ev.pageY - ev.target.offsetTop - ev.target.clientTop,
+            // x: ev.pageX ,
+            // y: ev.pageY ,
+        }
+    }
+    return pos
 }

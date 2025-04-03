@@ -20,7 +20,7 @@ function resetCurrMeme() {
 
 }
 
-function resetFileAttributes(){
+function resetFileAttributes() {
     gCurrMeme.dataURL = null
     gCurrMeme.memeLink = null
 }
@@ -103,8 +103,8 @@ function _createDefaultUserPrefs() {
         fontSize: 32,
         fontFamily: 'Arial',
         lineWidth: 0,
-        strokeStyle: 'black',
-        fillStyle: 'white',
+        strokeStyle: 'rgb(0, 0, 0)',
+        fillStyle: 'rgb(255, 255, 255)',
         textAlign: 'center',
         textBaseline: 'middle',
 
@@ -117,12 +117,17 @@ function _createDefaultUserPrefs() {
         shadowOffsetY: 0,
         shadowBlur: 0,
 
-        // position params
+        // position and size params
         pos: { x: null, y: null },
-
-        // dimens: {width,height}
+        size: { w: null, h: null },
+        boundBox: { x1: null, x2: null, y1: null, y2: null },
+        isDragged: false
     }
     return paramsObj
+}
+function getSelectedElement() {
+    if(gCurrMeme.elements.length === 0) return null
+    return gCurrMeme.elements[gCurrMeme.selectedElementIdx]
 }
 
 function saveUserPrefsToStorage(paramsObj = gCurrMeme.elements[gCurrMeme.selectedElementIdx]) {
@@ -139,3 +144,18 @@ function getUserPrefsFromStorage() {
     return paramsObj
 }
 
+
+
+// function updateElementSize(w, h) {
+//     const element = gCurrMeme.elements[gCurrMeme.selectedElementIdx]
+//     element.size.w = w
+//     element.size.h = h
+// }
+
+function updateElementPos(x, y) {
+    const element = getSelectedElement()
+    console.log("x: ", x)
+    console.log("y: ", y)
+    element.pos.x += x
+    element.pos.y += y
+}

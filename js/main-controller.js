@@ -3,6 +3,9 @@
 window.onload = () => oninit()
 
 function oninit() {
+    initCanvas()
+
+    
     addOnResizeEvListenre()
     addEditorEventListeners()
     addSaveAndShareEventListeners()
