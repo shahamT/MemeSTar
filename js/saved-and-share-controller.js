@@ -1,5 +1,5 @@
 'use strict'
-
+var gIsExporting = false
 
 function addSaveAndShareEventListeners() {
     // download btn
@@ -30,6 +30,9 @@ function addSaveAndShareEventListeners() {
 }
 
 function onExport(action) {
+    const meme = getCurrMeme()
+    const selectedElIdx = meme.selectedElementIdx
+
     let func
     switch (action) {
         case 'share':
@@ -40,14 +43,27 @@ function onExport(action) {
             break
     }
 
-    const meme = getCurrMeme()
-
     //if link already exist just perform the action, if not, create link and then perform the action
     if (!meme.memeLink) {
-        const memeDataURL = currMemeToDataURL()
-        console.log("memeImg: ", memeDataURL)
-        onUploadImg(memeDataURL, func)
+        //remove bound box before exporting
+        gIsExporting = true
+        renderMeme()
+
+        //timeout to allow the canvas to render without bouding box before exporting
+        setTimeout(() => {
+            const memeDataURL = currMemeToDataURL()
+            onUploadImg(memeDataURL, func)
+
+            //place back bound box before exporting
+            gIsExporting = false
+            renderMeme()
+        }, 100)
+
     } else func()
+
+
+
+
 }
 
 function onOpenShareModal() {
@@ -117,8 +133,6 @@ function onDownload() {
 
 
 
-
-
 // ============================== saved memes ===================================
 
 // =======
@@ -126,7 +140,6 @@ function onDownload() {
 // =======
 
 function initSavedMemesScreen() {
-    console.log('got here')
 
     resetCurrMeme()
 
@@ -156,8 +169,14 @@ function renderSavedMemesGallery() {
     let strHtml = ''
 
     memes.forEach((meme, idx) => {
-        strHtml += `<div class="meme-card" ><img data-idx="${idx}" src="${meme.memeLink}"></div>
-        `
+        strHtml += `<div class="meme-card"><img data-idx="${idx}" src="${meme.memeLink}">
+                    <div class="meme-card-btns">
+                    <button class="edit-btn" data-meme-idx="${idx}"></button>
+                    <button class="download-btn" data-meme-idx="${idx}"></button>
+                    <button class="share-btn" data-meme-idx="${idx}"></button>
+                    </div>
+                    </div>
+                    `
     })
 
     elGallery.innerHTML = strHtml

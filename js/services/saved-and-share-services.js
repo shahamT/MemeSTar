@@ -1,13 +1,15 @@
 'use strict'
 
+const DB_SAVED_MEMES_KEY = 'SAVED_MEMES'
 
-const gSavedMemes = [
+var gSavedMemes = [
 
 ]
 
 function saveMeme() {
-    gSavedMemes.push(getCurrMeme())
-    console.log("gSavedMemes: ", gSavedMemes)
+    const clone = structuredClone(getCurrMeme())
+    gSavedMemes.push(clone)
+    saveMemesToStorage()
 }
 
 function getMemesForDisplay(){
@@ -20,10 +22,19 @@ function getMemesForDisplay(){
 
 function deleteMeme(idx) {
     gSavedMemes.splice(idx, 1)
+    saveMemesToStorage()
 }
 
 
+function saveMemesToStorage() {
+    saveToLocalStorage(DB_SAVED_MEMES_KEY, gSavedMemes)
+}
 
+function getMemesFromStorage() {
+    gSavedMemes = getFromLocalStorage(DB_SAVED_MEMES_KEY)
+    if(gSavedMemes === null) gSavedMemes=[]
+
+}
 
 
 

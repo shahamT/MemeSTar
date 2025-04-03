@@ -1,7 +1,6 @@
 'use strict'
 
 const DB_USER_PREFS_KEY = 'USER_PREFS'
-const DB_SAVED_MEMES_KEY = 'SAVED_MEMES'
 
 var gCurrMeme
 
@@ -53,8 +52,6 @@ function addElement(type) {
     }
 
     gCurrMeme.elements.push(newElementObj)
-
-    console.log("gCurrMeme: ", gCurrMeme)
 
     //return the idx of the new element
     return gCurrMeme.elements.length - 1
@@ -126,7 +123,9 @@ function _createDefaultUserPrefs() {
     return paramsObj
 }
 function getSelectedElement() {
-    if (gCurrMeme.elements.length === 0) return null
+    if (gCurrMeme.elements.length === 0 ||
+        gCurrMeme.selectedElementIdx === null
+    ) return null
     return gCurrMeme.elements[gCurrMeme.selectedElementIdx]
 }
 

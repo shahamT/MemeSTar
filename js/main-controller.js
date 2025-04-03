@@ -3,6 +3,8 @@
 window.onload = () => oninit()
 
 function oninit() {
+    getMemesFromStorage()
+    
     initCanvas()
 
     addNavBarEvenlisteners()

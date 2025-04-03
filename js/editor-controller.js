@@ -302,6 +302,7 @@ function renderSticker(element) {
 function renderBoundBox() {
     const element = getSelectedElement()
     if (element === null) return
+    if(gIsExporting) return
 
     if (element.type === 'text' && element.txt === '') return
 
