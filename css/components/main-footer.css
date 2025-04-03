@@ -1,5 +1,5 @@
 .main-footer{
     background-color: rgb(var(--clr-content-bg-dark-base));
-    height: 80px;
+    height: 50px;
     padding-inline: 24px;
 }

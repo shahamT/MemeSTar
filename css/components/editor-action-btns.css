@@ -22,7 +22,7 @@
 
 .action-btn.add-text-btn::before,
 .action-btn.add-sticker-btn::before {
-    content: '\2b';
+    content: '\f005';
     padding-inline-end: 12px;
 }
 

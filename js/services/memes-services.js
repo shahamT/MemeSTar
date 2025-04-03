@@ -103,8 +103,8 @@ function _createDefaultUserPrefs() {
         fontSize: 32,
         fontFamily: 'Arial',
         lineWidth: 0,
-        strokeStyle: 'rgb(0, 0, 0)',
-        fillStyle: 'rgb(255, 255, 255)',
+        strokeStyle: '#000000',
+        fillStyle: '#FFFFFF',
         textAlign: 'center',
         textBaseline: 'middle',
 
@@ -112,7 +112,7 @@ function _createDefaultUserPrefs() {
         stickerId: null,
 
         // shadow params
-        shadowColor: 'rgba(0, 0, 0, 0.6)',
+        shadowColor: '#000000',
         shadowOffsetX: 0,
         shadowOffsetY: 0,
         shadowBlur: 0,
@@ -126,7 +126,7 @@ function _createDefaultUserPrefs() {
     return paramsObj
 }
 function getSelectedElement() {
-    if(gCurrMeme.elements.length === 0) return null
+    if (gCurrMeme.elements.length === 0) return null
     return gCurrMeme.elements[gCurrMeme.selectedElementIdx]
 }
 
@@ -154,8 +154,7 @@ function getUserPrefsFromStorage() {
 
 function updateElementPos(x, y) {
     const element = getSelectedElement()
-    console.log("x: ", x)
-    console.log("y: ", y)
+    if (element.pos.x + x === 0 || element.pos.y + y === 0) return
     element.pos.x += x
     element.pos.y += y
 }

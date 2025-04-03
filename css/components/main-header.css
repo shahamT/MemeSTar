@@ -3,3 +3,15 @@
     height: 80px;
     padding-inline: var(--px-spacing-lg);
 }
+
+.main-header a{
+    padding: var(--px-spacing-md);
+    margin-inline-start: var(--px-spacing-md);
+
+    border-radius: var(--border-radius-md);
+    transition: var(--transition-fast);
+}
+
+.main-header a:hover{
+    background-color: rgba(var(--clr-light-base),0.1);
+}

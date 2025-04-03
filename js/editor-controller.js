@@ -5,9 +5,16 @@ var gElCanvas
 var gCtx
 
 var gLastPos
+var gBoundBox = {
+    box1: null,
+    box2: null,
+    box3: null,
+    box4: null,
+    delBox: null
+}
 
-// =======
 // ======== init ========
+// =======
 // =======
 
 function initEditorScreen() {
@@ -44,8 +51,8 @@ function initCanvas() {
 
 
 
-// =======
 // ======== adding event listeners ========
+// =======
 // =======
 
 // === editor events ===
@@ -65,6 +72,7 @@ function addEditorEventListeners() {
     //text editor
     const elTextEditor = document.querySelector('.editor-container .text-tools [name="text-editor"]')
     elTextEditor.addEventListener('input', (ev) => onUpdateElement(ev))
+    elTextEditor.addEventListener('click', (ev) => onTextInputClick(ev.target))
 
     //text font picker
     const elFontPicker = document.querySelector('.editor-container .text-tools [name="font-picker"]')
@@ -110,6 +118,10 @@ function onAddText(ev) {
     updateSelectedElement(elementIdx)
     onMemeChange()
 
+}
+
+function onTextInputClick(elInput){
+    if (elInput.value === 'Your Text') elInput.value = ''
 }
 
 function onUpdateElement(ev) {
@@ -193,8 +205,8 @@ function onMemeChange() {
     setDeleteButtonState()
 }
 
-// =======
 // ======== rendering template and elements ========
+// =======
 // =======
 
 
@@ -213,6 +225,7 @@ function renderMeme() {
         const height = gElCanvas.height
         gCtx.drawImage(img, 0, 0, width, height)
         renderElements()
+        renderBoundBox()
     }
 
     img.src = tempURL
@@ -237,7 +250,6 @@ function renderElement(element) {
     }
 }
 
-// renders text elements
 function renderText(element) {
 
     //if there are no defined positions, set the text in the middle
@@ -282,14 +294,67 @@ function renderText(element) {
 
 }
 
-// renders sticker elements
 function renderSticker(element) {
 
 }
 
+function renderBoundBox() {
+    const element = getSelectedElement()
+    if (element === null) return
 
-// =======
+    if (element.type === 'text' && element.txt === '') return
+
+    const { x1, x2, y1, y2 } = element.boundBox
+
+    gCtx.strokeStyle = '#FFD500';
+    gCtx.lineWidth = 2;
+
+    // Draw rectangle outline at (x, y) with specified width and height
+    gCtx.strokeRect(x1 - 10, y1 - 15, x2 - x1 + 20, y2 - y1 + 20);
+
+    //draw sizing squares
+    gCtx.fillStyle = '#FFD500'
+
+    gCtx.fillRect(x1 - 15, y1 - 20, 10, 10)
+    gBoundBox.box1 = { x1: x1 - 15, x2: x1 - 15 + 10, y1: y1 - 20, y2: y1 - 20 + 10 }
+
+    gCtx.fillRect(x1 - 15, y2, 10, 10)
+    gBoundBox.box2 = { x1: x1 - 15, x2: x1 - 15 + 10, y1: y2, y2: y2 + 10 }
+
+    gCtx.fillRect(x2 + 5, y1 - 20, 10, 10)
+    gBoundBox.box3 = { x1: x2 + 5, x2: x2 + 5 + 10, y1: y1 - 20, y2: y1 - 20 + 10 }
+
+    gCtx.fillRect(x2 + 5, y2, 10, 10)
+    gBoundBox.box4 = { x1: x2 + 5, x2: x2 + 5 + 10, y1: y2, y2: y2 + 10 }
+
+    //draw delete button
+    // circle
+    gCtx.beginPath();
+    gCtx.arc(x2 + 20, y1 + element.size.h / 2 - 5, 10, 0, Math.PI * 2, false)
+    gCtx.fillStyle = '#E53935'
+    gCtx.fill()
+
+    // lines
+    gCtx.beginPath()
+    gCtx.moveTo(x2 + 20 - 5, y1 + element.size.h / 2 - 5 - 5)
+    gCtx.lineTo(x2 + 20 + 5, y1 + element.size.h / 2 - 5 + 5)
+    gCtx.strokeStyle = '#FFFFFF'
+    gCtx.lineWidth = 2
+    gCtx.stroke()
+
+    // lines
+    gCtx.beginPath()
+    gCtx.moveTo(x2 + 20 + 5, y1 + element.size.h / 2 - 5 - 5)
+    gCtx.lineTo(x2 + 20 - 5, y1 + element.size.h / 2 - 5 + 5)
+    gCtx.strokeStyle = '#FFFFFF'
+    gCtx.lineWidth = 2
+    gCtx.stroke()
+    //TODO save delete button bound box
+}
+
+
 // ======== render toolbar ========
+// =======
 // =======
 
 function clearTextInput() {
