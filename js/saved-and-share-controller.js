@@ -111,4 +111,4 @@ function onDownload() {
     a.click();
     document.body.removeChild(a);
     showFlashMsg('success', 'Download has started')
-}
+} 
