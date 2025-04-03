@@ -3,11 +3,17 @@
 window.onload = () => oninit()
 
 function oninit() {
+    addOnResizeEvListenre()
     addEditorEventListeners()
     addSaveAndShareEventListeners()
     addCanvasEventListeners()
     
     initGalleryScreen()
+}
+
+
+function addOnResizeEvListenre(){  
+    window.addEventListener('resize', onResize);
 }
 
 

@@ -11,8 +11,9 @@ let gCtx
 
 function initEditorScreen() {
 
+    const elContainer = document.querySelector('.meme-container')
+
     initCanvas()
-    renderMeme()
 
     setTextInputsState()
     setDeleteButtonState()
@@ -21,6 +22,10 @@ function initEditorScreen() {
     //present only current screen
     hideGalleryScreen()
     showEditorScreen()
+
+    resizeCanvas()
+    renderMeme()
+
 }
 
 function showEditorScreen() {
@@ -288,4 +293,38 @@ function setDeleteButtonState() {
         elDeleteElement.classList.remove('disabled')
     } else elDeleteElement.classList.add('disabled')
 
+}
+
+
+// resize canvas and other functions related to resizing it
+
+function onResize() {
+    resizeCanvas()
+}
+
+function resizeCanvas() {
+    const elContainer = document.querySelector('.meme-container')
+    gElCanvas.width = elContainer.offsetWidth - 32
+    console.log("gElCanvas.width: ", gElCanvas.width)
+
+    const meme = getCurrMeme()
+    const imgObj = getTempById(meme.selectedTempId)
+    const img = new Image()
+    img.src = imgObj.url
+    
+    img.onload = function () {
+        const width = img.naturalWidth
+        const height = img.naturalHeight
+        const ratio = width/height
+        console.log("ratio: ", ratio)
+
+        gElCanvas.height = gElCanvas.width / ratio
+        console.log("gElCanvas.height: ", gElCanvas.height)
+        renderMeme()
+      }
+    
+
+    
+    
+    
 }
