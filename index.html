@@ -140,9 +140,9 @@
 
             </div>
             <section class="sharing-container flex">
-                <button>Share</button>
-                <button>Save Meme</button>
-                <button>Download</button>
+                <button class="save-btn">Save</button>
+                <button class="download-btn"></button>
+                <button class="share-btn"></button>
             </section>
         </section>
 
@@ -158,19 +158,41 @@
     </footer>
 
 
+    <!-- share modal -->
+    <div class="backdrop m-hidden">
+
+    </div>
+
+    <div class="share-modal m-hidden">
+        <button class="close-btn"></button>
+        <p>Share Your Meme</p>
+        <img src="img\meme-templates\1.jpg">
+        <button class="facebook social-share-btn"></button>
+        <button class="whatsapp social-share-btn"></button>
+        <button class="copy-link social-share-btn"></button>
+    </div>
+
+    <!-- flash-msg -->
+    <div hidden class="flash-msg">
+        <p></p>
+    </div>
+
     <!-- Taliwind UI library -->
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
 
     <!-- project js files -->
     <script src="js/services/util.js"></script>
+
     <script src="js/main-controller.js"></script>
     <script src="js/editor-controller.js"></script>
     <script src="js/templates-controller.js"></script>
-
+    <script src="js/saved-and-share-controller.js"></script>
 
     <script src="js/services/templates-services.js"></script>
     <script src="js/services/memes-services.js"></script>
     <script src="js/services/user-prefs-services.js"></script>
+    <script src="js/saved-and-share-services.js"></script>
+
 
 </body>
 

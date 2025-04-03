@@ -24,6 +24,7 @@
 @import url(components/logo.css);
 @import url(components/buttons.css);
 @import url(components/tabs.css);
+@import url(components/flash-msg.css);
 
 /* editor */
 @import url(components/editor-screen.css);
@@ -40,7 +41,8 @@
 @import url(components/upload-img-container.css);
 @import url(components/templates-gallery-container.css);
 
-
+/* share modal */
+@import url(components/share-modal.css);
 
 /* === MEDIA QUERIES === */
 @import url(setup/mq.css);

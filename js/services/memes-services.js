@@ -3,11 +3,6 @@
 const DB_USER_PREFS_KEY = 'USER_PREFS'
 const DB_SAVED_MEMES_KEY = 'SAVED_MEMES'
 
-
-const gSavedMemes = [
-
-]
-
 var gCurrMeme
 
 
@@ -17,9 +12,17 @@ function resetCurrMeme() {
         id: null,
         selectedTempId: null,
         selectedElementIdx: 0,
+        dataURL: null,
+        memeLink: null,
+
         elements: []
     }
 
+}
+
+function resetFileAttributes(){
+    gCurrMeme.dataURL = null
+    gCurrMeme.memeLink = null
 }
 
 function getCurrMeme() {

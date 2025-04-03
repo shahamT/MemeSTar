@@ -57,15 +57,15 @@
        --clr-success-base: 62, 246, 133; /* base success green */
        --clr-success-d-100: 47, 194, 107;
    
-       /* error */
-       --clr-error-l-100: 255, 138, 138;
-       --clr-error-base: 255, 79, 79; /* error red */
-       --clr-error-d-100: 194, 50, 50;
-   
-       /* warning */
-       --clr-warning-l-100: 255, 217, 122;
-       --clr-warning-base: 255, 182, 39; /* warning orange */
-       --clr-warning-d-100: 212, 145, 0;
+        /* success */
+        --clr-success-l-100: 102, 212, 190;
+        --clr-success-base: 0, 184, 148; /* success green */
+        --clr-success-d-100: 0, 156, 126;
+
+        /* warning */
+        --clr-fail-l-100: 255, 117, 113;
+        --clr-fail-base: 229, 57, 53; /* fail red */
+        --clr-fail-d-100: 194, 48, 44;
    
        /* disabled */
        --clr-disabled-base: 119, 121, 139; /* muted gray */
@@ -115,6 +115,7 @@
     --z-index-tooltip: 10;
     --z-index-backdrop: 100;
     --z-index-modal: 200;
+    --z-index-flash-msg: 500;
 
 
     /* ============ TRANSITIONS ============ */

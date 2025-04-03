@@ -1,0 +1,129 @@
+.backdrop {
+    position: fixed;
+    background-color: rgb(var(--clr-bg-dark-l-200), 0.6);
+    height: 100vh;
+    width: 100vw;
+
+    transition: var(--transition-medium);
+    z-index: var(--z-index-backdrop);
+}
+
+.share-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    display: grid;
+    grid-template-columns: auto auto auto;
+    align-content: center;
+    column-gap: var(--px-spacing-sm);
+    row-gap: var(--px-spacing-lg);
+
+    padding: var(--px-spacing-lg);
+
+    border-radius: var(--border-radius-lg);
+    background-color: rgb(var(--clr-bg-dark-l-200));
+
+    transition: var(--transition-medium);
+    z-index: var(--z-index-modal);
+
+}
+
+.share-modal.m-hidden,
+.backdrop.m-hidden {
+    z-index: -1;
+    opacity: 0;
+}
+
+.share-modal .close-btn {
+    position: absolute;
+    top: var(--px-spacing-sm);
+    right: var(--px-spacing-sm);
+
+    height: 32px;
+    width: 32px;
+
+    background-color: rgba(var(--clr-bg-dark-base), 0.2);
+    border-color: rgba(var(--clr-gray-base), 0.4);
+}
+
+.share-modal .close-btn:hover {
+    background-color: rgba(var(--clr-bg-dark-base), 0.8);
+}
+
+.share-modal .close-btn::before {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    font-family: fa;
+    content: '\f00d';
+}
+
+.share-modal p {
+    grid-column: 1/-1;
+    text-align: center;
+
+    color: rgb(var(--clr-bg-light-base));
+    font-weight: 400;
+    font-size: 1.7rem;
+}
+
+.share-modal img {
+    grid-column: 1/-1;
+
+    max-width: 400px;
+    height: auto;
+}
+
+.share-modal .social-share-btn {
+    grid-row: 3;
+}
+
+.share-modal .social-share-btn.facebook {
+    background-color: rgb(24, 119, 242);
+    border-color: rgb(24, 119, 242);
+}
+
+.share-modal .social-share-btn.facebook:hover {
+    background-color: rgb(21, 107, 218);
+}
+
+.share-modal .social-share-btn.whatsapp {
+    background-color: rgb(37, 211, 102);
+    border-color: rgb(37, 211, 102);
+}
+
+.share-modal .social-share-btn.whatsapp:hover {
+    background-color: rgb(33, 190, 92);
+
+}
+
+.share-modal .social-share-btn.copy-link {
+    background-color: rgb(128, 128, 128);
+    border-color: rgb(128, 128, 128);
+}
+
+.share-modal .social-share-btn.copy-link:hover {
+    background-color: rgb(105, 105, 105);
+}
+
+
+.share-modal .social-share-btn::before {
+    font-family: fa;
+}
+
+.share-modal .social-share-btn.facebook::before {
+    content: '\f39e';
+}
+
+.share-modal .social-share-btn.whatsapp::before {
+    content: '\f232';
+}
+
+.share-modal .social-share-btn.copy-link::before {
+    content: '\f0c5';
+}

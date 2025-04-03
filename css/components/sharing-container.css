@@ -11,3 +11,32 @@
 
     background-color: rgb(var(--clr-content-bg-dark-base));
 }
+
+.sharing-container button{
+    text-transform: uppercase;
+}
+
+.sharing-container .save-btn{
+    width: 100%;
+}
+
+.sharing-container button::before{
+    font-family: fa;
+
+}
+
+.sharing-container .save-btn::before{
+    content: '\f0ee';
+    padding-inline-end: 12px;
+}
+
+.sharing-container .download-btn::before{
+    content: '\f019';
+}
+
+.sharing-container .share-btn::before{
+    content: '\f1e0';
+}
+
+
+/* TODO add tooltips to buttons*/

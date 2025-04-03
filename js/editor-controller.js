@@ -105,10 +105,8 @@ function onAddText(ev) {
     const elementIdx = addElement('text')
 
     updateSelectedElement(elementIdx)
-    renderMeme()
-    renderToolBarPrefs()
-    setTextInputsState()
-    setDeleteButtonState()
+    onMemeChange()
+    
 }
 
 function onUpdateElement(ev) {
@@ -119,6 +117,7 @@ function onUpdateElement(ev) {
     updateElement(paramObj)
     renderMeme()
     saveUserPrefsToStorage()
+    resetFileAttributes()
 }
 
 function onDeleteElement() {
@@ -126,9 +125,7 @@ function onDeleteElement() {
 
     deleteCurrElement()
     updateSelectedElement(getLastElementIdx())
-    renderMeme()
-    setTextInputsState()
-    setDeleteButtonState()
+    onMemeChange()
 
 }
 
@@ -142,6 +139,14 @@ function addCanvasEventListeners() {
 
 }
 
+// === general functions to apply on change ===
+function onMemeChange(){
+    resetFileAttributes()
+    renderMeme()
+    renderToolBarPrefs()
+    setTextInputsState()
+    setDeleteButtonState()
+}
 
 // =======
 // ======== rendering template and elements ========
