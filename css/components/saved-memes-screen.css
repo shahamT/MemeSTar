@@ -35,6 +35,10 @@ grid-template-rows: auto 1fr;
 .saved-memes-gallery .meme-card {
     position: relative;
     overflow: hidden;
+
+    justify-self: center;
+
+    max-width: 330px;
     aspect-ratio: 1/1;
 
     border: 1px solid rgb(var(--clr-accent-base));

@@ -5,6 +5,7 @@ var gFilterParams = {
     search: null,
 }
 
+var gSearchTimeout = null
 
 // =======
 // ======== init ========
@@ -16,6 +17,8 @@ function initGalleryScreen() {
 
     renderGallery()
     addGalleryEventListeners()
+
+    renderSearchKeywords()
 
     //present only current screen
     hideEditorScreen()
@@ -44,13 +47,16 @@ function addGalleryEventListeners() {
 
     })
 
-    const elSearchInput = document.querySelector('gallery-search-input')
-    // elSearchInput.addEventListener('input', (ev) => onSearchInput(ev))
+    const elSearchInput = document.querySelector('.gallery-search-input')
+    elSearchInput.addEventListener('input', (ev) => onSearchInput(ev.target.value))
+
+    const elClearSearchBtn = document.querySelector('.clear-search-btn')
+    elClearSearchBtn.addEventListener('click', () => onClearSearch())
 
 }
 
 function onTempClick(ev) {
-    
+
     const img = ev.target.querySelector('img')
     const tempId = img.dataset.id
 
@@ -63,8 +69,42 @@ function onTempClick(ev) {
     initEditorScreen()
 }
 
-function onSearchInput(){
+function onSearchInput(value) {
+    gFilterParams.search = value ? value : null
+    renderGallery()
 
+    if (value) {
+        displayClearSearchBtn('show')
+    } else displayClearSearchBtn('hide')
+
+    clearTimeout(gSearchTimeout)
+    gSearchTimeout = null
+
+    gSearchTimeout = setTimeout(() => {
+        if (value.length > 2) {
+            countKeyword(value)
+        }
+    }, 2000);
+
+}
+
+function onClearSearch() {
+    const elSearchInput = document.querySelector('.gallery-search-input')
+    elSearchInput.value = ''
+    onSearchInput(null)
+    displayClearSearchBtn('hide')
+}
+
+function displayClearSearchBtn(action) {
+    const elClearSearchBtn = document.querySelector('.clear-search-btn')
+    switch (action) {
+        case 'hide':
+            elClearSearchBtn.classList.add('hidden')
+            break
+        case 'show':
+            elClearSearchBtn.classList.remove('hidden')
+            break
+    }
 }
 
 
@@ -85,4 +125,23 @@ function renderGallery() {
     })
 
     elGallery.innerHTML = strHtml
+}
+
+function renderSearchKeywords() {
+    const keywords = getKeywordsForDisplay(8)
+
+    const elContainer = document.querySelector('.search-keys-cloud')
+
+    let strHtml = ''
+    keywords.forEach(keyword => {
+        strHtml += `<p class="keyword" data-word="${keyword.keyword}">${keyword.keyword}</p>`
+    })
+
+    elContainer.innerHTML = strHtml
+
+    const elKeywords = document.querySelectorAll('.search-keys-cloud .keyword')
+    elKeywords.forEach(keyword => {
+        
+    })
+
 }

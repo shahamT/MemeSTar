@@ -25,19 +25,88 @@ const gTemps = [
     { id: 22, type: 'general', url: 'img/meme-temps/meme (22).jpg', keywords: ['classic', 'funny', 'caption', 'viral', 'meme'] },
     { id: 23, type: 'general', url: 'img/meme-temps/meme (23).jpg', keywords: ['pop culture', 'celebrity', 'facepalm', 'retro', 'humor'] },
     { id: 24, type: 'general', url: 'img/meme-temps/meme (24).jpg', keywords: ['trendy', 'office', 'reaction', 'meme', 'caption'] },
-    { id: 25, type: 'general', url: 'img/meme-temps/meme (25).jpg', keywords: ['viral', 'awkward', 'classic', 'screenshot', 'funny'] }
+    { id: 25, type: 'general', url: 'img/meme-temps/meme (25).jpg', keywords: ['viral', 'awkward', 'classic', 'screenshot', 'funny', '1234'] }
 ]
+
+const DB_KEYWORDS_SEARCHES_KEY = 'KEYWORDS_SEARCHES'
+const gKeywordsSearches = getKeywordsCountFromStorage()
 
 function getTempById(id) {
     return gTemps.find(temp => temp.id === id)
 }
 
-function getTempsForDisplay(params){
-    return gTemps.filter(temp => {
-        let isValid = false
-        isValid = temp.type === params.type ? true : false
-        // TODO add search filter
+function getTempsForDisplay(params) {
+    let tempaForDisplay = gTemps
 
+    tempaForDisplay = tempaForDisplay.filter(temp => {
+        // type match
+        const isTypeValid = temp.type === params.type ? true : false
+
+        // search match
+        let isSearchValid = true
+        if (params.search) {
+            const searchMatch = temp.keywords.findIndex((key) => key.includes(params.search))
+            isSearchValid = searchMatch === -1 ? false : true
+        }
+
+        const isValid = (isTypeValid && isSearchValid)
         return isValid
     })
+
+    return tempaForDisplay
+}
+
+
+// ====== keywords cloud managment =======
+
+function getKeywordsForDisplay(num) {
+    // arrange keywords in array and sort
+    let keywords = []
+    for (let keyword in gKeywordsSearches) {
+        keywords.push({ keyword, amount: gKeywordsSearches[keyword] })
+    }
+
+    keywords.sort((a,b) => b.amount - a.amount)
+
+    keywords = keywords.slice(0,num)
+
+    keywords.forEach(keyword =>{
+        keyword.order = getRndIntIncludeMax(0, 100)
+    })
+
+    keywords.sort((a,b) => a.order - b.order)
+
+    return keywords
+}
+
+function countKeyword(keyword) {
+    if (!gKeywordsSearches[keyword]) {
+        gKeywordsSearches[keyword] = 0
+    }
+    gKeywordsSearches[keyword] += 1
+    saveKeywordsCountToStorage()
+    console.log("gKeywordsSearches: ", gKeywordsSearches)
+}
+
+function saveKeywordsCountToStorage() {
+    saveToLocalStorage(DB_KEYWORDS_SEARCHES_KEY, gKeywordsSearches)
+}
+
+function getKeywordsCountFromStorage() {
+    let keywordsObj = getFromLocalStorage(DB_KEYWORDS_SEARCHES_KEY)
+    if (!keywordsObj) keywordsObj = _createDefaultKeywordsSearches()
+    return keywordsObj
+}
+
+function _createDefaultKeywordsSearches() {
+    return {
+        viral: 6,
+        funny: 8,
+        trendy: 5,
+        classic: 6,
+        celebrity: 10,
+        facepalm: 15,
+        retro: 4,
+        awkward: 3
+    }
 }
