@@ -92,7 +92,6 @@ function onClearSearch() {
     const elSearchInput = document.querySelector('.gallery-search-input')
     elSearchInput.value = ''
     onSearchInput(null)
-    displayClearSearchBtn('hide')
 }
 
 function displayClearSearchBtn(action) {
@@ -105,6 +104,12 @@ function displayClearSearchBtn(action) {
             elClearSearchBtn.classList.remove('hidden')
             break
     }
+}
+
+function onKeywordClick(elKeyword) {
+    const elSearchInput = document.querySelector('.gallery-search-input')
+    elSearchInput.value = elKeyword.dataset.word
+    onSearchInput(elKeyword.dataset.word)
 }
 
 
@@ -128,20 +133,32 @@ function renderGallery() {
 }
 
 function renderSearchKeywords() {
-    const keywords = getKeywordsForDisplay(8)
+    const keywords = getKeywordsForDisplay(6)
+
+    //find highest amount of clicks
+    const highest = keywords.reduce((max, keyword) => keyword.amount > max.amount ? keyword : max).amount
 
     const elContainer = document.querySelector('.search-keys-cloud')
 
     let strHtml = ''
     keywords.forEach(keyword => {
-        strHtml += `<p class="keyword" data-word="${keyword.keyword}">${keyword.keyword}</p>`
+        // calculate proporional size
+        const fSize = keyword.amount / highest
+
+        strHtml += `<p class="keyword" data-word="${keyword.keyword}" data-fsize="${fSize}">${keyword.keyword}</p>`
     })
 
     elContainer.innerHTML = strHtml
 
     const elKeywords = document.querySelectorAll('.search-keys-cloud .keyword')
-    elKeywords.forEach(keyword => {
-        
+    elKeywords.forEach(elKeyword => {
+        elKeyword.addEventListener('click', (ev) => onKeywordClick(ev.target))
+
+        // apply proportional size
+        const fSize = +elKeyword.dataset.fsize*1.5 + 1
+        elKeyword.style.fontSize = `${fSize}rem`
     })
+
+
 
 }
