@@ -26,8 +26,29 @@
     padding-inline: var(--px-spacing-sm);
     margin-inline-end: 8px;
     border-radius: 6px;
+    opacity: 1;
+    transition: var(--transition-ex-fast);
 }
 
+.search-container .clear-search-btn.b-hidden{
+    opacity: 0;
+} 
+
 .search-container .search-keys-cloud {
-    gap: var(--px-spacing-mdl);
+    column-gap: var(--px-spacing-md);
+    row-gap: var(--px-spacing-sm);
+    flex-wrap: wrap;
+    font-size: 12px;
+}
+
+.search-container .search-keys-cloud p{
+    padding-inline: var(--px-spacing-sm);
+    padding-block: calc (var(--px-spacing-sm) / 2);
+    
+    cursor: pointer;
+    transition: var(--transition-fast);
+    background-color: rgba(var(--clr-light-base),0.1);
+}
+.search-container .search-keys-cloud :hover{
+    color: rgb(var(--clr-accent-base));
 }

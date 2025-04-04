@@ -91,17 +91,17 @@ function onSearchInput(value) {
 function onClearSearch() {
     const elSearchInput = document.querySelector('.gallery-search-input')
     elSearchInput.value = ''
-    onSearchInput(null)
+    onSearchInput('')
 }
 
 function displayClearSearchBtn(action) {
     const elClearSearchBtn = document.querySelector('.clear-search-btn')
     switch (action) {
         case 'hide':
-            elClearSearchBtn.classList.add('hidden')
+            elClearSearchBtn.classList.add('b-hidden')
             break
         case 'show':
-            elClearSearchBtn.classList.remove('hidden')
+            elClearSearchBtn.classList.remove('b-hidden')
             break
     }
 }
@@ -156,7 +156,7 @@ function renderSearchKeywords() {
 
         // apply proportional size
         const fSize = +elKeyword.dataset.fsize*1.5 + 1
-        elKeyword.style.fontSize = `${fSize}rem`
+        elKeyword.style.fontSize = `${fSize}em`
     })
 
 

@@ -6,11 +6,9 @@ var gCtx
 
 var gLastPos
 var gBoundBox = {
-    box1: null,
-    box2: null,
-    box3: null,
-    box4: null,
-    delBox: null
+    boxPlus: null,
+    boxMinus: null,
+    boxDel: null
 }
 
 // ======== init ========
@@ -121,7 +119,7 @@ function onAddText(ev) {
 
 }
 
-function onTextInputClick(elInput){
+function onTextInputClick(elInput) {
     if (elInput.value === 'Your Text') elInput.value = ''
 }
 
@@ -302,7 +300,7 @@ function renderSticker(element) {
 function renderBoundBox() {
     const element = getSelectedElement()
     if (element === null) return
-    if(gIsExporting) return
+    if (gIsExporting) return
 
     if (element.type === 'text' && element.txt === '') return
 
@@ -315,43 +313,82 @@ function renderBoundBox() {
     gCtx.strokeRect(x1 - 10, y1 - 15, x2 - x1 + 20, y2 - y1 + 20);
 
     //draw sizing squares
-    gCtx.fillStyle = '#FFD500'
+    gCtx.fillStyle = '#C8C8C8'
 
-    gCtx.fillRect(x1 - 15, y1 - 20, 10, 10)
-    gBoundBox.box1 = { x1: x1 - 15, x2: x1 - 15 + 10, y1: y1 - 20, y2: y1 - 20 + 10 }
+    // minus
+    gCtx.fillRect(x1 - 31, y1 - 5, 20, 20)
+    gBoundBox.boxPlus = { x1: x1 - 31, x2: x1 - 31 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save minus box bounding size
 
-    gCtx.fillRect(x1 - 15, y2, 10, 10)
-    gBoundBox.box2 = { x1: x1 - 15, x2: x1 - 15 + 10, y1: y2, y2: y2 + 10 }
+    gCtx.beginPath()
+    gCtx.moveTo(x1 - 27, y1 + 5)
+    gCtx.lineTo(x1 - 15, y1 + 5)
+    gCtx.strokeStyle = '#000000'
+    gCtx.lineWidth = 2
+    gCtx.stroke()
 
-    gCtx.fillRect(x2 + 5, y1 - 20, 10, 10)
-    gBoundBox.box3 = { x1: x2 + 5, x2: x2 + 5 + 10, y1: y1 - 20, y2: y1 - 20 + 10 }
+    // plus
 
-    gCtx.fillRect(x2 + 5, y2, 10, 10)
-    gBoundBox.box4 = { x1: x2 + 5, x2: x2 + 5 + 10, y1: y2, y2: y2 + 10 }
+    gCtx.fillRect(x2 + 11, y1 - 5, 20, 20)
+    gBoundBox.boxMinus = { x1: x2 + 11, x2: x2 + 11 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save plus box bounding size
+
+    gCtx.beginPath()
+    gCtx.moveTo(x2 + 27, y1 + 5)
+    gCtx.lineTo(x2 + 15, y1 + 5)
+    gCtx.strokeStyle = '#000000'
+    gCtx.lineWidth = 2
+    gCtx.stroke()
+
+    gCtx.beginPath()
+    gCtx.moveTo(x2 + 21, y1 - 1)
+    gCtx.lineTo(x2 + 21, y1 + 11)
+    gCtx.strokeStyle = '#000000'
+    gCtx.lineWidth = 2
+    gCtx.stroke()
+
+    //corners squares - canceled feature
+    // gCtx.fillRect(x1 - 15, y1 - 20, 10, 10)
+    // gBoundBox.box1 = { x1: x1 - 15, x2: x1 - 15 + 10, y1: y1 - 20, y2: y1 - 20 + 10 }
+
+    // gCtx.fillRect(x1 - 15, y2, 10, 10)
+    // gBoundBox.box2 = { x1: x1 - 15, x2: x1 - 15 + 10, y1: y2, y2: y2 + 10 }
+
+    // gCtx.fillRect(x2 + 5, y1 - 20, 10, 10)
+    // gBoundBox.box3 = { x1: x2 + 5, x2: x2 + 5 + 10, y1: y1 - 20, y2: y1 - 20 + 10 }
+
+    // gCtx.fillRect(x2 + 5, y2, 10, 10)
+    // gBoundBox.box4 = { x1: x2 + 5, x2: x2 + 5 + 10, y1: y2, y2: y2 + 10 }
 
     //draw delete button
+
     // circle
     gCtx.beginPath();
-    gCtx.arc(x2 + 20, y1 + element.size.h / 2 - 5, 10, 0, Math.PI * 2, false)
+    gCtx.arc(element.pos.x + 5, element.pos.y + element.size.h, 10, 0, Math.PI * 2, false)
     gCtx.fillStyle = '#E53935'
     gCtx.fill()
+    
+    //save delete box bounding size
+    const startCorX =  element.pos.x - 5
+    const startCorY =  element.pos.x + 15
+    const endCorX = element.pos.x + 15
+    const endCorY = element.pos.x - 5
+    gBoundBox.boxDel = { x1: startCorX, x2: endCorX, y1: startCorY, y2:endCorY } 
 
-    // lines
+    // X line 1
     gCtx.beginPath()
-    gCtx.moveTo(x2 + 20 - 5, y1 + element.size.h / 2 - 5 - 5)
-    gCtx.lineTo(x2 + 20 + 5, y1 + element.size.h / 2 - 5 + 5)
+    gCtx.moveTo(element.pos.x + 5 - 5, element.pos.y + element.size.h - 5)
+    gCtx.lineTo(element.pos.x + 5 + 5, element.pos.y + element.size.h + 5)
     gCtx.strokeStyle = '#FFFFFF'
     gCtx.lineWidth = 2
     gCtx.stroke()
 
-    // lines
+    // X line 2
     gCtx.beginPath()
-    gCtx.moveTo(x2 + 20 + 5, y1 + element.size.h / 2 - 5 - 5)
-    gCtx.lineTo(x2 + 20 - 5, y1 + element.size.h / 2 - 5 + 5)
+    gCtx.moveTo(element.pos.x + 5 - 5, element.pos.y + element.size.h + 5)
+    gCtx.lineTo(element.pos.x + 5 + 5, element.pos.y + element.size.h - 5)
     gCtx.strokeStyle = '#FFFFFF'
     gCtx.lineWidth = 2
     gCtx.stroke()
-    //TODO save delete button bound box
+
 }
 
 
