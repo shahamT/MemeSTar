@@ -159,17 +159,39 @@ function addCanvasEventListeners() {
 }
 
 function onDown(ev) {
+    // checking if element was clicked
     const elementIdx = getClickedElement(ev)
-    if (elementIdx === -1) return
-    updateSelectedElement(elementIdx)
+    if (elementIdx !== -1) {
+        updateSelectedElement(elementIdx)
 
-    const element = getSelectedElement()
-    element.isDragged = true
-    const pos = getEvPos(ev)
-    gLastPos = pos
+        const element = getSelectedElement()
+        element.isDragged = true
+        const pos = getEvPos(ev)
+        gLastPos = pos
+    } else {
+        // checking if delete box was clicked
+        const actionBox = getClickedActionBox(ev)
+        const element = getSelectedElement()
+
+        switch (actionBox) {
+            case 'boxPlus':
+                element.fontSize += 2
+                break
+            case 'boxMinus':
+                element.fontSize -= 2
+                break
+            case 'boxDel':
+                onDeleteElement()
+                break
+        }
+
+    }
+
+    saveUserPrefsToStorage()
 
     onMemeChange()
 }
+
 
 function onMove(ev) {
     const element = getSelectedElement()
@@ -317,7 +339,7 @@ function renderBoundBox() {
 
     // minus
     gCtx.fillRect(x1 - 31, y1 - 5, 20, 20)
-    gBoundBox.boxPlus = { x1: x1 - 31, x2: x1 - 31 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save minus box bounding size
+    gBoundBox.boxMinus = { x1: x1 - 31, x2: x1 - 31 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save minus box bounding size
 
     gCtx.beginPath()
     gCtx.moveTo(x1 - 27, y1 + 5)
@@ -329,7 +351,7 @@ function renderBoundBox() {
     // plus
 
     gCtx.fillRect(x2 + 11, y1 - 5, 20, 20)
-    gBoundBox.boxMinus = { x1: x2 + 11, x2: x2 + 11 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save plus box bounding size
+    gBoundBox.boxPlus = { x1: x2 + 11, x2: x2 + 11 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save plus box bounding size
 
     gCtx.beginPath()
     gCtx.moveTo(x2 + 27, y1 + 5)
@@ -365,13 +387,13 @@ function renderBoundBox() {
     gCtx.arc(element.pos.x + 5, element.pos.y + element.size.h, 10, 0, Math.PI * 2, false)
     gCtx.fillStyle = '#E53935'
     gCtx.fill()
-    
+
     //save delete box bounding size
-    const startCorX =  element.pos.x - 5
-    const startCorY =  element.pos.x + 15
+    const startCorX = element.pos.x - 5
+    const startCorY = element.pos.y + element.size.h - 5
     const endCorX = element.pos.x + 15
-    const endCorY = element.pos.x - 5
-    gBoundBox.boxDel = { x1: startCorX, x2: endCorX, y1: startCorY, y2:endCorY } 
+    const endCorY = element.pos.y + element.size.h + 15
+    gBoundBox.boxDel = { x1: startCorX, x2: endCorX, y1: startCorY, y2: endCorY }
 
     // X line 1
     gCtx.beginPath()
@@ -500,6 +522,24 @@ function getClickedElement(ev) {
     return clickedElement
 }
 
+function getClickedActionBox(ev) {
+    const pos = getEvPos(ev)
+    console.log("pos: ", pos)
+    let clickedActionBox
+
+    for (let box in gBoundBox) {
+        let isClicked = false
+
+        const { x1, x2, y1, y2 } = gBoundBox[box]
+        console.log(gBoundBox)
+
+        if (pos.x >= x1 && pos.x <= x2 && pos.y >= y1 && pos.y <= y2) {
+            isClicked = true
+        }
+        if (isClicked === true) clickedActionBox = box
+    }
+    return clickedActionBox
+}
 
 function getEvPos(ev) {
     const TOUCH_EVS = ['touchstart', 'touchmove', 'touchend']
