@@ -2,32 +2,33 @@
 
 @media (width < 700px) {
 
+    /* layout */
+
     .main-content {
         padding-block: 0px;
     }
 
     .main-vertical-layout {
-        grid-template-columns: 8px 1fr 8px;
+        grid-template-columns: 1fr ;
         column-gap: 0px;
         row-gap: 8px;
     }
 
-    .editor-horizontal-layout{
-        grid-template-rows: auto minmax(400px, auto) auto;
-        
+    .editor-horizontal-layout {
+        grid-template-rows: auto 1fr auto;
     }
 
     .start-from-scratch-container {
-    display: none;
+        display: none;
     }
 
     .action-btns {
-        grid-column: 2;
+        grid-column: 1;
         grid-row: 1;
     }
 
     .meme-container {
-        grid-column: 2;
+        grid-column: 1;
         grid-row: 2;
     }
 
@@ -36,25 +37,83 @@
     }
 
     .sharing-container {
-        grid-column: 2;
+        grid-column: 1;
         grid-row: 3;
     }
 
     .meme-card-btns {
         opacity: 1;
     }
+
+    /* header */
+    .main-header{
+        height: 50px;
+        padding-inline: var(--px-spacing-md);
+
+    }
+
+    .logo {
+        height: 30px;
+    }
+
+    /* footer */
+
+    .main-footer {
+        height: 30px;
+
+    }
+
+
+    .action-btns {
+        justify-content: stretch;
+        padding-inline: var(--px-spacing-md);
+    
+    }
+
+    /* .flash-msg & modals */
+    .flash-msg {
+      min-width: 85vw !important;
+      max-width: 85vw !important;  
+    }
+
+    .backdrop {
+        background-color: rgba(var(--clr-bg-dark-l-100), 0.9) ;
+    }
+    .share-modal {
+        min-width: 80vw;
+        padding: calc(var(--px-spacing-lg) * 1.5);
+    }
+  
+    .share-modal .close-btn {
+        top: var(--px-spacing-sm);
+        right: var(--px-spacing-sm);
+    
+        height: 32px;
+        width: 32px;
+    }
+
+    .meme-card-btns {
+        position: absolute;
+        z-index: 2;
+        bottom: 0;
+        transform: translate(0, 0px);
+    
+        opacity: 1;
+        transition: var(--transition-fast);
+    }
+
+
 }
 
 
+    /* MEDIUM */
 
-/* MEDIUM */
+    @media (width < 900px) {}
 
-@media (width < 900px) {}
+    /* Large */
 
-/* Large */
+    @media (width < 1200px) {}
 
-@media (width < 1200px) {}
+    /* X-Large */
 
-/* X-Large */
-
-@media (width >=1200px) {}
+    @media (width >=1200px) {}

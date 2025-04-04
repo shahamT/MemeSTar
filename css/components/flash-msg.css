@@ -2,7 +2,7 @@
     position: absolute;
     bottom: 30px;
     left: 50%;
-    transform: translate(-50%, 5vh);
+    transform: translate(-50%, 5dvh);
 
     min-width: 160px;
     max-width: 70vw;
@@ -33,5 +33,5 @@
 .flash-msg.apperance {
     opacity: 1;
     z-index: var(--z-index-flash-msg);
-    transform: translate(-50%, 0vh);
+    transform: translate(-50%, 0dvh);
 }

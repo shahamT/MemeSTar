@@ -231,7 +231,7 @@ function onMemeBtnClick(elBtn, action) {
             onDownloadSavedMeme()
             break
         case 'share':
-            onExport('share')
+            onExport('share',elBtn)
             break
     }
 
@@ -265,7 +265,8 @@ function onOpenGModal(memeIdx) {
     backdrop.classList.remove('m-hidden')
     modal.classList.remove('m-hidden')
 
-    backdrop.onclick = onCloseShareModal
+    backdrop.onclick = onCloseGModal
+
     modal.querySelector('.cancel-btn').onclick = onCloseGModal
     modal.querySelector('.confirm-btn').addEventListener('click', () => {
         console.log("memeIdx: ", memeIdx)
