@@ -311,8 +311,8 @@ function renderText(element) {
     element.boundBox.y2 = offsetY + (textH / 2)
 
     //draw the text
-    gCtx.fillText(text, offsetX, offsetY)
     gCtx.strokeText(text, offsetX, offsetY)
+    gCtx.fillText(text, offsetX, offsetY)
 
 }
 

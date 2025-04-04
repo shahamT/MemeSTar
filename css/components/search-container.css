@@ -17,6 +17,8 @@
 
 .search-container .gallery-search-input {
     width: 100%;
+    height: 48px;
+    font-size: 1.1em;
 }
 
 .search-container .clear-search-btn {

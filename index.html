@@ -17,21 +17,39 @@
 </head>
 
 <body class="main-vertical-layout main-horizontal-layout">
+
     <!--Header -->
     <header class="main-header full flex align-center space-between">
+
         <img src="img/brand/MemeSTar-logo.png" alt="" class="main-logo logo">
-        <nav class="main-nav">
-            <ul class="clean-list flex">
+
+        <!-- mobile nav icon -->
+        <a class="burger-nav-btn flex align-center justify-center">
+
+                <svg class="burger-nav-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                    <path
+                        d="M448 416C448 433.7 433.7 448 416 448H32C14.3 448 0 433.7 0 416C0 398.3 14.3 384 32 384H416C433.7 384 448 398.3 448 416Z" />
+                    <path
+                        d="M32 224C14.3 224 0 238.3 0 256C0 273.7 14.3 288 32 288H416C433.7 288 448 273.7 448 256C448 238.3 433.7 224 416 224H32Z" />
+                    <path
+                        d="M32 64C14.3 64 0 78.3 0 96C0 113.7 14.3 128 32 128H416C433.7 128 448 113.7 448 96C448 78.3 433.7 64 416 64H32Z" />
+                </svg>
+            </a>
+
+        <nav class="main-nav flex">
+            <ul class="clean-list flex align-center justify-center">
                 <li><a class="templates-gallery-nav-btn">Templates</a></li>
                 <li><a class="memes-gallery-nav-btn">My Memes</a></li>
                 <li><a class="about-nav-btn">About</a></li>
             </ul>
         </nav>
+
     </header>
 
     <!--main -->
     <main class="main-content full main-vertical-layout ">
 
+        <!-- meme templates gallery screen -->
         <section
             class="templates-gallery-screen full main-vertical-layout gallery-screen-horizontal-layout grid-align-center hidden">
 
@@ -72,15 +90,20 @@
 
         </section>
 
-        <section class="hidden editor-screen full main-vertical-layout editor-horizontal-layout grid-align-center hidden">
+        <!-- meme editor screen -->
+        <section
+            class="hidden editor-screen full main-vertical-layout editor-horizontal-layout grid-align-center hidden">
+
             <div class="start-from-scratch-container">
                 <button class="start-from-scratch-btn">Start With Another Template</button>
             </div>
+
             <div class="meme-container flex align-center justify-center">
                 <canvas class="meme-canvas" width="1" height="1">
 
                 </canvas>
             </div>
+
             <nav class="action-btns flex">
                 <!-- <ul class="clean-list flex"> -->
                 <!-- <li><a class="tab icon-tab delete flex align-center justify-center"></a></li> -->
@@ -104,8 +127,8 @@
 
                         <div class="input-group">
                             <select name="font-picker" data-param="fontFamily" class="param">
-                                <option value="Impact">Impact</option>
                                 <option value="Arial Black">Arial Black</option>
+                                <option value="Impact">Impact</option>
                                 <option value="Franklin Gothic Heavy">Franklin Gothic Heavy</option>
                                 <option value="Tahoma">Tahoma Bold</option>
                                 <option value="Verdana">Verdana Bold</option>
@@ -141,13 +164,16 @@
                 </section>
 
             </div>
+
             <section class="sharing-container flex">
                 <button class="save-btn loader-margin-end">Save</button>
                 <button class="download-btn"></button>
                 <button class="share-btn"></button>
             </section>
+
         </section>
 
+        <!-- saved memed gallery screen -->
         <section class="saved-memes-screen full main-vertical-layout grid-align-center hidden">
 
             <div class="saved-memes-title-container flex align-center justify-center">
@@ -155,12 +181,10 @@
             </div>
 
             <div class="saved-memes-gallery-container">
-
                 <div class="saved-memes-gallery">
-
                 </div>
-
             </div>
+
         </section>
 
     </main>

@@ -98,7 +98,7 @@ function _createDefaultUserPrefs() {
         // text params
         txt: '',
         fontSize: 32,
-        fontFamily: 'Arial',
+        fontFamily: 'Arial Black',
         lineWidth: 0,
         strokeStyle: '#000000',
         fillStyle: '#FFFFFF',
