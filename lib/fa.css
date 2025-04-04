@@ -1,16 +1,15 @@
 @font-face {
     font-family: fa;
     font-weight: regular;
-    src: url('/fonts/fontAwesome/fa-regular-400.ttf') format('truetype');
+    src: url('../fonts/fontAwesome/fa-regular-400.ttf') format('truetype');
 }
 @font-face {
     font-family: fa;
     font-weight: brands;
-    src: url('/fonts/fontAwesome/fa-brands-400.ttf') format('truetype');
+    src: url('../fonts/fontAwesome/fa-brands-400.ttf') format('truetype');
 }
 @font-face {
     font-family: fa;
     font-weight: solid;
-    src: url('/fonts/fontAwesome/fa-solid-900.ttf') format('truetype');
+    src: url('../fonts/fontAwesome/fa-solid-900.ttf') format('truetype');
 }
-
