@@ -8,6 +8,12 @@ row-gap: 24px;
 
 .main-horizontal-layout{
     grid-template-rows: auto 1fr auto;
+    
+}
+
+.editor-horizontal-layout{
+    grid-template-rows: auto minmax(auto,50vh) auto;
+    
 }
 
 .full{

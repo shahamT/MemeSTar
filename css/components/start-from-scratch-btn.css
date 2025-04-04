@@ -1,6 +1,7 @@
 .start-from-scratch-container {
     grid-column: 2;
-
+    align-self: end;
+    
     padding-block: var(--px-spacing-md);
     padding-inline: var(--px-spacing-mdl);
 

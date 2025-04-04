@@ -3,10 +3,12 @@
     grid-row: 2/3;
     align-self: stretch;
 
-    min-width: 0;
-
+    overflow: hidden;
+min-height: 0;
     padding: var(--px-spacing-md);
 
     background-color: rgb(var(--clr-content-bg-dark-base));
 
 }
+
+.meme-canvas {}

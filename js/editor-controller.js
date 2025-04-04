@@ -3,6 +3,7 @@
 
 var gElCanvas
 var gCtx
+var gSF = 3 //global canvas scale factor
 
 var gLastPos
 var gBoundBox = {
@@ -486,7 +487,6 @@ function onResize() {
 
 function resizeCanvas() {
     const elContainer = document.querySelector('.meme-container')
-    gElCanvas.width = elContainer.offsetWidth - 32
 
     const meme = getCurrMeme()
     const imgObj = getTempById(meme.selectedTempId)
@@ -497,8 +497,18 @@ function resizeCanvas() {
         const width = img.naturalWidth
         const height = img.naturalHeight
         const ratio = width / height
+        if (width >= height) {
+            gElCanvas.style.width = '100%'
+            gElCanvas.style.height = 'auto'
+            gElCanvas.width = (elContainer.offsetWidth - 32) 
+            gElCanvas.height = gElCanvas.width / (width / height)
+        } else {
+            gElCanvas.style.width = 'auto'
+            gElCanvas.style.height = '100%'
+            gElCanvas.height = (elContainer.offsetHeight - 32) 
+            gElCanvas.width = gElCanvas.height / (height / width)
+        }
 
-        gElCanvas.height = gElCanvas.width / ratio
         renderMeme()
     }
 }

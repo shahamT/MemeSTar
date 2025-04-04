@@ -1,6 +1,7 @@
 .action-btns {
     grid-column: 3;
     grid-row: 1;
+    align-self: end;
 
     justify-content: center;
     gap: var(--px-spacing-sm);

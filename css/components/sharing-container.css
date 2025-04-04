@@ -1,7 +1,7 @@
 .sharing-container{
     grid-column: 3;
     grid-row: 3;
-    align-self: end;
+    align-self: start;
 
     gap: var(--px-spacing-sm);
     justify-content: center;
