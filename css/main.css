@@ -25,6 +25,8 @@
 @import url(components/buttons.css);
 @import url(components/tabs.css);
 @import url(components/flash-msg.css);
+@import url(components/g-modal.css);
+@import url(components/inline-loading.css);
 
 /* editor */
 @import url(components/editor-screen.css);
@@ -42,7 +44,7 @@
 @import url(components/templates-gallery-container.css);
 
 /* saved-memes-gallery */
-@import url(components/saved-memes-gallery-container.css);
+@import url(components/saved-memes-screen.css);
 
 
 /* share modal */

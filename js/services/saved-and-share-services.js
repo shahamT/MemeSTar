@@ -12,7 +12,7 @@ function saveMeme() {
     saveMemesToStorage()
 }
 
-function getMemesForDisplay(){
+function getMemesForDisplay() {
     return gSavedMemes
 }
 
@@ -21,6 +21,7 @@ function getMemesForDisplay(){
 
 
 function deleteMeme(idx) {
+    console.log("idx: ", idx)
     gSavedMemes.splice(idx, 1)
     saveMemesToStorage()
 }
@@ -32,7 +33,7 @@ function saveMemesToStorage() {
 
 function getMemesFromStorage() {
     gSavedMemes = getFromLocalStorage(DB_SAVED_MEMES_KEY)
-    if(gSavedMemes === null) gSavedMemes=[]
+    if (gSavedMemes === null) gSavedMemes = []
 
 }
 
@@ -41,11 +42,13 @@ function getMemesFromStorage() {
 // =========================== Save and Share ==========================
 
 
-function onUploadImg(memeDataURL, func) {
+function onUploadImg(memeDataURL, func, elBtn) {
     function onSuccess(uploadedImgUrl) {
         const meme = getCurrMeme()
         meme.memeLink = uploadedImgUrl
         func()
+        //remove inline loading effect
+        elBtn.classList.remove('inline-loader')
     }
     uploadImg(memeDataURL, onSuccess)
 }

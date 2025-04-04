@@ -8,11 +8,11 @@ function addSaveAndShareEventListeners() {
 
     // save btn
     const elSaveBtn = document.querySelector('.save-btn')
-    elSaveBtn.addEventListener('click', () => onExport('save'))
+    elSaveBtn.addEventListener('click', (ev) => onExport('save', ev.target))
 
     // share btn
     const elShareBtn = document.querySelector('.share-btn')
-    elShareBtn.addEventListener('click', () => onExport('share'))
+    elShareBtn.addEventListener('click', (ev) => onExport('share', ev.target))
 
     // facebook share
     const elFbShareBtn = document.querySelector('.facebook.social-share-btn')
@@ -29,7 +29,10 @@ function addSaveAndShareEventListeners() {
 
 }
 
-function onExport(action) {
+function onExport(action, elBtn) {
+    //inline loading effect
+    elBtn.classList.add('inline-loader')
+
     const meme = getCurrMeme()
     const selectedElIdx = meme.selectedElementIdx
 
@@ -52,14 +55,19 @@ function onExport(action) {
         //timeout to allow the canvas to render without bouding box before exporting
         setTimeout(() => {
             const memeDataURL = currMemeToDataURL()
-            onUploadImg(memeDataURL, func)
+            onUploadImg(memeDataURL, func, elBtn)
 
             //place back bound box before exporting
             gIsExporting = false
             renderMeme()
+
         }, 100)
 
-    } else func()
+    } else {
+        func()
+        //remove inline loading effect
+        elBtn.classList.remove('inline-loader')
+    }
 
 
 
@@ -171,9 +179,10 @@ function renderSavedMemesGallery() {
     memes.forEach((meme, idx) => {
         strHtml += `<div class="meme-card"><img data-idx="${idx}" src="${meme.memeLink}">
                     <div class="meme-card-btns">
-                    <button class="edit-btn" data-meme-idx="${idx}"></button>
-                    <button class="download-btn" data-meme-idx="${idx}"></button>
-                    <button class="share-btn" data-meme-idx="${idx}"></button>
+                    <button class="delete-btn red-btn" data-meme-idx="${idx}"></button>
+                    <button class="edit-btn accent-btn" data-meme-idx="${idx}"></button>
+                    <button class="download-btn accent-btn" data-meme-idx="${idx}"></button>
+                    <button class="share-btn accent-btn" data-meme-idx="${idx}"></button>
                     </div>
                     </div>
                     `
@@ -183,5 +192,106 @@ function renderSavedMemesGallery() {
 }
 
 function addMemesGalleryEventListeners() {
+    //edit btns
+    const elEditBtns = document.querySelectorAll('.meme-card .edit-btn')
+    elEditBtns.forEach(elBtn => {
+        elBtn.addEventListener('click', (ev) => onMemeBtnClick(ev.target, 'edit'))
+    })
 
+    //download btns
+    const elSaveBtns = document.querySelectorAll('.meme-card .download-btn')
+    elSaveBtns.forEach(elBtn => {
+        elBtn.addEventListener('click', (ev) => onMemeBtnClick(ev.target, 'download'))
+    })
+
+    //share btns
+    const elShareBtns = document.querySelectorAll('.meme-card .share-btn')
+    elShareBtns.forEach(elBtn => {
+        elBtn.addEventListener('click', (ev) => onMemeBtnClick(ev.target, 'share'))
+    })
+
+    //delete btns
+    const elDeleteBtns = document.querySelectorAll('.meme-card .delete-btn')
+    elDeleteBtns.forEach(elBtn => {
+        elBtn.addEventListener('click', (ev) => onDeleteSavedMeme(ev.target))
+    })
+}
+
+
+
+function onMemeBtnClick(elBtn, action) {
+    const memeIdx = elBtn.dataset.memeIdx
+    const clone = structuredClone(gSavedMemes[memeIdx])
+    gCurrMeme = clone
+    switch (action) {
+        case 'edit':
+            initEditorScreen()
+            break
+        case 'download':
+            onDownloadSavedMeme()
+            break
+        case 'share':
+            onExport('share')
+            break
+    }
+
+}
+
+function onDeleteSavedMeme(elBtn) {
+    const memeIdx = elBtn.dataset.memeIdx
+    renderConfirmDelete(memeIdx)
+    onOpenGModal(memeIdx)
+}
+
+function onDownloadSavedMeme(){
+    const meme = getCurrMeme()
+    const imgURL = meme.memeLink
+
+    const a = document.createElement('a');
+    a.href = imgURL;
+    a.download = 'MemeStar-Meme.jpeg';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    showFlashMsg('success', 'Download has started')
+}
+
+function onOpenGModal(memeIdx) {
+    console.log("memeIdx: ", memeIdx)
+
+    const backdrop = document.querySelector('.backdrop')
+    const modal = document.querySelector('.g-modal')
+
+    backdrop.classList.remove('m-hidden')
+    modal.classList.remove('m-hidden')
+
+    backdrop.onclick = onCloseShareModal
+    modal.querySelector('.cancel-btn').onclick = onCloseGModal
+    modal.querySelector('.confirm-btn').addEventListener('click', () => {
+        console.log("memeIdx: ", memeIdx)
+        onCloseGModal()
+        deleteMeme(memeIdx)
+        renderSavedMemesGallery()
+        addMemesGalleryEventListeners()
+        showFlashMsg('success', 'Meme was deleted')
+
+    })
+}
+
+function onCloseGModal() {
+    const backdrop = document.querySelector('.backdrop')
+    const modal = document.querySelector('.g-modal')
+
+    backdrop.classList.add('m-hidden')
+    modal.classList.add('m-hidden')
+}
+
+
+function renderConfirmDelete(memeIdx) {
+    var elModal = document.querySelector(`.g-modal`)
+    elModal.innerHTML = `<p>Delete this meme? </p>
+                        <div class="btns-container">
+                            <button class="cancel-btn secondary-btn">Cancel</button>
+                            <button class="confirm-btn red-btn">Delete</button>
+                        </div>`
 }

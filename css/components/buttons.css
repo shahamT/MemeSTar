@@ -1,17 +1,36 @@
-.secondary-btn{
+.secondary-btn {
     background-color: transparent;
     border-color: rgb(var(--clr-accent-base));
     color: rgb(var(--clr-accent-base));
 }
 
-.secondary-btn:hover{
-    background-color: rgb(var(--clr-accent-base),0.1);
+.secondary-btn:hover {
+    background-color: rgb(var(--clr-accent-base), 0.1);
     border-color: rgb(var(--clr-accent-base));
 }
 
-.secondary-btn:active{
-    background-color: rgb(var(--clr-accent-base),0.4);
+.secondary-btn:active {
+    background-color: rgb(var(--clr-accent-base), 0.4);
 }
 
+.accent-btn {
+    border-color: rgb(var(--clr-accent-base));
+    background-color: rgb(var(--clr-accent-base));
+    color: rgb(var(--clr-dark-base));
+}
 
+.accent-btn:hover{
+    border-color: rgb(var(--clr-accent-d-100));
+    background-color: rgb(var(--clr-accent-d-100));
+}
 
+.red-btn {
+    border-color: rgb(var(--clr-error-base));
+    background-color: rgb(var(--clr-error-base));
+    color: rgb(var(--clr-light-base));  
+}
+
+.red-btn:hover{
+    border-color: rgb(var(--clr-error-d-100));
+    background-color: rgb(var(--clr-error-d-100));   
+}

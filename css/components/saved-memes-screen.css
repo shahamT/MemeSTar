@@ -1,0 +1,148 @@
+
+.saved-memes-screen{
+grid-template-rows: auto 1fr;
+}
+
+.saved-memes-title-container {
+    grid-column: 2/-2;
+    grid-row: 1;
+    align-self: start;
+    padding: var(--px-spacing-md);
+
+    background-color: rgb(var(--clr-content-bg-dark-base));
+}
+
+.saved-memes-title-container h2 {
+    font-weight: 400;
+}
+
+.saved-memes-gallery-container {
+    grid-column: 2/-2;
+    grid-row: 2;
+    height: 100%;
+    background-color: rgb(var(--clr-content-bg-dark-base));
+}
+
+.saved-memes-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--px-spacing-md);
+    align-items: start;
+
+    padding: var(--px-spacing-md);
+}
+
+.saved-memes-gallery .meme-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+
+    border: 1px solid rgb(var(--clr-accent-base));
+    border-radius: var(--border-radius-md);
+}
+
+.saved-memes-gallery .meme-card img {
+
+    height: 100%;
+    width: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+.meme-card-btns {
+    position: absolute;
+    z-index: 2;
+    bottom: 0;
+    transform: translate(0, 80px);
+
+    display: flex;
+    gap: var(--px-spacing-sm);
+
+    padding-inline: var(--px-spacing-md);
+    padding-block-end: var(--px-spacing-md);
+    padding-block-start: calc(var(--px-spacing-md));
+    width: 100%;
+
+    background-color: rgba(var(--clr-bg-dark-base), 0.8);
+    /* background: linear-gradient(to top, rgba(var(--clr-accent-base), 0.8), rgba(255, 255, 255, 0)); */
+
+    opacity: 0;
+    transition: var(--transition-fast);
+}
+
+.meme-card:hover .meme-card-btns {
+    opacity: 1;
+    transform: translate(0, 0px);
+}
+
+.meme-card-btns button {
+    width: 100%;
+    height: 36px;
+    padding-inline: 0px;
+}
+
+.meme-card-btns button.delete-btn {
+    min-width: 36px;
+    padding-inline: 0;
+}
+
+.meme-card-btns button::before {
+    font-family: fa;
+}
+
+.meme-card-btns .edit-btn::before {
+    content: '\f044';
+}
+
+.meme-card-btns .download-btn::before {
+    content: '\f019';
+}
+
+.meme-card-btns .share-btn::before {
+    content: '\f1e0';
+}
+
+.meme-card-btns .delete-btn::before {
+    content: '\f2ed';
+}
+
+
+/* tooltips */
+.meme-card-btns button::after {
+    content: '';
+    display: flex;
+    position: absolute;
+    top: -34px;
+    left: 50%;
+    transform: translate(-50%);
+
+    padding-block: var(--px-spacing-xs);
+    padding-inline: var(--px-spacing-md);
+
+    color: rgb(var(--clr-light-base));
+    border-radius: var(--border-radius-md);
+    background-color: rgb(var(--clr-content-bg-dark-base));
+    opacity: 0;
+    transition: var(--transition-ex-fast);
+}
+
+.meme-card-btns .delete-btn:hover::after {
+    content: 'Delete';
+    opacity: 1;
+}
+
+.meme-card-btns .download-btn:hover::after {
+    content: 'Download';
+    opacity: 1;
+}
+
+.meme-card-btns .share-btn:hover::after {
+    content: 'Share';
+    opacity: 1;
+}
+
+.meme-card-btns .edit-btn:hover::after {
+    content: 'Edit';
+    opacity: 1;
+}

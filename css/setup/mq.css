@@ -1,8 +1,8 @@
 /* SMALL */
 
 @media (width < 700px) {
-    
-    .main-content{
+
+    .main-content {
         padding-block: 0px;
     }
 
@@ -12,10 +12,11 @@
         row-gap: 8px;
     }
 
-    .start-from-scratch-container{
+    .start-from-scratch-container {
         grid-column: 2;
         grid-row: 1;
     }
+
     .action-btns {
         grid-column: 2;
         grid-row: 2;
@@ -31,11 +32,14 @@
         grid-row: 4;
     }
 
-    .sharing-container{
+    .sharing-container {
         grid-column: 2;
         grid-row: 5;
     }
 
+    .meme-card-btns {
+        opacity: 1;
+    }
 }
 
 

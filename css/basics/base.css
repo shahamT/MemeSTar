@@ -83,6 +83,10 @@ select {
 
 
 button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     height: 3rem;
     padding-inline: var(--rem-spacing-md);
     border: 1px solid rgb(var(--clr-primary-base));
@@ -94,7 +98,7 @@ button {
     border-radius: var(--border-radius-md);
 
     cursor: pointer;
-    transition: var(--transition-fast);
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
 }
 
 button:hover {
@@ -106,8 +110,8 @@ button:hover {
 
 /* range inputs */
 input[type="range"] {
-width: 60px;
-cursor: pointer;
+    width: 60px;
+    cursor: pointer;
 }
 
 

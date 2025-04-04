@@ -4,6 +4,7 @@
 
 .tabs-container .tab {
     height: 40px;
+    width: 100%;
     padding-inline: var(--px-spacing-md);
 
     cursor: pointer;

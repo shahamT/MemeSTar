@@ -1,0 +1,33 @@
+.inline-loader{
+    padding-inline: 12px;
+}
+
+.inline-loader::before {
+    content: '' !important;
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+
+    border: 3px solid rgba(var(--clr-bg-light-base), 0.1);
+    border-top: 3px solid rgb(var(--clr-bg-light-base));
+    border-radius: var(--border-radius-round);
+    background-color: transparent;
+
+    animation: spin 1.5s linear infinite;
+
+
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.loader-margin-end.inline-loader::before {
+    margin-inline-end: var(--px-spacing-sm);
+}

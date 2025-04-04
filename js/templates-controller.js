@@ -6,7 +6,6 @@ var gFilterParams = {
 }
 
 
-
 // =======
 // ======== init ========
 // =======
@@ -39,12 +38,14 @@ function hideGalleryScreen() {
 // =======
 
 function addGalleryEventListeners() {
-    //add txt btn
     const elTemplates = document.querySelectorAll('.templates-gallery .template-card')
     elTemplates.forEach(elTemp => {
         elTemp.addEventListener('click', (ev) => onTempClick(ev))
 
     })
+
+    const elSearchInput = document.querySelector('gallery-search-input')
+    // elSearchInput.addEventListener('input', (ev) => onSearchInput(ev))
 
 }
 
@@ -60,6 +61,10 @@ function onTempClick(ev) {
 
     updateCurrMeme(paramObj)
     initEditorScreen()
+}
+
+function onSearchInput(){
+
 }
 
 
