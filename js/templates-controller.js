@@ -72,6 +72,7 @@ function onTempClick(ev) {
 function onSearchInput(value) {
     gFilterParams.search = value ? value : null
     renderGallery()
+    addGalleryEventListeners()
 
     if (value) {
         displayClearSearchBtn('show')
@@ -84,7 +85,7 @@ function onSearchInput(value) {
         if (value.length > 2) {
             countKeyword(value)
         }
-    }, 2000);
+    }, 1500);
 
 }
 
