@@ -128,15 +128,25 @@ function onCopyLinkShare() {
 }
 
 function onDownload() {
-    const imgContent = currMemeToDataURL()
+    //remove bound box before downloading
+    gIsExporting = true
+    renderMeme()
+
+    //timeout to allow the canvas to render without bouding box before exporting
     
-    const a = document.createElement('a');
-    a.href = imgContent;
-    a.download = 'MemeStar-Meme.jpeg';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    showFlashMsg('success', 'Download has started')
+    setTimeout(() => {
+        const imgContent = currMemeToDataURL() 
+        gIsExporting = false
+        renderMeme()
+    
+        const a = document.createElement('a');
+        a.href = imgContent;
+        a.download = 'MemeStar-Meme.jpeg';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        showFlashMsg('success', 'Download has started')
+    }, 100);
 }
 
 function currMemeToDataURL() {
@@ -236,7 +246,7 @@ function onMemeBtnClick(elBtn, action) {
             onDownloadSavedMeme()
             break
         case 'share':
-            onExport('share',elBtn)
+            onExport('share', elBtn)
             break
     }
 
@@ -248,7 +258,7 @@ function onDeleteSavedMeme(elBtn) {
     onOpenGModal(memeIdx)
 }
 
-function onDownloadSavedMeme(){
+function onDownloadSavedMeme() {
     const meme = getCurrMeme()
     const imgURL = meme.memeLink
 
