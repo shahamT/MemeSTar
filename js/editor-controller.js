@@ -322,6 +322,10 @@ function renderText(element) {
     const textH = textMat.actualBoundingBoxAscent + textMat.actualBoundingBoxDescent
     element.size = { w: textW, h: textH }
 
+    // update element size
+    element.size.w = textW
+    element.size.h = textH
+
     //update element pos
     element.pos = { x: offsetX, y: offsetY }
 
@@ -331,6 +335,7 @@ function renderText(element) {
     element.boundBox.x2 = offsetX + (textW / 2)
     element.boundBox.y1 = offsetY - (textH / 2)
     element.boundBox.y2 = offsetY + (textH / 2)
+
 
     //draw the text
     gCtx.strokeText(text, offsetX, offsetY)
@@ -375,6 +380,9 @@ function renderBoundBox() {
     if (element.type === 'text' && element.txt === '') return
 
     const { x1, x2, y1, y2 } = element.boundBox
+    const elH = element.size.h
+    const elW = element.size.w
+
 
     gCtx.strokeStyle = '#FFD500';
     gCtx.lineWidth = 2;
@@ -386,7 +394,7 @@ function renderBoundBox() {
     gCtx.fillStyle = '#C8C8C8'
 
     // minus
-    gCtx.fillRect(x1 - 31, y1 - 5, 20, 20)
+    gCtx.fillRect(x1 - 31, y1-5, 20, 20)
     gBoundBox.boxMinus = { x1: x1 - 31, x2: x1 - 31 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save minus box bounding size
 
     gCtx.beginPath()
@@ -415,22 +423,8 @@ function renderBoundBox() {
     gCtx.lineWidth = 2
     gCtx.stroke()
 
-    //corners squares - canceled feature
-    // gCtx.fillRect(x1 - 15, y1 - 20, 10, 10)
-    // gBoundBox.box1 = { x1: x1 - 15, x2: x1 - 15 + 10, y1: y1 - 20, y2: y1 - 20 + 10 }
 
-    // gCtx.fillRect(x1 - 15, y2, 10, 10)
-    // gBoundBox.box2 = { x1: x1 - 15, x2: x1 - 15 + 10, y1: y2, y2: y2 + 10 }
-
-    // gCtx.fillRect(x2 + 5, y1 - 20, 10, 10)
-    // gBoundBox.box3 = { x1: x2 + 5, x2: x2 + 5 + 10, y1: y1 - 20, y2: y1 - 20 + 10 }
-
-    // gCtx.fillRect(x2 + 5, y2, 10, 10)
-    // gBoundBox.box4 = { x1: x2 + 5, x2: x2 + 5 + 10, y1: y2, y2: y2 + 10 }
-
-    //draw delete button
-
-    // circle
+    // delete circle
     gCtx.beginPath();
     gCtx.arc(element.pos.x + 5, element.pos.y + element.size.h, 10, 0, Math.PI * 2, false)
     gCtx.fillStyle = '#E53935'

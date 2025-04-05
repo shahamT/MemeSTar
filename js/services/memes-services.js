@@ -61,6 +61,7 @@ function addElement(type, StickerURL = null) {
             newElementObj.pos = { x: null, y: null }
             newElementObj.size= { w: null, h: null }
             newElementObj.stickerURL =  StickerURL
+
             break
     }
 
