@@ -30,6 +30,9 @@
     .text-input-container {
         grid-column: 1;
         grid-row: 2;
+
+        padding-inline: var(--px-spacing-md);
+
     }
 
     .meme-container {
@@ -109,7 +112,7 @@
 
     .burger-nav-btn {
         display: flex;
-        position: fixed;
+        position: absolute;
         inset: 8px 16px auto auto;
         z-index: calc(var(--z-index-menu) + 1);
 

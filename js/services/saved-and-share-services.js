@@ -8,7 +8,7 @@ var gSavedMemes = [
 
 function saveMeme() {
     const clone = structuredClone(getCurrMeme())
-    gSavedMemes.push(clone)
+    gSavedMemes.unshift(clone)
     saveMemesToStorage()
 }
 

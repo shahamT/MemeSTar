@@ -1,6 +1,7 @@
 .text-input-container {
     grid-column: 3;
     grid-row: 1;
+    gap: var(--px-spacing-md);
     align-self: end;
 
     padding-block: var(--px-spacing-md);
@@ -18,4 +19,14 @@
 .text-input-container input[name="text-editor"].disabled-section{
     pointer-events: none;
     opacity: 0.5;
+}
+
+.text-tools-settings-btn{
+
+}
+
+.text-tools-settings-btn::before{
+    content: '\f304';
+    font-family: fa;
+
 }

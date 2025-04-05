@@ -1,6 +1,6 @@
 'use strict'
 
-var gNxtTempId = 1000
+var gNxtTempId = null
 
 const gTemps = [
     { id: 1, type: 'general', url: 'img/meme-temps/meme (1).jpg', keywords: ['funny', 'meme', 'humor', 'classic', 'reaction'] },
@@ -32,6 +32,15 @@ const gTemps = [
 
 const DB_USER_TEMPLATES_KEY = 'USER_TEMPLATES'
 
+function setGNextId() {
+    let lastId = gTemps.reduce((highest, temp) => {
+        if (temp.id > highest) highest = temp.id
+        return highest
+    }, -Infinity)
+    gNxtTempId = lastId+1
+}
+
+
 function addUserTempsToGTemps() {
     const userTemps = getuserTempsFromStorage()
     if (!userTemps) return
@@ -44,9 +53,9 @@ function getTempById(id) {
 }
 
 function getTempsForDisplay(params) {
-    let tempaForDisplay = gTemps
+    let tempsForDisplay = gTemps
 
-    tempaForDisplay = tempaForDisplay.filter(temp => {
+    tempsForDisplay = tempsForDisplay.filter(temp => {
         // type match
         const isTypeValid = temp.type === params.type ? true : false
 
@@ -61,7 +70,7 @@ function getTempsForDisplay(params) {
         return isValid
     })
 
-    return tempaForDisplay
+    return tempsForDisplay
 }
 
 
@@ -75,7 +84,7 @@ function addTemplate(imgUrl) {
         keywords: []
     })
     saveUserTempsToStorage()
-    
+
     return tempId
 }
 

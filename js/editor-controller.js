@@ -249,7 +249,8 @@ function renderMeme() {
         renderElements()
         renderBoundBox()
     }
-
+    
+    img.crossOrigin = 'anonymous';
     img.src = tempURL
 }
 
@@ -493,6 +494,8 @@ function resizeCanvas() {
     const elContainer = document.querySelector('.meme-container')
 
     const meme = getCurrMeme()
+    if (!meme.selectedTempId) return
+
     const imgObj = getTempById(meme.selectedTempId)
     const img = new Image()
     img.src = imgObj.url

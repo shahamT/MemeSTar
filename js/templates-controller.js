@@ -17,6 +17,7 @@ function initGalleryScreen() {
 
     renderGallery()
     addGalleryEventListeners()
+    addSearchEventListeners()
     onGalleryTabSelected()
 
     renderSearchKeywords()
@@ -47,12 +48,6 @@ function addGalleryEventListeners() {
         elTemp.addEventListener('click', (ev) => onTempClick(ev))
     })
 
-    const elSearchInput = document.querySelector('.gallery-search-input')
-    elSearchInput.addEventListener('input', (ev) => onSearchInput(ev.target.value))
-
-    const elClearSearchBtn = document.querySelector('.clear-search-btn')
-    elClearSearchBtn.addEventListener('click', () => onClearSearch())
-
     // gallery tabs
     const elGeneralTab = document.querySelector('.general-temps-tab')
     elGeneralTab.addEventListener('click', (ev) => onSelectGalleryTab(ev.target))
@@ -60,6 +55,14 @@ function addGalleryEventListeners() {
     const elUserTab = document.querySelector('.user-temps-tab')
     elUserTab.addEventListener('click', (ev) => onSelectGalleryTab(ev.target))
 
+}
+
+function addSearchEventListeners() {
+    const elSearchInput = document.querySelector('.gallery-search-input')
+    elSearchInput.addEventListener('input', (ev) => onSearchInput(ev.target.value))
+
+    const elClearSearchBtn = document.querySelector('.clear-search-btn')
+    elClearSearchBtn.addEventListener('click', () => onClearSearch())
 }
 
 
@@ -109,10 +112,13 @@ function onSearchInput(value) {
 
     clearTimeout(gSearchTimeout)
     gSearchTimeout = null
+    console.log('got here')
 
     gSearchTimeout = setTimeout(() => {
         if (value.length > 2) {
             countKeyword(value)
+            clearTimeout(gSearchTimeout)
+            gSearchTimeout = null
         }
     }, 1500);
 
@@ -206,22 +212,22 @@ function addUploadingEventListeners() {
 
     // TODO finish drop files functionality
 
-        // Prevent default drag behaviors
-        const events = ['dragenter', 'dragover', 'dragleave', 'drop']
-        events.forEach(eventName => {
-            elUploadContainer.addEventListener(eventName, ev => {
+    // Prevent default drag behaviors
+    const events = ['dragenter', 'dragover', 'dragleave', 'drop']
+    events.forEach(eventName => {
+        elUploadContainer.addEventListener(eventName, ev => {
             ev.preventDefault()
             ev.stopPropagation()
-          })
         })
-        
-        // Handle file drop
-        // elUploadContainer.addEventListener('drop', ev => {
-        //   const img = ev.dataTransfer.files;
-        //   handleFiles(files);
-        // });
-        elUploadContainer.addEventListener('drop', ev => onUploadTemp)
-    
+    })
+
+    // Handle file drop
+    // elUploadContainer.addEventListener('drop', ev => {
+    //   const img = ev.dataTransfer.files;
+    //   handleFiles(files);
+    // });
+    elUploadContainer.addEventListener('drop', ev => onUploadTemp)
+
 }
 
 

@@ -5,6 +5,7 @@ window.onload = () => oninit()
 function oninit() {
     getMemesFromStorage()
     addUserTempsToGTemps()
+    setGNextId()
 
     initCanvas()
 
@@ -25,10 +26,10 @@ function addOnResizeEvListenre(){
 
 function addNavBarEvenlisteners(){
     const elMemesBtn = document.querySelector('.memes-gallery-nav-btn')
-    elMemesBtn.addEventListener('click', initSavedMemesScreen)
+    elMemesBtn.addEventListener('click', ev => onSelectNavBtn(ev,'saved-memes'))
 
     const elTempsBtn = document.querySelector('.templates-gallery-nav-btn')
-    elTempsBtn.addEventListener('click', initGalleryScreen)
+    elTempsBtn.addEventListener('click', ev => onSelectNavBtn(ev,'temps-gallery') )
     
 
     const elMobileNavBtn = document.querySelector('.burger-nav-btn')
@@ -54,6 +55,24 @@ function showFlashMsg(type = `success`, msg = `Success!`) {
             elPopUp.classList.remove(`fail`, `success`)
         }, 500);
     }, 2500);
+}
+
+
+function onSelectNavBtn(elBtn,page){
+    const elBody = document.querySelector('body')
+    if(elBody.classList.contains('menu-open')){
+        onNavBarToggle()
+    }
+
+    switch(page){
+        case 'saved-memes':
+            initSavedMemesScreen()
+
+            break
+        case 'temps-gallery':
+            initGalleryScreen()
+            break
+    }
 }
 
 
