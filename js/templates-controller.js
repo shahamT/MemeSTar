@@ -7,8 +7,9 @@ var gFilterParams = {
 
 var gSearchTimeout = null
 
-// =======
+
 // ======== init ========
+// =======
 // =======
 
 function initGalleryScreen() {
@@ -32,14 +33,15 @@ function showGalleryScreen() {
     const elGalleryScreen = document.querySelector('.templates-gallery-screen')
     elGalleryScreen.classList.remove('hidden')
 }
+
 function hideGalleryScreen() {
     const elGalleryScreen = document.querySelector('.templates-gallery-screen')
     elGalleryScreen.classList.add('hidden')
 }
 
 
-// =======
 // ======== adding event listeners ========
+// =======
 // =======
 
 function addGalleryEventListeners() {
@@ -76,7 +78,6 @@ function onSelectGalleryTab(elTab) {
     onGalleryTabSelected()
 }
 
-
 function onGalleryTabSelected() {
     const elTab = document.querySelector(`.tab[data-type="${gFilterParams.type}"]`)
     const elTabs = document.querySelectorAll('.gallery-tabs .tab')
@@ -86,6 +87,7 @@ function onGalleryTabSelected() {
 }
 
 
+// === choosing template ===
 
 function onTempClick(ev) {
 
@@ -100,6 +102,8 @@ function onTempClick(ev) {
     updateCurrMeme(paramObj)
     initEditorScreen()
 }
+
+// ===  search events ===
 
 function onSearchInput(value) {
     gFilterParams.search = value ? value : null
@@ -149,8 +153,8 @@ function onKeywordClick(elKeyword) {
 }
 
 
-// =======
 // ======== render ========
+// =======
 // =======
 
 function renderGallery() {
@@ -231,14 +235,12 @@ function addUploadingEventListeners() {
 }
 
 
-
 // ============
 
 function onUploadAreaClick() {
     const elFileInput = document.querySelector('.temp-upload')
     elFileInput.click()
 }
-
 
 function onUploadTemp(ev) {
     const elIcon = document.querySelector('.upload-icon')

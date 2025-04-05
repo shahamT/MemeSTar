@@ -6,6 +6,8 @@ var gSavedMemes = [
 
 ]
 
+// ======== crudl and more ========
+
 function saveMeme() {
     const clone = structuredClone(getCurrMeme())
     gSavedMemes.unshift(clone)
@@ -16,16 +18,11 @@ function getMemesForDisplay() {
     return gSavedMemes
 }
 
-
-
-
-
 function deleteMeme(idx) {
     console.log("idx: ", idx)
     gSavedMemes.splice(idx, 1)
     saveMemesToStorage()
 }
-
 
 function saveMemesToStorage() {
     saveToLocalStorage(DB_SAVED_MEMES_KEY, gSavedMemes)
@@ -39,8 +36,7 @@ function getMemesFromStorage() {
 
 
 
-// =========================== Save and Share ==========================
-
+// ======== Save and Share ========
 
 function onUploadImg(memeDataURL, func, elBtn = null) {
     function onSuccess(uploadedImgUrl) {

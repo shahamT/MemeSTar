@@ -1,3 +1,5 @@
+'use strict'
+
 /**
  * Returns a random hex color string (e.g., "#3E2F1B").
  */

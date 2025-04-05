@@ -1,5 +1,9 @@
 'use strict'
 
+// ======== main on init ========
+// =======
+// =======
+
 window.onload = () => oninit()
 
 function oninit() {
@@ -19,6 +23,7 @@ function oninit() {
     initGalleryScreen()
 }
 
+// ======== adding event listeners ========
 
 function addOnResizeEvListenre(){  
     window.addEventListener('resize', onResize);
@@ -36,6 +41,8 @@ function addNavBarEvenlisteners(){
     elMobileNavBtn.addEventListener('click', onNavBarToggle)
 }
 
+
+// ======== general functions ========
 
 function showFlashMsg(type = `success`, msg = `Success!`) {
     const elPopUp = document.querySelector(`.flash-msg`)
@@ -57,7 +64,6 @@ function showFlashMsg(type = `success`, msg = `Success!`) {
     }, 2500);
 }
 
-
 function onSelectNavBtn(elBtn,page){
     const elBody = document.querySelector('body')
     if(elBody.classList.contains('menu-open')){
@@ -74,7 +80,6 @@ function onSelectNavBtn(elBtn,page){
             break
     }
 }
-
 
 function onNavBarToggle(){
     document.querySelector('body').classList.toggle('menu-open')

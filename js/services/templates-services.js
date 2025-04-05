@@ -32,6 +32,9 @@ const gTemps = [
 
 const DB_USER_TEMPLATES_KEY = 'USER_TEMPLATES'
 
+
+// ======== handle user templates (local storage) ========
+
 function setGNextId() {
     let lastId = gTemps.reduce((highest, temp) => {
         if (temp.id > highest) highest = temp.id
@@ -40,13 +43,15 @@ function setGNextId() {
     gNxtTempId = lastId+1
 }
 
-
 function addUserTempsToGTemps() {
     const userTemps = getuserTempsFromStorage()
     if (!userTemps) return
 
     gTemps.push(...userTemps)
 }
+
+
+// ======== crudl and more========
 
 function getTempById(id) {
     return gTemps.find(temp => temp.id === id)
@@ -73,7 +78,6 @@ function getTempsForDisplay(params) {
     return tempsForDisplay
 }
 
-
 function addTemplate(imgUrl) {
     const tempId = gNxtTempId
 
@@ -88,7 +92,6 @@ function addTemplate(imgUrl) {
     return tempId
 }
 
-
 function saveUserTempsToStorage() {
     // save only user templates
     const userTemps = gTemps.filter(temp => temp.type === 'user')
@@ -99,8 +102,6 @@ function getuserTempsFromStorage() {
     let userTemps = getFromLocalStorage(DB_USER_TEMPLATES_KEY)
     return userTemps
 }
-
-
 
 
 

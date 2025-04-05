@@ -1,6 +1,10 @@
 'use strict'
 var gIsExporting = false
 
+// ======== adding event listeners ========
+// =======
+// =======
+
 function addSaveAndShareEventListeners() {
     // download btn
     const elDownloadBtn = document.querySelector('.download-btn')
@@ -28,6 +32,8 @@ function addSaveAndShareEventListeners() {
 
 
 }
+
+// ======== save and share events ========
 
 function onExport(action, elBtn) {
     //inline loading effect
@@ -103,11 +109,6 @@ function onSaveMeme() {
     showFlashMsg('success', 'Meme was save to your gallery!')
 }
 
-function currMemeToDataURL() {
-    return gElCanvas.toDataURL('image/jpeg')
-}
-
-
 function onFacebookShare() {
     const meme = getCurrMeme()
     const encodedUrl = encodeURIComponent(meme.memeLink)
@@ -128,7 +129,7 @@ function onCopyLinkShare() {
 
 function onDownload() {
     const imgContent = currMemeToDataURL()
-
+    
     const a = document.createElement('a');
     a.href = imgContent;
     a.download = 'MemeStar-Meme.jpeg';
@@ -138,11 +139,14 @@ function onDownload() {
     showFlashMsg('success', 'Download has started')
 }
 
+function currMemeToDataURL() {
+    return gElCanvas.toDataURL('image/jpeg')
+}
 
 
-
-// ============================== saved memes ===================================
-
+// ======== saved memes gallery ========
+// =======
+// =======
 // =======
 // ======== init ========
 // =======
@@ -218,6 +222,7 @@ function addMemesGalleryEventListeners() {
 }
 
 
+// ======== gallery events ========
 
 function onMemeBtnClick(elBtn, action) {
     const memeIdx = elBtn.dataset.memeIdx
@@ -286,7 +291,6 @@ function onCloseGModal() {
     backdrop.classList.add('m-hidden')
     modal.classList.add('m-hidden')
 }
-
 
 function renderConfirmDelete(memeIdx) {
     var elModal = document.querySelector(`.g-modal`)

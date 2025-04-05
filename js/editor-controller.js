@@ -37,11 +37,11 @@ function showEditorScreen() {
     const elEditorScreen = document.querySelector('.editor-screen')
     elEditorScreen.classList.remove('hidden')
 }
+
 function hideEditorScreen() {
     const elEditorScreen = document.querySelector('.editor-screen')
     elEditorScreen.classList.add('hidden')
 }
-
 
 function initCanvas() {
     gElCanvas = document.querySelector('.meme-canvas')
@@ -49,13 +49,12 @@ function initCanvas() {
 }
 
 
-
-
 // ======== adding event listeners ========
 // =======
 // =======
 
 // === editor events ===
+
 function addEditorEventListeners() {
     // start from scratch btn
     const elStartScratchBtn = document.querySelector('.start-from-scratch-btn')
@@ -171,6 +170,7 @@ function onCloseEditorContainer(){
 
 
 // === canvas events ===
+
 function addCanvasEventListeners() {
     gElCanvas.addEventListener('mousedown', (ev) => onDown(ev))
     gElCanvas.addEventListener('touchstart', (ev) => onDown(ev))
@@ -213,7 +213,6 @@ function onDown(ev) {
 
     onMemeChange()
 }
-
 
 function onMove(ev) {
     const element = getSelectedElement()
@@ -510,7 +509,7 @@ function setDeleteButtonState() {
 }
 
 
-// resize canvas and other functions related to resizing it
+// ======== canvas resizing ========
 
 function onResize() {
     resizeCanvas()

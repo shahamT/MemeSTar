@@ -4,7 +4,16 @@ const DB_USER_PREFS_KEY = 'USER_PREFS'
 
 var gCurrMeme
 
+// ======== meme crudl and more ========
 
+
+function getCurrMeme() {
+    return gCurrMeme
+}
+
+function updateCurrMeme(paramObj) {
+    gCurrMeme[paramObj.param] = paramObj.val
+}
 
 function resetCurrMeme() {
     gCurrMeme = {
@@ -24,13 +33,7 @@ function resetFileAttributes() {
     gCurrMeme.memeLink = null
 }
 
-function getCurrMeme() {
-    return gCurrMeme
-}
-
-function updateCurrMeme(paramObj) {
-    gCurrMeme[paramObj.param] = paramObj.val
-}
+// ======== meme elements managment ========
 
 function addElement(type) {
 
@@ -63,7 +66,6 @@ function updateSelectedElement(idx = null) {
 
 }
 
-
 function updateElement(paramObj) {
     const element = gCurrMeme.elements[gCurrMeme.selectedElementIdx]
     element[paramObj.param] = paramObj.val
@@ -87,8 +89,22 @@ function getAmountOfElementsByType(type) {
     return filteredEls.length
 }
 
+function getSelectedElement() {
+    if (gCurrMeme.elements.length === 0 ||
+        gCurrMeme.selectedElementIdx === null
+    ) return null
+    return gCurrMeme.elements[gCurrMeme.selectedElementIdx]
+}
+
+function updateElementPos(x, y) {
+    const element = getSelectedElement()
+    if (element.pos.x + x === 0 || element.pos.y + y === 0) return
+    element.pos.x += x
+    element.pos.y += y
+}
 
 
+// ======== user editing prefferences ========
 
 function _createDefaultUserPrefs() {
     const paramsObj = {
@@ -122,12 +138,6 @@ function _createDefaultUserPrefs() {
     }
     return paramsObj
 }
-function getSelectedElement() {
-    if (gCurrMeme.elements.length === 0 ||
-        gCurrMeme.selectedElementIdx === null
-    ) return null
-    return gCurrMeme.elements[gCurrMeme.selectedElementIdx]
-}
 
 function saveUserPrefsToStorage(paramsObj = gCurrMeme.elements[gCurrMeme.selectedElementIdx]) {
     if (getLastElementIdx() < 0) {
@@ -151,9 +161,3 @@ function getUserPrefsFromStorage() {
 //     element.size.h = h
 // }
 
-function updateElementPos(x, y) {
-    const element = getSelectedElement()
-    if (element.pos.x + x === 0 || element.pos.y + y === 0) return
-    element.pos.x += x
-    element.pos.y += y
-}
