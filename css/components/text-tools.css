@@ -1,5 +1,7 @@
 .text-tools {
     padding: var(--px-spacing-mdl);
+    justify-content: space-between;
+    width: 100%;
 }
 
 .text-tools .text-inputs {

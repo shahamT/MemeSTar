@@ -22,14 +22,27 @@
 
 }
 
-.action-btn.add-text-btn::before,
-.action-btn.add-sticker-btn::before {
-    content: '\f005';
+.action-btn.add-text-btn::before {
+    content: '\f031';
     padding-inline-end: 12px;
+}
+
+.action-btn.add-sticker-btn::before {
+    content: '\f587';
+    padding-inline-end: 12px;
+}
+
+.action-btn.add-text-btn::after {
+    content: 'Text';
+}
+
+.action-btn.add-sticker-btn::after {
+    content: 'Sticker';
 }
 
 .action-btn.delete-element-btn {
     border-color: rgb(var(--clr-error-base));
+    width: auto;
 }
 
 .action-btn.delete-element-btn:hover {

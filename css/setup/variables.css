@@ -116,6 +116,7 @@
     --z-index-backdrop: 100;
     --z-index-modal: 200;
     --z-index-menu: 300;
+    --z-index-over-menu: 400;
     --z-index-flash-msg: 500;
 
 

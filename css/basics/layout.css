@@ -1,6 +1,6 @@
 .main-vertical-layout{
 display: grid;
-grid-template-columns: minmax(32px, 1fr) minmax(auto, 400px) minmax(auto, 350px) minmax(32px, 1fr);
+grid-template-columns: minmax(32px, 1fr) minmax(auto, 400px) minmax(350px, 350px) minmax(32px, 1fr);
 column-gap: 24px;
 row-gap: 24px;
 

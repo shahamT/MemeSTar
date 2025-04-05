@@ -1,3 +1,22 @@
+/* MEDIUM */
+
+@media (width < 900px) {
+
+    .action-btn.add-text-btn::after,
+    .action-btn.add-sticker-btn::after {
+        content: '';
+        text-align: start;
+        font-size: 0.8em;
+        align-content: center;
+    }
+
+    .action-btn.add-text-btn::before,
+    .action-btn.add-sticker-btn::before {
+        padding-inline-end: 0px;
+
+    }
+}
+
 /* SMALL */
 
 @media (width < 700px) {
@@ -15,7 +34,7 @@
     }
 
     .editor-horizontal-layout {
-        grid-template-rows: auto auto 1fr auto;
+        grid-template-rows: auto auto minmax(auto, 1fr) auto;
     }
 
     .start-from-scratch-container {
@@ -32,7 +51,6 @@
         grid-row: 2;
 
         padding-inline: var(--px-spacing-md);
-
     }
 
     .meme-container {
@@ -40,18 +58,16 @@
         grid-row: 3;
     }
 
-    .editor-container {
-        display: none;
-    }
-
     .sharing-container {
         grid-column: 1;
         grid-row: 4;
     }
 
+    /* saved memes gallery */
     .meme-card-btns {
         opacity: 1;
     }
+
 
     /* header */
     .main-header {
@@ -69,11 +85,54 @@
         height: 30px;
     }
 
-
+    /* action-btns */
     .action-btns {
         justify-content: stretch;
         padding-inline: var(--px-spacing-md);
     }
+
+    .action-btn.add-text-btn::after {
+        content: 'Text';
+    }
+
+    .action-btn.add-sticker-btn::after {
+        content: 'sticker';
+    }
+
+    .action-btn.add-text-btn::before,
+    .action-btn.add-sticker-btn::before {
+        padding-inline-end: 8px;
+        font-size: 0.8em;
+    }
+
+
+
+
+    /* Tools container mobile view */
+    .editor-container {
+        display: none;
+        padding: var(--px-spacing-lg);
+    }
+
+    .editor-container.visible {
+        display: flex;
+        position: fixed;
+        top: 0;
+        z-index: var(--z-index-over-menu);
+        height: 100vh;
+        width: 100vw;
+    }
+
+    .close-editor-btn {
+        display: inline;
+        margin-block-end: var(--px-spacing-md);
+        text-transform: uppercase;
+    }
+
+    .text-tools-settings-btn {
+        display: inline;
+    }
+
 
     /* .flash-msg & modals */
     .flash-msg {
@@ -115,7 +174,6 @@
         position: absolute;
         inset: 8px 16px auto auto;
         z-index: calc(var(--z-index-menu) + 1);
-
     }
 
     .main-nav {
@@ -134,7 +192,6 @@
 
     .menu-open .main-nav {
         transform: translate(0);
-
     }
 
     .main-nav ul {
@@ -144,15 +201,12 @@
         margin-block-start: 60px;
 
         font-size: 1.5em;
-
     }
 
     .main-nav ul li {
         width: 100%;
         padding-block: var(--px-spacing-sm);
         border-block-end: 2px solid rgba(var(--clr-light-base), 0.1);
-
-
     }
 
     .main-nav ul li a {
@@ -168,9 +222,7 @@
 }
 
 
-/* MEDIUM */
 
-@media (width < 900px) {}
 
 /* Large */
 

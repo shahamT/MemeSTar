@@ -108,6 +108,13 @@ function addEditorEventListeners() {
     elShadowColorP.addEventListener('input', (ev) => onUpdateElement(ev))
     elShadowColorP.addEventListener('input', (ev) => renderColorPickerColor(ev.target))
 
+    // === mobile buttons ====
+    const elTextToolsBtn = document.querySelector('.text-tools-settings-btn')
+    elTextToolsBtn.addEventListener('click', () => onOpenEditorContainer())
+
+    const elCloseToolsBtn = document.querySelector('.close-editor-btn')
+    elCloseToolsBtn.addEventListener('click', () => onCloseEditorContainer())
+
 }
 
 function onAddText(ev) {
@@ -146,6 +153,20 @@ function onDeleteElement() {
 
 function onStartFromScratch() {
     initGalleryScreen()
+}
+
+// mobile functions
+
+function onOpenEditorContainer(){
+    const elEditorContainer = document.querySelector('.editor-container')
+    console.log("elEditorContainer: ", elEditorContainer)
+    elEditorContainer.classList.toggle('visible')
+}
+
+function onCloseEditorContainer(){
+    const elEditorContainer = document.querySelector('.editor-container')
+    console.log("elEditorContainer: ", elEditorContainer)
+    elEditorContainer.classList.toggle('visible')
 }
 
 
@@ -464,15 +485,20 @@ function setTextInputsState() {
 function hideTextInputs() {
     const elTextTools = document.querySelector('.text-tools .text-inputs')
     const elTextInput = document.querySelector('input[name="text-editor"]')
+    const elTextToolsBtn = document.querySelector('.text-tools-settings-btn')
     elTextTools.classList.add('disabled-section')
     elTextInput.classList.add('disabled-section')
+    elTextToolsBtn.classList.add('disabled-section')
 }
 
 function showTextInputs() {
     const elTextTools = document.querySelector('.text-tools .text-inputs')
     const elTextInput = document.querySelector('input[name="text-editor"]')
+    const elTextToolsBtn = document.querySelector('.text-tools-settings-btn')
     elTextTools.classList.remove('disabled-section')
     elTextInput.classList.remove('disabled-section')
+    elTextToolsBtn.classList.remove('disabled-section')
+
 }
 
 function setDeleteButtonState() {

@@ -22,11 +22,19 @@
 }
 
 .text-tools-settings-btn{
-
+display: none;
 }
 
 .text-tools-settings-btn::before{
     content: '\f304';
     font-family: fa;
+}
 
+.text-tools-settings-btn.disabled-section{
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+.close-editor-btn{
+    display: none;
 }
