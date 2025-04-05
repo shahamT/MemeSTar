@@ -17,6 +17,7 @@ function initGalleryScreen() {
 
     renderGallery()
     addGalleryEventListeners()
+    onGalleryTabSelected()
 
     renderSearchKeywords()
 
@@ -44,7 +45,6 @@ function addGalleryEventListeners() {
     const elTemplates = document.querySelectorAll('.templates-gallery .template-card')
     elTemplates.forEach(elTemp => {
         elTemp.addEventListener('click', (ev) => onTempClick(ev))
-
     })
 
     const elSearchInput = document.querySelector('.gallery-search-input')
@@ -53,7 +53,36 @@ function addGalleryEventListeners() {
     const elClearSearchBtn = document.querySelector('.clear-search-btn')
     elClearSearchBtn.addEventListener('click', () => onClearSearch())
 
+    // gallery tabs
+    const elGeneralTab = document.querySelector('.general-temps-tab')
+    elGeneralTab.addEventListener('click', (ev) => onSelectGalleryTab(ev.target))
+
+    const elUserTab = document.querySelector('.user-temps-tab')
+    elUserTab.addEventListener('click', (ev) => onSelectGalleryTab(ev.target))
+
 }
+
+
+// === gallery tabs ===
+
+function onSelectGalleryTab(elTab) {
+    const type = elTab.dataset.type
+    gFilterParams.type = type
+    renderGallery()
+    addGalleryEventListeners()
+    onGalleryTabSelected()
+}
+
+
+function onGalleryTabSelected() {
+    const elTab = document.querySelector(`.tab[data-type="${gFilterParams.type}"]`)
+    const elTabs = document.querySelectorAll('.gallery-tabs .tab')
+
+    elTabs.forEach(tab => tab.classList.remove('selected'))
+    elTab.classList.add('selected')
+}
+
+
 
 function onTempClick(ev) {
 
@@ -156,10 +185,89 @@ function renderSearchKeywords() {
         elKeyword.addEventListener('click', (ev) => onKeywordClick(ev.target))
 
         // apply proportional size
-        const fSize = +elKeyword.dataset.fsize*1.5 + 1
+        const fSize = +elKeyword.dataset.fsize * 1.5 + 1
         elKeyword.style.fontSize = `${fSize}em`
     })
+}
 
 
+// ==== template uploading  ====
+
+
+// event listeners
+
+function addUploadingEventListeners() {
+    const elUploadContainer = document.querySelector('.upload-area')
+    elUploadContainer.addEventListener('click', () => onUploadAreaClick())
+
+    const elFileInput = document.querySelector('.temp-upload')
+    elFileInput.addEventListener('change', (ev) => onUploadTemp(ev))
+
+
+    // TODO finish drop files functionality
+
+        // Prevent default drag behaviors
+        const events = ['dragenter', 'dragover', 'dragleave', 'drop']
+        events.forEach(eventName => {
+            elUploadContainer.addEventListener(eventName, ev => {
+            ev.preventDefault()
+            ev.stopPropagation()
+          })
+        })
+        
+        // Handle file drop
+        // elUploadContainer.addEventListener('drop', ev => {
+        //   const img = ev.dataTransfer.files;
+        //   handleFiles(files);
+        // });
+        elUploadContainer.addEventListener('drop', ev => onUploadTemp)
+    
+}
+
+
+
+// ============
+
+function onUploadAreaClick() {
+    const elFileInput = document.querySelector('.temp-upload')
+    elFileInput.click()
+}
+
+
+function onUploadTemp(ev) {
+    const elIcon = document.querySelector('.upload-icon')
+    elIcon.classList.add('inline-loader')
+    loadImageFromInput(ev, handleUploadedTemp)
+}
+
+function loadImageFromInput(ev, onDataURLReady, elIcon) {
+    const reader = new FileReader()
+
+    reader.onload = (event) => {
+        const dataURL = event.target.result
+        onDataURLReady(dataURL)
+    }
+    reader.readAsDataURL(ev.target.files[0])
+}
+
+function handleUploadedTemp(imgDataURL) {
+    const elIcon = document.querySelector('.upload-icon')
+    elIcon.classList.add('inline-loader')
+    onUploadImg(imgDataURL, handleUserMemeUploaded, elIcon)
+}
+
+function handleUserMemeUploaded(link) {
+    const tempId = addTemplate(link)
+    renderGallery()
+    addGalleryEventListeners()
+
+
+    const paramObj = {
+        param: 'selectedTempId',
+        val: +tempId
+    }
+
+    updateCurrMeme(paramObj)
+    initEditorScreen()
 
 }

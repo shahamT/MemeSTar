@@ -32,14 +32,83 @@
 }
 
 .burger-nav-btn {
-    height: 40px;
-    width: 40px;
+    height: 48px;
+    width: 48px;
     display: none;
 }
 
 .burger-nav-btn-svg {
-    height: 24px;
-    width: 24px;
+    height: 34px;
+    width: 34px;
     fill: rgba(var(--clr-light-base));
 
+}
+
+
+/* burger button animation */
+
+/* top bar */
+.burger-nav-btn-svg .top-bar {
+    position: absolute;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform var(--transition-fast) ease 0s;
+}
+
+.menu-open .burger-nav-btn-svg .top-bar {
+    transform: translateY(160px);
+
+
+}
+
+.burger-nav-btn-svg .top-bar-g {
+    position: absolute;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform var(--transition-fast) ease var(--transition-fast);
+}
+
+.menu-open .burger-nav-btn-svg .top-bar-g {
+    transform: rotate(45deg);
+
+
+
+}
+
+/* bottom bar */
+
+
+.burger-nav-btn-svg .bottom-bar {
+    position: absolute;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform var(--transition-fast);
+}
+
+.menu-open .burger-nav-btn-svg .bottom-bar {
+    transform: translateY(-160px);
+}
+
+.burger-nav-btn-svg .bottom-bar-g {
+    position: absolute;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: transform var(--transition-fast) ease var(--transition-fast);
+}
+
+.menu-open .burger-nav-btn-svg .bottom-bar-g {
+    transform: rotate(-45deg);
+}
+
+/* center bar */
+
+.burger-nav-btn-svg .center-bar {
+    position: absolute;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: opacity 0s ease var(--transition-fast);
+}
+
+.menu-open .burger-nav-btn-svg .center-bar {
+    opacity: 0;
 }

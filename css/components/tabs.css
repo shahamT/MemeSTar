@@ -13,10 +13,20 @@
     padding-block: var(--px-spacing-md);
 
     text-align: center;
-    
+
     cursor: pointer;
     text-transform: uppercase;
+
+}
+
+.tabs-container ul li:not(:last-child) {
     border-inline-end: 2px solid rgb(var(--clr-content-bg-dark-l-100));
+}
 
+.tabs-container .tab:hover {
+    background-color: rgb(var(--clr-content-bg-dark-d-100));
+}
 
+.tabs-container .tab.selected {
+    border-block-end: 3px solid rgb(var(--clr-accent-base));
 }

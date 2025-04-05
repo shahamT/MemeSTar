@@ -1,5 +1,7 @@
 'use strict'
 
+var gNxtTempId = 1000
+
 const gTemps = [
     { id: 1, type: 'general', url: 'img/meme-temps/meme (1).jpg', keywords: ['funny', 'meme', 'humor', 'classic', 'reaction'] },
     { id: 2, type: 'general', url: 'img/meme-temps/meme (2).jpg', keywords: ['viral', 'trendy', 'office', 'caption', 'screenshot'] },
@@ -28,8 +30,14 @@ const gTemps = [
     { id: 25, type: 'general', url: 'img/meme-temps/meme (25).jpg', keywords: ['viral', 'awkward', 'classic', 'screenshot', 'funny', '1234'] }
 ]
 
-const DB_KEYWORDS_SEARCHES_KEY = 'KEYWORDS_SEARCHES'
-const gKeywordsSearches = getKeywordsCountFromStorage()
+const DB_USER_TEMPLATES_KEY = 'USER_TEMPLATES'
+
+function addUserTempsToGTemps() {
+    const userTemps = getuserTempsFromStorage()
+    if (!userTemps) return
+
+    gTemps.push(...userTemps)
+}
 
 function getTempById(id) {
     return gTemps.find(temp => temp.id === id)
@@ -57,7 +65,41 @@ function getTempsForDisplay(params) {
 }
 
 
+function addTemplate(imgUrl) {
+    const tempId = gNxtTempId
+
+    gTemps.push({
+        id: gNxtTempId++,
+        type: 'user',
+        url: imgUrl,
+        keywords: []
+    })
+    saveUserTempsToStorage()
+    
+    return tempId
+}
+
+
+function saveUserTempsToStorage() {
+    // save only user templates
+    const userTemps = gTemps.filter(temp => temp.type === 'user')
+    saveToLocalStorage(DB_USER_TEMPLATES_KEY, userTemps)
+}
+
+function getuserTempsFromStorage() {
+    let userTemps = getFromLocalStorage(DB_USER_TEMPLATES_KEY)
+    return userTemps
+}
+
+
+
+
+
 // ====== keywords cloud managment =======
+
+const DB_KEYWORDS_SEARCHES_KEY = 'KEYWORDS_SEARCHES'
+const gKeywordsSearches = getKeywordsCountFromStorage()
+
 
 function getKeywordsForDisplay(num) {
     // arrange keywords in array and sort
@@ -66,15 +108,15 @@ function getKeywordsForDisplay(num) {
         keywords.push({ keyword, amount: gKeywordsSearches[keyword] })
     }
 
-    keywords.sort((a,b) => b.amount - a.amount)
+    keywords.sort((a, b) => b.amount - a.amount)
 
-    keywords = keywords.slice(0,num)
+    keywords = keywords.slice(0, num)
 
-    keywords.forEach(keyword =>{
+    keywords.forEach(keyword => {
         keyword.order = getRndIntIncludeMax(0, 100)
     })
 
-    keywords.sort((a,b) => a.order - b.order)
+    keywords.sort((a, b) => a.order - b.order)
 
     return keywords
 }

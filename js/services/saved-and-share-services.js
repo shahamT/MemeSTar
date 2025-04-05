@@ -42,18 +42,19 @@ function getMemesFromStorage() {
 // =========================== Save and Share ==========================
 
 
-function onUploadImg(memeDataURL, func, elBtn) {
+function onUploadImg(memeDataURL, func, elBtn = null) {
     function onSuccess(uploadedImgUrl) {
         const meme = getCurrMeme()
         meme.memeLink = uploadedImgUrl
-        func()
+        func(uploadedImgUrl)
         //remove inline loading effect
-        elBtn.classList.remove('inline-loader')
+        if (elBtn) elBtn.classList.remove('inline-loader')
     }
     uploadImg(memeDataURL, onSuccess)
 }
 
 async function uploadImg(imgData, onSuccess) {
+
     const CLOUD_NAME = 'webify'
     const UPLOAD_URL = `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`
     const formData = new FormData()
@@ -66,7 +67,6 @@ async function uploadImg(imgData, onSuccess) {
         })
         const data = await res.json()
         onSuccess(data.secure_url)
-
     } catch (err) {
         console.log(err)
     }

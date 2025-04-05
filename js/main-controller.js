@@ -4,13 +4,15 @@ window.onload = () => oninit()
 
 function oninit() {
     getMemesFromStorage()
-    
+    addUserTempsToGTemps()
+
     initCanvas()
 
     addNavBarEvenlisteners()
     addOnResizeEvListenre()
     addEditorEventListeners()
     addSaveAndShareEventListeners()
+    addUploadingEventListeners()
     addCanvasEventListeners()
     
     initGalleryScreen()
@@ -28,6 +30,9 @@ function addNavBarEvenlisteners(){
     const elTempsBtn = document.querySelector('.templates-gallery-nav-btn')
     elTempsBtn.addEventListener('click', initGalleryScreen)
     
+
+    const elMobileNavBtn = document.querySelector('.burger-nav-btn')
+    elMobileNavBtn.addEventListener('click', onNavBarToggle)
 }
 
 
@@ -49,4 +54,9 @@ function showFlashMsg(type = `success`, msg = `Success!`) {
             elPopUp.classList.remove(`fail`, `success`)
         }, 500);
     }, 2500);
+}
+
+
+function onNavBarToggle(){
+    document.querySelector('body').classList.toggle('menu-open')
 }

@@ -15,7 +15,7 @@
     }
 
     .editor-horizontal-layout {
-        grid-template-rows: auto 1fr auto;
+        grid-template-rows: auto auto 1fr auto;
     }
 
     .start-from-scratch-container {
@@ -27,9 +27,14 @@
         grid-row: 1;
     }
 
-    .meme-container {
+    .text-input-container {
         grid-column: 1;
         grid-row: 2;
+    }
+
+    .meme-container {
+        grid-column: 1;
+        grid-row: 3;
     }
 
     .editor-container {
@@ -38,7 +43,7 @@
 
     .sharing-container {
         grid-column: 1;
-        grid-row: 3;
+        grid-row: 4;
     }
 
     .meme-card-btns {
@@ -47,9 +52,8 @@
 
     /* header */
     .main-header {
-        height: 50px;
+        height: 60px;
         padding-inline: var(--px-spacing-md);
-
     }
 
     .logo {
@@ -60,14 +64,12 @@
 
     .main-footer {
         height: 30px;
-
     }
 
 
     .action-btns {
         justify-content: stretch;
         padding-inline: var(--px-spacing-md);
-
     }
 
     /* .flash-msg & modals */
@@ -108,7 +110,7 @@
     .burger-nav-btn {
         display: flex;
         position: fixed;
-        inset: 0 0 auto auto;
+        inset: 8px 16px auto auto;
         z-index: calc(var(--z-index-menu) + 1);
 
     }
@@ -116,11 +118,19 @@
     .main-nav {
         position: fixed;
         inset: 0 0 auto auto;
+        transform: translate(100%);
+
         height: 100vh;
-        width: 70vw;
+        width: 100vw;
         z-index: var(--z-index-menu);
 
         background-color: rgb(var(--clr-content-bg-dark-base));
+
+        transition: transform var(--transition-extra-slow);
+    }
+
+    .menu-open .main-nav {
+        transform: translate(0);
 
     }
 
@@ -134,20 +144,22 @@
 
     }
 
-    .main-nav ul li{
+    .main-nav ul li {
         width: 100%;
         padding-block: var(--px-spacing-sm);
         border-block-end: 2px solid rgba(var(--clr-light-base), 0.1);
 
 
     }
-    .main-nav ul li a{
+
+    .main-nav ul li a {
         display: flex;
         justify-content: center;
         width: 100%;
     }
-    .main-nav ul li a:hover{
-       background-color: transparent;
+
+    .main-nav ul li a:hover {
+        background-color: transparent;
     }
 
 }

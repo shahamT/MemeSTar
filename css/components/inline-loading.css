@@ -14,9 +14,15 @@
     background-color: transparent;
 
     animation: spin 1.5s linear infinite;
-
-
 }
+
+.inline-loader.big::before {
+    width: 56px;
+    height: 56px;
+    border-width: 6px;
+    border-top-width: 6px;
+}
+
 
 @keyframes spin {
     0% {

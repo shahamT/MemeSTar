@@ -1,0 +1,21 @@
+.text-input-container {
+    grid-column: 3;
+    grid-row: 1;
+    align-self: end;
+
+    padding-block: var(--px-spacing-md);
+    padding-inline: var(--px-spacing-mdl);
+
+    background-color: rgb(var(--clr-content-bg-dark-base));
+}
+
+.text-input-container input[name="text-editor"] {
+    width: 100%;
+    height: 48px;
+    font-size: 1.2em;
+}
+
+.text-input-container input[name="text-editor"].disabled-section{
+    pointer-events: none;
+    opacity: 0.5;
+}

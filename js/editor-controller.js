@@ -70,7 +70,7 @@ function addEditorEventListeners() {
     elAddTextBtn.addEventListener('click', (ev) => onAddText(ev))
 
     //text editor
-    const elTextEditor = document.querySelector('.editor-container .text-tools [name="text-editor"]')
+    const elTextEditor = document.querySelector('input[name="text-editor"]')
     elTextEditor.addEventListener('input', (ev) => onUpdateElement(ev))
     elTextEditor.addEventListener('click', (ev) => onTextInputClick(ev.target))
 
@@ -426,7 +426,7 @@ function clearTextInput() {
 function renderToolBarPrefs() {
 
     const paramsObj = getUserPrefsFromStorage()
-    const elInputs = document.querySelectorAll('.editor-container .param')
+    const elInputs = document.querySelectorAll('.editor-screen .param')
 
     elInputs.forEach(elInput => {
         const param = elInput.dataset.param
@@ -462,12 +462,16 @@ function setTextInputsState() {
 
 function hideTextInputs() {
     const elTextTools = document.querySelector('.text-tools .text-inputs')
+    const elTextInput = document.querySelector('input[name="text-editor"]')
     elTextTools.classList.add('disabled-section')
+    elTextInput.classList.add('disabled-section')
 }
 
 function showTextInputs() {
     const elTextTools = document.querySelector('.text-tools .text-inputs')
+    const elTextInput = document.querySelector('input[name="text-editor"]')
     elTextTools.classList.remove('disabled-section')
+    elTextInput.classList.remove('disabled-section')
 }
 
 function setDeleteButtonState() {

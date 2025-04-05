@@ -26,15 +26,21 @@
         <!-- mobile nav icon -->
         <a class="burger-nav-btn flex align-center justify-center">
 
-                <svg class="burger-nav-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-                    <path
+            <svg class="burger-nav-btn-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                <g class="bottom-bar-g">
+                    <path class="bottom-bar"
                         d="M448 416C448 433.7 433.7 448 416 448H32C14.3 448 0 433.7 0 416C0 398.3 14.3 384 32 384H416C433.7 384 448 398.3 448 416Z" />
-                    <path
+                </g>
+                <g class="center-bar-g">
+                    <path class="center-bar"
                         d="M32 224C14.3 224 0 238.3 0 256C0 273.7 14.3 288 32 288H416C433.7 288 448 273.7 448 256C448 238.3 433.7 224 416 224H32Z" />
-                    <path
+                </g>
+                <g class="top-bar-g">
+                    <path class="top-bar"
                         d="M32 64C14.3 64 0 78.3 0 96C0 113.7 14.3 128 32 128H416C433.7 128 448 113.7 448 96C448 78.3 433.7 64 416 64H32Z" />
-                </svg>
-            </a>
+                </g>
+            </svg>
+        </a>
 
         <nav class="main-nav flex">
             <ul class="clean-list flex align-center justify-center">
@@ -67,18 +73,19 @@
 
             <div class="upload-img-container flex">
                 <section class="upload-area flex column align-center justify-center">
-                    <p class="upload-icon"></p>
+                    <p class="upload-icon big"></p>
                     <p><span>Choose a file</span> or drag it here</p>
                 </section>
-
+                <!-- Hidden file input -->
+                <input hidden type="file" accept=".jpg, .jpeg, .png, .webp" class="temp-upload" name="temp-upload" />
             </div>
 
             <div class="templates-gallery-container">
 
                 <nav class="gallery-tabs tabs-container">
                     <ul class="clean-list flex">
-                        <li><a class="tab text-tab flex align-center justify-center">General Templates</a></li>
-                        <li><a class="tab text-tab flex align-center justify-center">My Templates</a></li>
+                        <li><a class="general-temps-tab tab text-tab flex align-center justify-center" data-type="general">General Templates</a></li>
+                        <li><a class="user-temps-tab tab text-tab flex align-center justify-center" data-type="user">My Templates</a></li>
                     </ul>
                 </nav>
 
@@ -104,6 +111,10 @@
                 </canvas>
             </div>
 
+            <div class="text-input-container flex">
+                <input name="text-editor" data-param="txt" type="text" class="param" placeholder="Add Text Here">
+            </div>
+
             <nav class="action-btns flex">
                 <!-- <ul class="clean-list flex"> -->
                 <!-- <li><a class="tab icon-tab delete flex align-center justify-center"></a></li> -->
@@ -122,8 +133,7 @@
                     <form class="text-inputs flex column">
 
                         <!-- text inputs -->
-                        <input name="text-editor" data-param="txt" type="text" class="param"
-                            placeholder="Add Text Here">
+
 
                         <div class="input-group">
                             <select name="font-picker" data-param="fontFamily" class="param">

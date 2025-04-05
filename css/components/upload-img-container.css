@@ -25,7 +25,7 @@
     border-color: rgba(var(--clr-accent-base),0.8);
 }
 
-.upload-img-container .upload-area p.upload-icon::after{
+.upload-img-container .upload-area p.upload-icon::before{
    content: '\f0ee'; 
    font-family: fa;
    font-size: 60px;
