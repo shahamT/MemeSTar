@@ -44,7 +44,7 @@
 
         <nav class="main-nav flex">
             <ul class="clean-list flex align-center justify-center">
-                <li><a class="templates-gallery-nav-btn">Templates</a></li>
+                <li><a class="templates-gallery-nav-btn">Create New Meme</a></li>
                 <li><a class="memes-gallery-nav-btn">My Memes</a></li>
                 <li><a class="about-nav-btn">About</a></li>
             </ul>
@@ -84,8 +84,10 @@
 
                 <nav class="gallery-tabs tabs-container">
                     <ul class="clean-list flex">
-                        <li><a class="general-temps-tab tab text-tab flex align-center justify-center" data-type="general">General Templates</a></li>
-                        <li><a class="user-temps-tab tab text-tab flex align-center justify-center" data-type="user">My Templates</a></li>
+                        <li><a class="general-temps-tab tab text-tab flex align-center justify-center"
+                                data-type="general">General Templates</a></li>
+                        <li><a class="user-temps-tab tab text-tab flex align-center justify-center" data-type="user">My
+                                Templates</a></li>
                     </ul>
                 </nav>
 
@@ -177,11 +179,35 @@
 
             </div>
 
-            <section class="sharing-container flex">
+            <div class="stickers-gallery-container flex column c-hidden">
+                <input type="text" class="stickers-search" placeholder="Search sticker">
+                <div class="sticker-upload-img-container flex">
+                    <section class="sticker-upload-area flex  align-center justify-center">
+                        <p class="upload-icon big"></p>
+                        <p><span>Upload a sticker</span> or drag it here</p>
+                    </section>
+                    <!-- Hidden file input -->
+                    <input hidden type="file" accept=".jpg, .jpeg, .png, .webp" class="temp-upload"
+                        name="temp-upload" />
+                </div>
+
+                <div class="input-group flex">
+                    <p class="section-title">Sticker Size</p>
+                    <p name="sticker-size-range-label" class="range-indicator sticker-size">7</p>
+                    <input name="sticker-size-range" data-param="shadowColor" type="range" min="5" max="30"
+                        class="param6">
+                </div>
+
+                <div class="stickers-gallery">
+                </div>
+
+            </div>
+
+            <div class="sharing-container flex">
                 <button class="save-btn loader-margin-end">Save</button>
                 <button class="download-btn"></button>
                 <button class="share-btn"></button>
-            </section>
+            </div>
 
         </section>
 
@@ -243,6 +269,7 @@
     <script src="js/services/templates-services.js"></script>
     <script src="js/services/memes-services.js"></script>
     <script src="js/services/saved-and-share-services.js"></script>
+    <script src="js/services/sticker-services.js"></script>
 
 
 </body>

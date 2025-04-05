@@ -6,8 +6,7 @@
     gap: var(--px-spacing-sm);
     justify-content: center;
 
-    padding-block: var(--px-spacing-md);
-    padding-inline: var(--px-spacing-mdl);
+    padding: var(--px-spacing-md);
 
     background-color: rgb(var(--clr-content-bg-dark-base));
 }

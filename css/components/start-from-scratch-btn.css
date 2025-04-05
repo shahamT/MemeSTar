@@ -3,8 +3,7 @@
     grid-row: 3;
     align-self: start;
     
-    padding-block: var(--px-spacing-md);
-    padding-inline: var(--px-spacing-mdl);
+    padding: var(--px-spacing-md);
 
     background-color: rgb(var(--clr-content-bg-dark-base));
 }

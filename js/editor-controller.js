@@ -12,6 +12,11 @@ var gBoundBox = {
     boxDel: null
 }
 
+var gStickersFilterParams = {
+    type: 'general',
+    search: null,
+}
+
 // ======== init ========
 // =======
 // =======
@@ -22,6 +27,10 @@ function initEditorScreen() {
     setTextInputsState()
     setDeleteButtonState()
     renderToolBarPrefs()
+
+    // stickers
+    renderStickersGallery()
+    addStickersEventListeners()
 
     //present only current screen
     hideGalleryScreen()
@@ -67,6 +76,10 @@ function addEditorEventListeners() {
     //add txt btn
     const elAddTextBtn = document.querySelector('.action-btns [name="add-text"]')
     elAddTextBtn.addEventListener('click', (ev) => onAddText(ev))
+
+    //add sticker btn
+    const elAddStickerBtn = document.querySelector('.action-btns [name="add-sticker"]')
+    elAddStickerBtn.addEventListener('click', (ev) => onAddSticker(ev))
 
     //text editor
     const elTextEditor = document.querySelector('input[name="text-editor"]')
@@ -116,20 +129,6 @@ function addEditorEventListeners() {
 
 }
 
-function onAddText(ev) {
-
-    //add element and get it's current idx and update selected element idx
-    const elementIdx = addElement('text')
-
-    updateSelectedElement(elementIdx)
-    onMemeChange()
-
-}
-
-function onTextInputClick(elInput) {
-    if (elInput.value === 'Your Text') elInput.value = ''
-}
-
 function onUpdateElement(ev) {
     const val = ev.target.value
     const param = ev.target.dataset.param
@@ -156,13 +155,13 @@ function onStartFromScratch() {
 
 // mobile functions
 
-function onOpenEditorContainer(){
+function onOpenEditorContainer() {
     const elEditorContainer = document.querySelector('.editor-container')
     console.log("elEditorContainer: ", elEditorContainer)
     elEditorContainer.classList.toggle('visible')
 }
 
-function onCloseEditorContainer(){
+function onCloseEditorContainer() {
     const elEditorContainer = document.querySelector('.editor-container')
     console.log("elEditorContainer: ", elEditorContainer)
     elEditorContainer.classList.toggle('visible')
@@ -190,6 +189,8 @@ function onDown(ev) {
         element.isDragged = true
         const pos = getEvPos(ev)
         gLastPos = pos
+        setToolsContainersState(element)
+
     } else {
         // checking if delete box was clicked
         const actionBox = getClickedActionBox(ev)
@@ -269,7 +270,7 @@ function renderMeme() {
         renderElements()
         renderBoundBox()
     }
-    
+
     img.crossOrigin = 'anonymous';
     img.src = tempURL
 }
@@ -338,6 +339,31 @@ function renderText(element) {
 }
 
 function renderSticker(element) {
+    const stickerURL = element.stickerURL
+    const width = element.size.w ? element.size.w : 80
+    const height = element.size.h ? element.size.h : 80
+    const offsetX = element.pos.x ? element.pos.x : gElCanvas.width / 2 - width / 2
+    const offsetY = element.pos.y ? element.pos.y : gElCanvas.height / 2 - height / 2
+
+    //update element pos
+    element.pos = { x: offsetX, y: offsetY }
+
+    // update element bounding box
+    element.boundBox = {}
+    element.boundBox.x1 = offsetX
+    element.boundBox.x2 = offsetX + width
+    element.boundBox.y1 = offsetY
+    element.boundBox.y2 = offsetY + height
+
+    //draw the sticker
+    const img = new Image()
+
+    img.onload = () => {
+        gCtx.drawImage(img, offsetX, offsetY, width, height)
+    }
+    img.crossOrigin = 'anonymous';
+    img.src = stickerURL
+
 
 }
 
@@ -532,12 +558,12 @@ function resizeCanvas() {
         if (width >= height) {
             gElCanvas.style.width = '100%'
             gElCanvas.style.height = 'auto'
-            gElCanvas.width = (elContainer.offsetWidth - 32) 
+            gElCanvas.width = (elContainer.offsetWidth - 32)
             gElCanvas.height = gElCanvas.width / (width / height)
         } else {
             gElCanvas.style.width = 'auto'
             gElCanvas.style.height = '100%'
-            gElCanvas.height = (elContainer.offsetHeight - 32) 
+            gElCanvas.height = (elContainer.offsetHeight - 32)
             gElCanvas.width = gElCanvas.height / (height / width)
         }
 
@@ -610,4 +636,108 @@ function getEvPos(ev) {
         }
     }
     return pos
+}
+
+
+
+
+// show or hide text tools and stickers
+function setToolsContainersState(element) {
+    switch (element.type) {
+        case 'text':
+            hideStickersGallery()
+            showTextTools()
+            break
+        case 'sticker':
+            hideTextTools()
+            showStickersGallery()
+            break
+    }
+}
+
+// ==== text tools  ====
+
+function showTextTools() {
+    const elTextTools = document.querySelector('.editor-container')
+    const elTextInput = document.querySelector('.text-input-container')
+    elTextTools.classList.remove('c-hidden')
+    elTextInput.classList.remove('c-hidden')
+}
+
+function hideTextTools() {
+    const elTextTools = document.querySelector('.editor-container')
+    const elTextInput = document.querySelector('.text-input-container')
+    elTextTools.classList.add('c-hidden')
+    elTextInput.classList.add('c-hidden')
+
+}
+
+function onAddText(ev) {
+    showTextTools()
+    hideStickersGallery()
+
+    //add element and get it's current idx and update selected element idx
+    const elementIdx = addElement('text')
+
+    updateSelectedElement(elementIdx)
+    onMemeChange()
+
+}
+
+function onTextInputClick(elInput) {
+    if (elInput.value === 'Your Text') elInput.value = ''
+}
+
+
+// ==== stickers  ====
+
+function showStickersGallery() {
+    const elStickersGallery = document.querySelector('.stickers-gallery-container')
+    elStickersGallery.classList.remove('c-hidden')
+}
+
+function hideStickersGallery() {
+    const elStickersGallery = document.querySelector('.stickers-gallery-container')
+    elStickersGallery.classList.add('c-hidden')
+
+}
+
+function onAddSticker(ev) {
+    hideTextTools()
+    showStickersGallery()
+}
+
+function renderStickersGallery() {
+
+    const stickers = getStickersForDisplay(gStickersFilterParams)
+
+    const elGallery = document.querySelector('.stickers-gallery')
+    let strHtml = ''
+
+    stickers.forEach((sticker) => {
+        strHtml += `<div class="sticker-card"><img data-id="${sticker.id}" src="${sticker.url}">
+                    </div>`
+    })
+    elGallery.innerHTML = strHtml
+}
+
+function addStickersEventListeners() {
+    const elStickers = document.querySelectorAll('.stickers-gallery .sticker-card')
+    elStickers.forEach(elSticker => {
+        elSticker.addEventListener('click', (ev) => onPlaceSticker(ev.currentTarget))
+    })
+
+}
+
+function onPlaceSticker(elStickerCard) {
+    const img = elStickerCard.querySelector('img')
+    const stickerId = +img.dataset.id
+    const sticker = getStickerById(stickerId)
+
+    //add element and get it's current idx and update selected element idx
+    const elementId = addElement('sticker', sticker.url)
+
+    updateSelectedElement(elementId)
+    onMemeChange()
+
 }

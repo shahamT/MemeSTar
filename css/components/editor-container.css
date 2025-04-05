@@ -8,4 +8,10 @@
 
     overflow-y: auto;
     background-color: rgb(var(--clr-content-bg-dark-base));
+
+}
+
+
+.editor-container.c-hidden{
+    display: none;
 }

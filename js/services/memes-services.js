@@ -35,23 +35,33 @@ function resetFileAttributes() {
 
 // ======== meme elements managment ========
 
-function addElement(type) {
+function addElement(type, StickerURL = null) {
 
-    //create default element with user prefs
     const newElementObj = getUserPrefsFromStorage()
-    newElementObj.type = type
-    newElementObj.pos = { x: null, y: null }
-    if (type === 'text') {
-        newElementObj.txt = 'Your Text'
 
-        switch (getAmountOfElementsByType('text')) {
-            case 0:
-                newElementObj.pos.y = 40
-                break
-            case 1:
-                newElementObj.pos.y = gElCanvas.height - 40
-                break
-        }
+    switch (type) {
+        case 'text':
+            //create default text element with user prefs
+            newElementObj.type = type
+            newElementObj.pos = { x: null, y: null }
+            newElementObj.txt = 'Your Text'
+
+            switch (getAmountOfElementsByType('text')) {
+                case 0:
+                    newElementObj.pos.y = 40
+                    break
+                case 1:
+                    newElementObj.pos.y = gElCanvas.height - 40
+                    break
+            }
+            break
+
+        case 'sticker':
+            newElementObj.type = type
+            newElementObj.pos = { x: null, y: null }
+            newElementObj.size= { w: null, h: null }
+            newElementObj.stickerURL =  StickerURL
+            break
     }
 
     gCurrMeme.elements.push(newElementObj)

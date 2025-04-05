@@ -1,0 +1,119 @@
+.stickers-gallery-container {
+    grid-column: 3;
+    grid-row: 1/3;
+    align-self: center;
+    gap: var(--px-spacing-md);
+
+    height: 500px;
+
+    padding: var(--px-spacing-md);
+
+    overflow-y: auto;
+    background-color: rgb(var(--clr-content-bg-dark-base));
+}
+
+.stickers-gallery-container.c-hidden{
+    display: none;
+}
+
+.stickers-search {
+    width: 100%;
+    padding-block: 20px;
+    font-size: 1.2em;
+}
+
+/* stickers gallery */
+
+.stickers-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    gap: var(--px-spacing-md);
+    align-items: start;
+    overflow-y: auto;
+    padding-inline-end: 20px;
+}
+
+.stickers-gallery .sticker-card {
+    position: relative;
+
+    justify-self: center;
+
+    max-width: 100px;
+    padding: var(--px-spacing-sm);
+    aspect-ratio: 1/1;
+
+    border: 1px solid rgb(var(--clr-accent-base));
+    border-radius: var(--border-radius-md);
+
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.stickers-gallery .sticker-card:hover {
+   background-color: rgba(var(--clr-accent-base),0.2); 
+}
+
+.stickers-gallery .sticker-card img {
+
+    height: 100%;
+    width: 100%;
+
+    object-fit: cover;
+    object-position: center;
+}
+
+/* gallery scrollbar */
+
+/* Overall scrollbar */
+.stickers-gallery::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  .stickers-gallery::-webkit-scrollbar-track {
+    background:  rgba(var(--clr-accent-base),0.1);
+  }
+  
+  /* Thumb (the draggable part) */
+  .stickers-gallery::-webkit-scrollbar-thumb {
+    background:  rgb(var(--clr-accent-base));
+    border-radius: 6px;
+  }
+  
+  /* Thumb hover effect */
+  .stickers-gallery::-webkit-scrollbar-thumb:hover {
+    background:  rgb(var(--clr-accent-base));
+  }
+
+
+
+/* sticker uploading */
+.sticker-upload-img-container .sticker-upload-area {
+    width: 100%;
+    border: 3px dashed rgb(var(--clr-gray-base));
+    padding-block: var(--px-spacing-sm);
+    padding-inline: var(--px-spacing-lg);
+    gap: var(--px-spacing-md);
+
+    font-size: 1rem;
+    color: rgb(var(--clr-gray-base));
+    text-align: center;
+    border-radius: var(--border-radius-lg);
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.sticker-upload-img-container .sticker-upload-area:hover {
+    color: rgba(var(--clr-accent-base), 0.8);
+    border-color: rgba(var(--clr-accent-base), 0.8);
+}
+
+.sticker-upload-img-container .sticker-upload-area p.upload-icon::before {
+    content: '\f0ee';
+    font-family: fa;
+    font-size: 34px;
+}
+
+.sticker-upload-img-container .sticker-upload-area p span {
+    font-weight: 800;
+}
