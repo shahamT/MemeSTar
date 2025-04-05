@@ -3,6 +3,10 @@
 var gNxtTempId = null
 
 const gTemps = [
+    { id: 26, type: 'general', url: 'img/meme-temps/memeStav.jpg', keywords: ['funny', 'meme', 'humor', 'classic', 'reaction'] },
+    { id: 27, type: 'general', url: 'img/meme-temps/memeChen.png', keywords: ['viral', 'trendy', 'office', 'caption', 'screenshot'] },
+    { id: 28, type: 'general', url: 'img/meme-temps/memeRisan.jpg', keywords: ['sarcastic', 'awkward', 'internet', 'relatable', 'happy'] },
+    { id: 29, type: 'general', url: 'img/meme-temps/memeYaron.jpg', keywords: ['angry', 'confused', 'cute', 'pop culture', 'unexpected'] },
     { id: 1, type: 'general', url: 'img/meme-temps/meme (1).jpg', keywords: ['funny', 'meme', 'humor', 'classic', 'reaction'] },
     { id: 2, type: 'general', url: 'img/meme-temps/meme (2).jpg', keywords: ['viral', 'trendy', 'office', 'caption', 'screenshot'] },
     { id: 3, type: 'general', url: 'img/meme-temps/meme (3).jpg', keywords: ['sarcastic', 'awkward', 'internet', 'relatable', 'happy'] },
