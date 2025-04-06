@@ -43,6 +43,7 @@ function onUploadImg(imgDataURL, func, imgType, elBtn = null,) {
 
         switch (imgType) {
             case 'meme':
+            case 'template':
                 console.log('got here')
 
                 const meme = getCurrMeme()
