@@ -38,7 +38,7 @@ function addSaveAndShareEventListeners() {
 function onExport(action, elBtn) {
     //inline loading effect
     elBtn.classList.add('inline-loader')
-
+    
     const meme = getCurrMeme()
     const selectedElIdx = meme.selectedElementIdx
 
@@ -57,11 +57,10 @@ function onExport(action, elBtn) {
         //remove bound box before exporting
         gIsExporting = true
         renderMeme()
-
         //timeout to allow the canvas to render without bouding box before exporting
         setTimeout(() => {
             const memeDataURL = currMemeToDataURL()
-            onUploadImg(memeDataURL, func, elBtn)
+            onUploadImg(memeDataURL, func,'meme', elBtn)
 
             //place back bound box before exporting
             gIsExporting = false

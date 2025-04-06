@@ -40,8 +40,11 @@ function getMemesFromStorage() {
 
 function onUploadImg(imgDataURL, func, imgType, elBtn = null,) {
     function onSuccess(uploadedImgUrl) {
+
         switch (imgType) {
-            case 'template':
+            case 'meme':
+                console.log('got here')
+
                 const meme = getCurrMeme()
                 meme.memeLink = uploadedImgUrl
                 func(uploadedImgUrl)

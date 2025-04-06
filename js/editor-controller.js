@@ -468,9 +468,14 @@ function renderBoundBox(element, type) {
     if (type === 'selected') {
 
         //draw sizing squares
-        gCtx.fillStyle = '#C8C8C8'
 
         // minus
+        if (gHoverstates.isboxMinusHovered === true) {
+            gCtx.fillStyle = '#666666'
+        } else {
+            gCtx.fillStyle = '#C8C8C8'
+        }
+
         gCtx.fillRect(x1 - 31, y1 - 5, 20, 20)
         gBoundBox.boxMinus = { x1: x1 - 31, x2: x1 - 31 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save minus box bounding size
 
@@ -482,6 +487,11 @@ function renderBoundBox(element, type) {
         gCtx.stroke()
 
         // plus
+        if (gHoverstates.isboxPlusHovered === true) {
+            gCtx.fillStyle = '#666666'
+        } else {
+            gCtx.fillStyle = '#C8C8C8'
+        }
 
         gCtx.fillRect(x2 + 11, y1 - 5, 20, 20)
         gBoundBox.boxPlus = { x1: x2 + 11, x2: x2 + 11 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save plus box bounding size
@@ -502,9 +512,14 @@ function renderBoundBox(element, type) {
 
 
         // delete circle
+        if (gHoverstates.isboxDelHovered === true) {
+            gCtx.fillStyle = '#660000'
+        } else {
+            gCtx.fillStyle = '#E53935'
+        }
+
         gCtx.beginPath();
         gCtx.arc(element.pos.x + 5, element.pos.y + element.size.h, 10, 0, Math.PI * 2, false)
-        gCtx.fillStyle = '#E53935'
         gCtx.fill()
 
         //save delete box bounding size
