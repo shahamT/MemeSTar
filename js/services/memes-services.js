@@ -45,6 +45,8 @@ function addElement(type, StickerURL = null) {
             newElementObj.type = type
             newElementObj.pos = { x: null, y: null }
             newElementObj.txt = 'Your Text'
+            newElementObj. isDragged = false
+
 
             switch (getAmountOfElementsByType('text')) {
                 case 0:
@@ -61,6 +63,7 @@ function addElement(type, StickerURL = null) {
             newElementObj.pos = { x: null, y: null }
             newElementObj.size= { w: null, h: null }
             newElementObj.stickerURL =  StickerURL
+            newElementObj. isDragged = false
 
             break
     }
@@ -73,8 +76,6 @@ function addElement(type, StickerURL = null) {
 
 function updateSelectedElement(idx = null) {
     gCurrMeme.selectedElementIdx = idx
-    saveUserPrefsToStorage()
-
 }
 
 function updateElement(paramObj) {
@@ -151,10 +152,9 @@ function _createDefaultUserPrefs() {
 }
 
 function saveUserPrefsToStorage(paramsObj = gCurrMeme.elements[gCurrMeme.selectedElementIdx]) {
-    if (getLastElementIdx() < 0) {
+    if (!getSelectedElement()) {
         paramsObj = _createDefaultUserPrefs()
     }
-
     saveToLocalStorage(DB_USER_PREFS_KEY, paramsObj)
 }
 

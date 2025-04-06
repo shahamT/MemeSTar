@@ -17,6 +17,8 @@ var gStickersFilterParams = {
     search: null,
 }
 
+var gEditMode = 'text'
+
 // ======== init ========
 // =======
 // =======
@@ -80,6 +82,7 @@ function addEditorEventListeners() {
     //add sticker btn
     const elAddStickerBtn = document.querySelector('.action-btns [name="add-sticker"]')
     elAddStickerBtn.addEventListener('click', (ev) => onAddSticker(ev))
+    elAddStickerBtn.addEventListener('click', (ev) => onOpenStickersContainer(ev))
 
     //text editor
     const elTextEditor = document.querySelector('input[name="text-editor"]')
@@ -147,6 +150,9 @@ function onDeleteElement() {
     updateSelectedElement(getLastElementIdx())
     onMemeChange()
 
+    gEditMode = getSelectedElement().type
+    setTextInputsState()
+
 }
 
 function onStartFromScratch() {
@@ -157,14 +163,22 @@ function onStartFromScratch() {
 
 function onOpenEditorContainer() {
     const elEditorContainer = document.querySelector('.editor-container')
-    console.log("elEditorContainer: ", elEditorContainer)
     elEditorContainer.classList.toggle('visible')
 }
 
 function onCloseEditorContainer() {
     const elEditorContainer = document.querySelector('.editor-container')
-    console.log("elEditorContainer: ", elEditorContainer)
     elEditorContainer.classList.toggle('visible')
+}
+
+function onOpenStickersContainer() {
+    const elStickersContainer = document.querySelector('.stickers-gallery-container')
+    elStickersContainer.classList.toggle('visible')
+}
+
+function onCloseStickersContainer() {
+    const elStickersContainer = document.querySelector('.stickers-gallery-container')
+    elStickersContainer.classList.toggle('visible')
 }
 
 
@@ -184,14 +198,15 @@ function onDown(ev) {
     const elementIdx = getClickedElement(ev)
     if (elementIdx !== -1) {
         updateSelectedElement(elementIdx)
-
+        saveUserPrefsToStorage()
+        
         const element = getSelectedElement()
         element.isDragged = true
         const pos = getEvPos(ev)
         gLastPos = pos
         setToolsContainersState(element)
 
-    } else {
+    } else if(getClickedActionBox(ev)){
         // checking if delete box was clicked
         const actionBox = getClickedActionBox(ev)
         const element = getSelectedElement()
@@ -208,11 +223,12 @@ function onDown(ev) {
                 break
         }
 
-    }
-
-    saveUserPrefsToStorage()
+    } else updateSelectedElement(null)
 
     onMemeChange()
+
+    gEditMode = getSelectedElement().type
+    setTextInputsState()
 }
 
 function onMove(ev) {
@@ -394,7 +410,7 @@ function renderBoundBox() {
     gCtx.fillStyle = '#C8C8C8'
 
     // minus
-    gCtx.fillRect(x1 - 31, y1-5, 20, 20)
+    gCtx.fillRect(x1 - 31, y1 - 5, 20, 20)
     gBoundBox.boxMinus = { x1: x1 - 31, x2: x1 - 31 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save minus box bounding size
 
     gCtx.beginPath()
@@ -471,6 +487,9 @@ function renderToolBarPrefs() {
 
     elInputs.forEach(elInput => {
         const param = elInput.dataset.param
+        if (elInput.name === 'text-editor') {
+            return
+        }
         if (paramsObj[param]) {
             elInput.value = paramsObj[param]
         }
@@ -480,6 +499,7 @@ function renderToolBarPrefs() {
         if (elInput.type === 'range') {
             renderRangeLabel(elInput)
         }
+
     })
 
 }
@@ -496,9 +516,25 @@ function renderRangeLabel(elRange) {
 
 function setTextInputsState() {
 
-    if (getLastElementIdx() >= 0 && getLastElementType() === 'text') {
-        showTextInputs()
-    } else hideTextInputs()
+    switch (gEditMode) {
+        case 'text':
+            if (getLastElementIdx() >= 0 && getLastElementType() === 'text') {
+                showTextInputs()
+                  const elTextInput = document.querySelector('input[name="text-editor"]')
+                  const selectedElement = getSelectedElement()
+                  if (selectedElement) elTextInput.value = selectedElement.txt
+            } else {
+                hideTextInputs()
+                const elTextInput = document.querySelector('input[name="text-editor"]')
+                elTextInput.value = 'add / select text to edit'
+            }
+            break
+        case 'sticker':
+            hideTextInputs()
+            const elTextInput = document.querySelector('input[name="text-editor"]')
+            elTextInput.value = 'add / select text to edit'
+            break
+    }
 }
 
 function hideTextInputs() {
@@ -667,6 +703,8 @@ function hideTextTools() {
 }
 
 function onAddText(ev) {
+    gEditMode = 'text'
+    setTextInputsState()
     showTextTools()
     hideStickersGallery()
 
@@ -697,6 +735,8 @@ function hideStickersGallery() {
 }
 
 function onAddSticker(ev) {
+    gEditMode = 'sticker'
+    setTextInputsState()
     hideTextTools()
     showStickersGallery()
 }
@@ -719,6 +759,8 @@ function addStickersEventListeners() {
     const elStickers = document.querySelectorAll('.stickers-gallery .sticker-card')
     elStickers.forEach(elSticker => {
         elSticker.addEventListener('click', (ev) => onPlaceSticker(ev.currentTarget))
+        elSticker.addEventListener('click', () => onCloseStickersContainer())
+        
     })
 
 }

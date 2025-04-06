@@ -23,6 +23,8 @@
     aspect-ratio: 1/1;
 
     cursor: pointer;
+    border: 1px solid rgb(var(--clr-accent-base));
+    border-radius: var(--border-radius-md);
 }
 
 .templates-gallery .template-card img {

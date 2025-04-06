@@ -4,15 +4,16 @@
 
     .action-btn.add-text-btn::after,
     .action-btn.add-sticker-btn::after {
-        content: '';
         text-align: start;
         font-size: 0.8em;
         align-content: center;
     }
 
+
+
     .action-btn.add-text-btn::before,
     .action-btn.add-sticker-btn::before {
-        padding-inline-end: 0px;
+        padding-inline-end: 8px;
 
     }
 }
@@ -91,14 +92,6 @@
         padding-inline: var(--px-spacing-md);
     }
 
-    .action-btn.add-text-btn::after {
-        content: 'Text';
-    }
-
-    .action-btn.add-sticker-btn::after {
-        content: 'sticker';
-    }
-
     .action-btn.add-text-btn::before,
     .action-btn.add-sticker-btn::before {
         padding-inline-end: 8px;
@@ -131,6 +124,10 @@
         display: inline;
     }
 
+    .text-input-container.c-hidden{
+        display: flex;
+    }
+
     /* stickers gallery mobile view */
     .stickers-gallery-container {
         display: none;
@@ -145,6 +142,8 @@
         height: 100vh;
         width: 100vw;
     }
+
+
 
 
     /* .flash-msg & modals */
