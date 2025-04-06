@@ -1,14 +1,5 @@
 .meme-container {
-    grid-column: 2;
-    grid-row: 2/3;
-    align-self: stretch;
-
     overflow: hidden;
-min-height: 0;
+    min-height: 0;
     padding: var(--px-spacing-md);
-
-    background-color: rgb(var(--clr-content-bg-dark-base));
-
 }
-
-.meme-canvas {}

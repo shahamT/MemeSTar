@@ -18,6 +18,35 @@
     }
 }
 
+/* MEDIUM-SMALL */
+
+
+@media (width < 780px) {
+    .action-btn.add-text-btn::before {
+        content: '';
+        padding-inline-end: 0px;
+    }
+
+    .action-btn.add-sticker-btn::before {
+        content: '';
+        padding-inline-end: 0px;
+    }
+
+    .action-btn.add-sticker-btn::after,
+    .action-btn.add-text-btn::after {
+        text-align: center;
+        font-size: 0.7em;
+    }
+
+    .action-btn.add-sticker-btn,
+    .action-btn.add-text-btn {
+        padding-inline: 4px;
+
+    }
+
+
+}
+
 /* SMALL */
 
 @media (width < 700px) {
@@ -45,23 +74,29 @@
     .action-btns {
         grid-column: 1;
         grid-row: 1;
+        border-radius: 0px;
+
     }
 
     .text-input-container {
         grid-column: 1;
         grid-row: 2;
-
+        border-radius: 0px;
         padding-inline: var(--px-spacing-md);
     }
 
     .meme-container {
         grid-column: 1;
         grid-row: 3;
+        border-radius: 0px;
+
     }
 
     .sharing-container {
         grid-column: 1;
         grid-row: 4;
+        border-radius: 0px;
+
     }
 
     /* saved memes gallery */
@@ -92,10 +127,30 @@
         padding-inline: var(--px-spacing-md);
     }
 
-    .action-btn.add-text-btn::before,
-    .action-btn.add-sticker-btn::before {
+    .action-btn.add-text-btn::before {
+        /* content: '\f031'; */
+        content: '\2b';
         padding-inline-end: 8px;
+    }
+
+    .action-btn.add-sticker-btn::before {
+        /* content: '\f587'; */
+        content: '\2b';
+        padding-inline-end: 8px;
+    }
+
+    .action-btn.add-sticker-btn::after,
+    .action-btn.add-text-btn::after {
+        text-align: center;
         font-size: 0.8em;
+        text-align: start;
+
+    }
+
+    .action-btn.add-sticker-btn,
+    .action-btn.add-text-btn {
+        padding-inline: 16px;
+
     }
 
 
@@ -124,7 +179,7 @@
         display: inline;
     }
 
-    .text-input-container.c-hidden{
+    .text-input-container.c-hidden {
         display: flex;
     }
 
@@ -143,7 +198,9 @@
         width: 100vw;
     }
 
-
+    .mobile-close-btn {
+        display: revert;
+    }
 
 
     /* .flash-msg & modals */

@@ -83,3 +83,8 @@
     pointer-events: none !important;
     
 }
+
+.container-style{
+    background-color: rgb(var(--clr-content-bg-dark-base));
+    border-radius: var(--border-radius-md);
+}

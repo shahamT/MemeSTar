@@ -38,15 +38,23 @@ function getMemesFromStorage() {
 
 // ======== Save and Share ========
 
-function onUploadImg(memeDataURL, func, elBtn = null) {
+function onUploadImg(imgDataURL, func, imgType, elBtn = null,) {
     function onSuccess(uploadedImgUrl) {
-        const meme = getCurrMeme()
-        meme.memeLink = uploadedImgUrl
-        func(uploadedImgUrl)
+        switch (imgType) {
+            case 'template':
+                const meme = getCurrMeme()
+                meme.memeLink = uploadedImgUrl
+                func(uploadedImgUrl)
+                break
+            case 'sticker':
+                func(uploadedImgUrl)
+                break
+        }
+
         //remove inline loading effect
         if (elBtn) elBtn.classList.remove('inline-loader')
     }
-    uploadImg(memeDataURL, onSuccess)
+    uploadImg(imgDataURL, onSuccess)
 }
 
 async function uploadImg(imgData, onSuccess) {

@@ -59,7 +59,7 @@
         <section
             class="templates-gallery-screen full main-vertical-layout gallery-screen-horizontal-layout grid-align-center hidden">
 
-            <div class="search-container flex column align-center justify-center">
+            <div class="search-container flex column align-center justify-center container-style">
 
                 <div class="search-wraper flex">
                     <input type="text" placeholder="Search" class="gallery-search-input">
@@ -71,16 +71,16 @@
 
             </div>
 
-            <div class="upload-img-container flex">
-                <section class="upload-area flex column align-center justify-center">
-                    <p class="upload-icon big"></p>
+            <div class="upload-img-container flex container-style">
+                <section class="temp-upload-area flex column align-center justify-center">
+                    <p class="upload-icon template big"></p>
                     <p><span>Choose a file</span> or drag it here</p>
                 </section>
                 <!-- Hidden file input -->
                 <input hidden type="file" accept=".jpg, .jpeg, .png, .webp" class="temp-upload" name="temp-upload" />
             </div>
 
-            <div class="templates-gallery-container">
+            <div class="templates-gallery-container container-style">
 
                 <nav class="gallery-tabs tabs-container">
                     <ul class="clean-list flex">
@@ -103,22 +103,22 @@
         <section
             class="hidden editor-screen full main-vertical-layout editor-horizontal-layout grid-align-center hidden">
 
-            <div class="start-from-scratch-container">
+            <div class="start-from-scratch-container container-style">
                 <button class="start-from-scratch-btn">Start With Another Template</button>
             </div>
 
-            <div class="meme-container flex align-center justify-center">
+            <div class="meme-container flex align-center justify-center container-style">
                 <canvas class="meme-canvas" width="1" height="1">
 
                 </canvas>
             </div>
 
-            <div class="text-input-container flex">
+            <div class="text-input-container flex container-style">
                 <input name="text-editor" data-param="txt" type="text" class="param" placeholder="">
                 <button class="text-tools-settings-btn secondary-btn"></button>
             </div>
 
-            <nav class="action-btns flex">
+            <nav class="action-btns flex container-style">
                 <!-- <ul class="clean-list flex"> -->
                 <!-- <li><a class="tab icon-tab delete flex align-center justify-center"></a></li> -->
                 <button name="delete-element" class="delete-element-btn action-btn secondary-btn"></button>
@@ -127,7 +127,7 @@
                 <!-- </ul> -->
             </nav>
 
-            <div class="editor-container">
+            <div class="editor-container container-style">
 
                 <section class="text-tools flex column">
 
@@ -138,7 +138,9 @@
                         <!-- text inputs -->
 
 
-                        <div class="input-group">
+                        <div class="input-group flex column">
+                            <p class="section-title">Text</p>
+
                             <select name="font-picker" data-param="fontFamily" class="param">
                                 <option value="Arial Black">Arial Black</option>
                                 <option value="Impact">Impact</option>
@@ -149,29 +151,41 @@
                                 <option value="Trebuchet MS">Trebuchet MS Bold</option>
                                 <option value="Courier New">Courier Bold</option>
                             </select>
-                            <p name="text-size-range-label" class="range-indicator stroke-size">7</p>
-                            <input name="text-size-range" data-param="fontSize" type="range" min="5" max="60"
+
+                            <div class="input-group flex">
+                                <input name="text-size-range" data-param="fontSize" type="range" min="5" max="120"
                                 class="param">
-                            <input name="text-color-picker" data-param="fillStyle" type="color" class="param">
+                                <p name="text-size-range-label" class="range-indicator stroke-size">7</p>
+                                <input name="text-color-picker" data-param="fillStyle" type="color" class="param">
+                            </div>
                         </div>
 
+
                         <!-- stroke inputs -->
-                        <div class="input-group border-top">
+                        <div class="input-group border-top flex column">
                             <p class="section-title">Stroke</p>
-                            <p name="stroke-size-range-label" class="range-indicator stroke-size">7</p>
-                            <input name="stroke-size-range" data-param="lineWidth" type="range" min="0" max="30"
+
+                            <div class="input-group flex">
+                                <input name="stroke-size-range" data-param="lineWidth" type="range" min="0" max="30"
                                 class="param">
-                            <input name="stroke-color-picker" data-param="strokeStyle" type="color" class="param">
+                                <p name="stroke-size-range-label" class="range-indicator stroke-size">7</p>
+                                <input name="stroke-color-picker" data-param="strokeStyle" type="color" class="param">
+                            </div>
+
                         </div>
 
                         <!-- shadow inputs -->
-                        <div class="input-group border-top">
+                        <div class="input-group border-top flex column">
                             <p class="section-title">Shadow</p>
-                            <p name="shadow-size-range-label" class="range-indicator stroke-size">7</p>
-                            <input name="shadow-size-range" data-param="shadowBlur" type="range" min="0" max="30"
+                            <div class="input-group flex">
+
+                                <input name="shadow-size-range" data-param="shadowBlur" type="range" min="0" max="30"
                                 class="param">
-                            <input name="shadow-color-picker" data-param="shadowColor" type="color" class="param">
+                                <p name="shadow-size-range-label" class="range-indicator stroke-size">7</p>
+                                <input name="shadow-color-picker" data-param="shadowColor" type="color" class="param">
+                            </div>
                         </div>
+
 
                     </form>
                     <button class="close-editor-btn">done</button>
@@ -179,19 +193,20 @@
 
             </div>
 
-            <div class="stickers-gallery-container flex column c-hidden">
+            <div class="stickers-gallery-container flex column c-hidden container-style">
+                <button class="mobile-close-btn"></button>
                 <input type="text" class="stickers-search" placeholder="Search sticker">
                 <div class="sticker-upload-img-container flex">
                     <section class="sticker-upload-area flex  align-center justify-center">
-                        <p class="upload-icon big"></p>
+                        <p class="upload-icon sticker"></p>
                         <p><span>Upload a sticker</span> or drag it here</p>
                     </section>
                     <!-- Hidden file input -->
-                    <input hidden type="file" accept=".jpg, .jpeg, .png, .webp" class="temp-upload"
-                        name="temp-upload" />
+                    <input hidden type="file" accept=".jpg, .jpeg, .png, .webp" class="sticker-upload"
+                        name="sticker-upload" />
                 </div>
 
-                <div class="input-group flex">
+                <div class="sticker-size-input-container input-group flex align-center">
                     <p class="section-title">Sticker Size</p>
                     <p name="sticker-size-range-label" class="range-indicator sticker-size">7</p>
                     <input name="sticker-size-range" data-param="shadowColor" type="range" min="5" max="30"
@@ -203,7 +218,7 @@
 
             </div>
 
-            <div class="sharing-container flex">
+            <div class="sharing-container flex container-style">
                 <button class="save-btn loader-margin-end">Save</button>
                 <button class="download-btn"></button>
                 <button class="share-btn"></button>
@@ -214,11 +229,11 @@
         <!-- saved memed gallery screen -->
         <section class="saved-memes-screen full main-vertical-layout grid-align-center hidden">
 
-            <div class="saved-memes-title-container flex align-center justify-center">
+            <div class="saved-memes-title-container flex align-center justify-center container-style">
                 <h2>Saved Memes</h2>
             </div>
 
-            <div class="saved-memes-gallery-container">
+            <div class="saved-memes-gallery-container container-style">
                 <div class="saved-memes-gallery">
                 </div>
             </div>

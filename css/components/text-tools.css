@@ -13,6 +13,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 12px;
+    width: 100%;
 }
 
 .text-tools .input-group.border-top {
@@ -21,20 +22,21 @@
 }
 
 .text-tools select {
-width: 120px;
+    width: 100%;
 }
 
-.text-tools p {
+.section-title {
+    align-self: start;
+}
+
+.range-indicator {
+    width: 40px;
     text-align: center;
-    width: 20px;
-}
-
-.text-tools .section-title {
     color: rgb(var(--clr-accent-base));
-    margin-inline-end: auto;
+
 }
 
-.text-inputs.disabled-section{
+.text-inputs.disabled-section {
     pointer-events: none;
     opacity: 0.5;
 }

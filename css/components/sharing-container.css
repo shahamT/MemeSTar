@@ -1,14 +1,9 @@
 .sharing-container{
-    grid-column: 3;
-    grid-row: 3;
-    align-self: start;
 
     gap: var(--px-spacing-sm);
     justify-content: center;
 
     padding: var(--px-spacing-md);
-
-    background-color: rgb(var(--clr-content-bg-dark-base));
 }
 
 .sharing-container button{

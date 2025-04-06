@@ -91,7 +91,7 @@ function getTempsForDisplay(params) {
 function addTemplate(imgUrl) {
     const tempId = gNxtTempId
 
-    gTemps.push({
+    gTemps.unshift({
         id: gNxtTempId++,
         type: 'user',
         url: imgUrl,

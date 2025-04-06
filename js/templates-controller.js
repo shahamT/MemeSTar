@@ -207,7 +207,7 @@ function renderSearchKeywords() {
 // event listeners
 
 function addUploadingEventListeners() {
-    const elUploadContainer = document.querySelector('.upload-area')
+    const elUploadContainer = document.querySelector('.temp-upload-area')
     elUploadContainer.addEventListener('click', () => onUploadAreaClick())
 
     const elFileInput = document.querySelector('.temp-upload')
@@ -230,7 +230,7 @@ function addUploadingEventListeners() {
     //   const img = ev.dataTransfer.files;
     //   handleFiles(files);
     // });
-    elUploadContainer.addEventListener('drop', ev => onUploadTemp)
+    // elUploadContainer.addEventListener('drop', ev => onUploadTemp)
 
 }
 
@@ -243,32 +243,22 @@ function onUploadAreaClick() {
 }
 
 function onUploadTemp(ev) {
-    const elIcon = document.querySelector('.upload-icon')
+    const elIcon = document.querySelector('.upload-icon.template')
     elIcon.classList.add('inline-loader')
     loadImageFromInput(ev, handleUploadedTemp)
 }
 
-function loadImageFromInput(ev, onDataURLReady, elIcon) {
-    const reader = new FileReader()
 
-    reader.onload = (event) => {
-        const dataURL = event.target.result
-        onDataURLReady(dataURL)
-    }
-    reader.readAsDataURL(ev.target.files[0])
-}
 
 function handleUploadedTemp(imgDataURL) {
-    const elIcon = document.querySelector('.upload-icon')
-    elIcon.classList.add('inline-loader')
-    onUploadImg(imgDataURL, handleUserMemeUploaded, elIcon)
+    const elIcon = document.querySelector('.upload-icon.template')
+    onUploadImg(imgDataURL, handleUserMemeUploaded, 'template', elIcon)
 }
 
 function handleUserMemeUploaded(link) {
     const tempId = addTemplate(link)
     renderGallery()
     addGalleryEventListeners()
-
 
     const paramObj = {
         param: 'selectedTempId',

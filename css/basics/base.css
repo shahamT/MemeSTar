@@ -71,6 +71,8 @@ select {
 
 input {
     text-align: center;
+
+
 }
 
 input:focus,
@@ -111,9 +113,44 @@ button:hover {
 
 /* range inputs */
 input[type="range"] {
-    width: 60px;
     cursor: pointer;
+    border: none;
 }
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    padding-inline: 0px;
+    background: transparent;
+  }
+  
+  /* WebKit (Chrome, Safari, Opera) */
+  input[type="range"]::-webkit-slider-runnable-track {
+    height: 8px;
+    background: rgba(var(--clr-accent-base), 0.3);
+    border-radius: 4px;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    margin-top: -6px;
+    background: rgb(var(--clr-accent-base));
+    border-radius: 50%;
+  }
+  
+  /* Firefox */
+  input[type="range"]::-moz-range-track {
+    height: 8px;
+    background: rgba(var(--clr-accent-base), 0.3);
+    border-radius: 4px;
+  }
+  input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: rgb(var(--clr-accent-base));
+    border-radius: 50%;
+  }
+
 
 
 /* color pickers */

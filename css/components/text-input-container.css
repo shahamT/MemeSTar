@@ -1,16 +1,10 @@
 .text-input-container {
-    grid-column: 3;
-    grid-row: 1;
     gap: var(--px-spacing-md);
-    align-self: end;
-
     padding-block: var(--px-spacing-md);
-    padding-inline: var(--px-spacing-mdl);
-
-    background-color: rgb(var(--clr-content-bg-dark-base));
+    padding-inline: var(--px-spacing-md);
 }
 
-.text-input-container.c-hidden{
+.text-input-container.c-hidden {
     display: none;
 }
 
@@ -21,25 +15,25 @@
     font-size: 1.2em;
 }
 
-.text-input-container input[name="text-editor"].disabled-section{
+.text-input-container input[name="text-editor"].disabled-section {
     pointer-events: none;
     opacity: 0.5;
 }
 
-.text-tools-settings-btn{
-display: none;
+.text-tools-settings-btn {
+    display: none;
 }
 
-.text-tools-settings-btn::before{
+.text-tools-settings-btn::before {
     content: '\f304';
     font-family: fa;
 }
 
-.text-tools-settings-btn.disabled-section{
+.text-tools-settings-btn.disabled-section {
     pointer-events: none;
     opacity: 0.5;
 }
 
-.close-editor-btn{
+.close-editor-btn {
     display: none;
 }

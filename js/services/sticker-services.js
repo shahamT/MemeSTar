@@ -31,8 +31,8 @@ const DB_USER_STICKERS_KEY = 'USER_STICKERS'
 // ======== handle user stickers (local storage) ========
 
 function setGNextStickerId() {
-    let lastId = gStickers.reduce((highest, temp) => {
-        if (temp.id > highest) highest = temp.id
+    let lastId = gStickers.reduce((highest, sticker) => {
+        if (sticker.id > highest) highest = sticker.id
         return highest
     }, -Infinity)
     gNxtStickerId = lastId + 1
@@ -49,7 +49,6 @@ function addUserStickersToGStickers() {
 // ======== crudl and more ========
 
 function getStickerById(id) {
-    console.log("id: ", id)
     return gStickers.find(sticker => sticker.id === id)
 }
 
@@ -79,10 +78,9 @@ function getStickersForDisplay(params) {
 }
 
 function addSticker(imgUrl) {
-    const stickerId = gNxtTempId
-
-    gStickers.push({
-        id: gNxtTempId++,
+    const stickerId = gNxtStickerId
+    gStickers.unshift({
+        id: gNxtStickerId++,
         type: 'user',
         url: imgUrl,
         keywords: []
@@ -94,7 +92,8 @@ function addSticker(imgUrl) {
 
 function saveUserStickersToStorage() {
     // save only user templates
-    const userStickers = gTemps.filter(temp => temp.type === 'user')
+    const userStickers = gStickers.filter(sticker => sticker.type === 'user')
+    console.log("userStickers: ", userStickers)
     saveToLocalStorage(DB_USER_STICKERS_KEY, userStickers)
 }
 

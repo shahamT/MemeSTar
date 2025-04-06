@@ -13,11 +13,11 @@ var gBoundBox = {
 }
 
 var gStickersFilterParams = {
-    type: 'general',
+    type: null,
     search: null,
 }
 
-var gEditMode = 'text'
+var gEditMode = 'none'
 
 // ======== init ========
 // =======
@@ -150,7 +150,8 @@ function onDeleteElement() {
     updateSelectedElement(getLastElementIdx())
     onMemeChange()
 
-    gEditMode = getSelectedElement().type
+    const selectedElement = getSelectedElement()
+    gEditMode = selectedElement ? selectedElement.type : 'none'
     setTextInputsState()
 
 }
@@ -171,15 +172,6 @@ function onCloseEditorContainer() {
     elEditorContainer.classList.toggle('visible')
 }
 
-function onOpenStickersContainer() {
-    const elStickersContainer = document.querySelector('.stickers-gallery-container')
-    elStickersContainer.classList.toggle('visible')
-}
-
-function onCloseStickersContainer() {
-    const elStickersContainer = document.querySelector('.stickers-gallery-container')
-    elStickersContainer.classList.toggle('visible')
-}
 
 
 // === canvas events ===
@@ -199,14 +191,14 @@ function onDown(ev) {
     if (elementIdx !== -1) {
         updateSelectedElement(elementIdx)
         saveUserPrefsToStorage()
-        
+
         const element = getSelectedElement()
         element.isDragged = true
         const pos = getEvPos(ev)
         gLastPos = pos
         setToolsContainersState(element)
 
-    } else if(getClickedActionBox(ev)){
+    } else if (getClickedActionBox(ev)) {
         // checking if delete box was clicked
         const actionBox = getClickedActionBox(ev)
         const element = getSelectedElement()
@@ -223,11 +215,15 @@ function onDown(ev) {
                 break
         }
 
-    } else updateSelectedElement(null)
+    } else {
+        updateSelectedElement(null)
+        gEditMode = 'none'
+    }
 
     onMemeChange()
 
-    gEditMode = getSelectedElement().type
+    const selectedElement = getSelectedElement()
+    gEditMode = selectedElement ? selectedElement.type : 'none'
     setTextInputsState()
 }
 
@@ -520,20 +516,29 @@ function setTextInputsState() {
         case 'text':
             if (getLastElementIdx() >= 0 && getLastElementType() === 'text') {
                 showTextInputs()
-                  const elTextInput = document.querySelector('input[name="text-editor"]')
-                  const selectedElement = getSelectedElement()
-                  if (selectedElement) elTextInput.value = selectedElement.txt
+                const elTextInput = document.querySelector('input[name="text-editor"]')
+                const selectedElement = getSelectedElement()
+                if (selectedElement) elTextInput.value = selectedElement.txt
             } else {
                 hideTextInputs()
                 const elTextInput = document.querySelector('input[name="text-editor"]')
                 elTextInput.value = 'add / select text to edit'
             }
             break
-        case 'sticker':
+
+        case 'sticker': {
             hideTextInputs()
             const elTextInput = document.querySelector('input[name="text-editor"]')
             elTextInput.value = 'add / select text to edit'
             break
+        }
+
+        case 'none': {
+            hideTextInputs()
+            const elTextInput = document.querySelector('input[name="text-editor"]')
+            elTextInput.value = 'add / select text to edit'
+            break
+        }
     }
 }
 
@@ -622,14 +627,12 @@ function getClickedElement(ev) {
 
 function getClickedActionBox(ev) {
     const pos = getEvPos(ev)
-    console.log("pos: ", pos)
     let clickedActionBox
 
     for (let box in gBoundBox) {
         let isClicked = false
 
         const { x1, x2, y1, y2 } = gBoundBox[box]
-        console.log(gBoundBox)
 
         if (pos.x >= x1 && pos.x <= x2 && pos.y >= y1 && pos.y <= y2) {
             isClicked = true
@@ -707,6 +710,7 @@ function onAddText(ev) {
     setTextInputsState()
     showTextTools()
     hideStickersGallery()
+    onCloseStickersContainer()
 
     //add element and get it's current idx and update selected element idx
     const elementIdx = addElement('text')
@@ -722,15 +726,40 @@ function onTextInputClick(elInput) {
 
 
 // ==== stickers  ====
+function addStickersEventListeners() {
+    const elStickers = document.querySelectorAll('.stickers-gallery .sticker-card')
+    elStickers.forEach(elSticker => {
+        elSticker.addEventListener('click', (ev) => onPlaceSticker(ev.currentTarget))
 
+    })
+
+    const elCloseBtn = document.querySelector('.mobile-close-btn')
+    elCloseBtn.addEventListener('click', onCloseStickersContainer)
+
+}
+
+// mobile display
+function onOpenStickersContainer() {
+    const elStickersContainer = document.querySelector('.stickers-gallery-container')
+    elStickersContainer.classList.add('visible')
+}
+
+function onCloseStickersContainer() {
+    const elStickersContainer = document.querySelector('.stickers-gallery-container')
+    elStickersContainer.classList.remove('visible')
+}
+
+// desktopc display
 function showStickersGallery() {
     const elStickersGallery = document.querySelector('.stickers-gallery-container')
     elStickersGallery.classList.remove('c-hidden')
+
 }
 
 function hideStickersGallery() {
     const elStickersGallery = document.querySelector('.stickers-gallery-container')
     elStickersGallery.classList.add('c-hidden')
+
 
 }
 
@@ -755,16 +784,6 @@ function renderStickersGallery() {
     elGallery.innerHTML = strHtml
 }
 
-function addStickersEventListeners() {
-    const elStickers = document.querySelectorAll('.stickers-gallery .sticker-card')
-    elStickers.forEach(elSticker => {
-        elSticker.addEventListener('click', (ev) => onPlaceSticker(ev.currentTarget))
-        elSticker.addEventListener('click', () => onCloseStickersContainer())
-        
-    })
-
-}
-
 function onPlaceSticker(elStickerCard) {
     const img = elStickerCard.querySelector('img')
     const stickerId = +img.dataset.id
@@ -775,5 +794,52 @@ function onPlaceSticker(elStickerCard) {
 
     updateSelectedElement(elementId)
     onMemeChange()
+    onCloseStickersContainer()
+}
+
+
+// opload stickers
+
+function addStickersUplaodEventListeners(){
+    // stickers upload
+    const elUploadContainer = document.querySelector('.sticker-upload-area')
+    elUploadContainer.addEventListener('click', () => onStickerUploadAreaClick())
+
+    const elFileInput = document.querySelector('.sticker-upload')
+    elFileInput.addEventListener('change', (ev) => onUploadSticker(ev))
+}
+
+function onStickerUploadAreaClick() {
+    const elFileInput = document.querySelector('.sticker-upload')
+    elFileInput.click()
+    
+}
+
+function onUploadSticker(ev) {
+    
+    const elIcon = document.querySelector('.upload-icon.sticker')
+    elIcon.classList.add('inline-loader')
+    loadImageFromInput(ev, handleUploadedSricker)
+}
+
+function handleUploadedSricker(imgDataURL) {
+    const elIcon = document.querySelector('.upload-icon.sticker')
+    const stickerURL = onUploadImg(imgDataURL, handleStickerUploaded, 'sticker', elIcon)
+
+}
+
+function handleStickerUploaded(link) {
+    addSticker(link)
+    renderStickersGallery()
+    addStickersEventListeners()
+    showFlashMsg(`success`,`Sticker was uploaded!`)
+
+    // const paramObj = {
+    //     param: 'selectedTempId',
+    //     val: +stickerId
+    // }
+
+    // updateCurrMeme(paramObj)
+    // initEditorScreen()
 
 }

@@ -10,6 +10,8 @@ function oninit() {
     getMemesFromStorage()
     addUserTempsToGTemps()
     setGNextId()
+    addUserStickersToGStickers()
+    setGNextStickerId()
 
     initCanvas()
 
@@ -19,6 +21,7 @@ function oninit() {
     addSaveAndShareEventListeners()
     addUploadingEventListeners()
     addCanvasEventListeners()
+    addStickersUplaodEventListeners()
     
     initGalleryScreen()
 }
@@ -83,4 +86,16 @@ function onSelectNavBtn(elBtn,page){
 
 function onNavBarToggle(){
     document.querySelector('body').classList.toggle('menu-open')
+}
+
+
+// images uploading
+function loadImageFromInput(ev, onDataURLReady) {
+    const reader = new FileReader()
+
+    reader.onload = (event) => {
+        const dataURL = event.target.result
+        onDataURLReady(dataURL)
+    }
+    reader.readAsDataURL(ev.target.files[0])
 }
