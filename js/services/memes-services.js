@@ -91,6 +91,10 @@ function getLastElementIdx() {
     return gCurrMeme.elements.length - 1
 }
 
+function getElementbyIdx(idx){
+    return gCurrMeme.elements[idx]
+}
+
 function getLastElementType() {
     const lastElement = gCurrMeme.elements[getLastElementIdx()]
     return lastElement.type
@@ -106,6 +110,15 @@ function getSelectedElement() {
         gCurrMeme.selectedElementIdx === null
     ) return null
     return gCurrMeme.elements[gCurrMeme.selectedElementIdx]
+}
+
+function getAllMemeElements(){
+    return gCurrMeme.elements
+}
+
+function getHoveredElement(){
+    const hoveredElement = gCurrMeme.elements.find(element => element.isHovered ===true)
+    return hoveredElement || null
 }
 
 function updateElementPos(x, y) {
@@ -146,7 +159,8 @@ function _createDefaultUserPrefs() {
         pos: { x: null, y: null },
         size: { w: null, h: null },
         boundBox: { x1: null, x2: null, y1: null, y2: null },
-        isDragged: false
+        isDragged: false,
+        isHovered:false
     }
     return paramsObj
 }

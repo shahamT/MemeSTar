@@ -6,10 +6,17 @@ var gCtx
 var gSF = 3 //global canvas scale factor
 
 var gLastPos
+
 var gBoundBox = {
     boxPlus: null,
     boxMinus: null,
     boxDel: null
+}
+
+var gHoverstates = {
+    isboxPlusHovered: false,
+    isboxMinusHovered: false,
+    isboxDelHovered: false
 }
 
 var gStickersFilterParams = {
@@ -186,21 +193,22 @@ function addCanvasEventListeners() {
 }
 
 function onDown(ev) {
+    const eventPos = getEvPos(ev)
+
     // checking if element was clicked
-    const elementIdx = getElementInPos(ev)
+    const elementIdx = getElementInPos(eventPos)
     if (elementIdx !== -1) {
         updateSelectedElement(elementIdx)
         saveUserPrefsToStorage()
 
         const element = getSelectedElement()
         element.isDragged = true
-        const pos = getEvPos(ev)
-        gLastPos = pos
+        gLastPos = eventPos
         setToolsContainersState(element)
 
-    } else if (getClickedActionBox(ev)) {
-        // checking if delete box was clicked
-        const actionBox = getClickedActionBox(ev)
+    } else if (getActionBoxInPos(eventPos)) {
+        // checking if action box was clicked
+        const actionBox = getActionBoxInPos(eventPos)
         const element = getSelectedElement()
 
         switch (actionBox) {
@@ -233,56 +241,38 @@ function onDown(ev) {
 }
 
 function onMove(ev) {
-        // // checking if element was clicked
-        // const elementIdx = getElementInPos(ev)
-        // if (elementIdx !== -1) {
-        //     updateSelectedElement(elementIdx)
-        //     saveUserPrefsToStorage()
-    
-        //     const element = getSelectedElement()
-        //     element.isDragged = true
-        //     const pos = getEvPos(ev)
-        //     gLastPos = pos
-        //     setToolsContainersState(element)
-    
-        // } else if (getClickedActionBox(ev)) {
-        //     // checking if delete box was clicked
-        //     const actionBox = getClickedActionBox(ev)
-        //     const element = getSelectedElement()
-    
-        //     switch (actionBox) {
-        //         case 'boxPlus':
-        //             if (element.fontSize >= 120) return
-        //             element.fontSize = +element.fontSize + 2
-        //             break
-        //         case 'boxMinus':
-        //             if (element.fontSize <= 5) return
-    
-        //             element.fontSize = +element.fontSize - 2
-        //             break
-        //         case 'boxDel':
-        //             onDeleteElement()
-        //             break
-        //     }
-        //     saveUserPrefsToStorage()
-    
-        // } else {
-        //     updateSelectedElement(null)
-        //     setDeleteButtonState()
-        //     gEditMode = 'none'
-        // }
-    
-    
-    
-    
-    
-    
-    
+    const eventPos = getEvPos(ev)
+
+    // checking if element is hovered
+    const elementIdx = getElementInPos(eventPos)
+    const element = getElementbyIdx(elementIdx)
+    clearAllHoverStates()
+
+    if (element) {
+        element.isHovered = true
+    } else if (getActionBoxInPos(eventPos)) {
+
+        // checking if action box is hovered
+        const actionBox = getActionBoxInPos(eventPos)
+
+        switch (actionBox) {
+            case 'boxPlus':
+                gHoverstates.isboxPlusHovered = true
+                break
+            case 'boxMinus':
+                gHoverstates.isboxMinusHovered = true
+                break
+            case 'boxDel':
+                gHoverstates.isboxDelHovered = true
+                break
+        }
+    }
+    renderMeme()
     // dragging functionality
-    
-    const element = getSelectedElement()
-    if (element === null) return
-    if (!element.isDragged) return
+
+    const selectedElement = getSelectedElement()
+    if (selectedElement === null) return
+    if (!selectedElement.isDragged) return
 
     const pos = getEvPos(ev)
 
@@ -295,6 +285,14 @@ function onMove(ev) {
     gLastPos = pos
 
     renderMeme()
+}
+
+function clearAllHoverStates() {
+    gHoverstates.isboxPlusHovered = false
+    gHoverstates.isboxMinusHovered = false
+    gHoverstates.isboxDelHovered = false
+    const elements = getAllMemeElements()
+    elements.forEach(element => element.isHovered = false)
 }
 
 function onUp(ev) {
@@ -332,7 +330,11 @@ function renderMeme() {
         const height = gElCanvas.height
         gCtx.drawImage(img, 0, 0, width, height)
         renderElements()
-        renderBoundBox()
+
+        const selectedElement = getSelectedElement()
+        renderBoundBox(selectedElement, 'selected')
+        const hoveredElement = getHoveredElement()
+        if (hoveredElement) renderBoundBox(hoveredElement, 'hovered')
     }
 
     img.crossOrigin = 'anonymous';
@@ -436,8 +438,8 @@ function renderSticker(element) {
 
 }
 
-function renderBoundBox() {
-    const element = getSelectedElement()
+function renderBoundBox(element, type) {
+
     if (element === null) return
     if (gIsExporting) return
 
@@ -447,76 +449,88 @@ function renderBoundBox() {
     const elH = element.size.h
     const elW = element.size.w
 
+    switch (type) {
+        case 'selected':
+            gCtx.strokeStyle = '#FFD500';
 
-    gCtx.strokeStyle = '#FFD500';
+            break
+        case 'hovered':
+            gCtx.strokeStyle = '#7540E8';
+            break
+    }
+
     gCtx.lineWidth = 2;
 
     // Draw rectangle outline at (x, y) with specified width and height
     gCtx.strokeRect(x1 - 10, y1 - 15, x2 - x1 + 20, y2 - y1 + 20);
 
-    //draw sizing squares
-    gCtx.fillStyle = '#C8C8C8'
 
-    // minus
-    gCtx.fillRect(x1 - 31, y1 - 5, 20, 20)
-    gBoundBox.boxMinus = { x1: x1 - 31, x2: x1 - 31 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save minus box bounding size
+    if (type === 'selected') {
 
-    gCtx.beginPath()
-    gCtx.moveTo(x1 - 27, y1 + 5)
-    gCtx.lineTo(x1 - 15, y1 + 5)
-    gCtx.strokeStyle = '#000000'
-    gCtx.lineWidth = 2
-    gCtx.stroke()
+        //draw sizing squares
+        gCtx.fillStyle = '#C8C8C8'
 
-    // plus
+        // minus
+        gCtx.fillRect(x1 - 31, y1 - 5, 20, 20)
+        gBoundBox.boxMinus = { x1: x1 - 31, x2: x1 - 31 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save minus box bounding size
 
-    gCtx.fillRect(x2 + 11, y1 - 5, 20, 20)
-    gBoundBox.boxPlus = { x1: x2 + 11, x2: x2 + 11 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save plus box bounding size
+        gCtx.beginPath()
+        gCtx.moveTo(x1 - 27, y1 + 5)
+        gCtx.lineTo(x1 - 15, y1 + 5)
+        gCtx.strokeStyle = '#000000'
+        gCtx.lineWidth = 2
+        gCtx.stroke()
 
-    gCtx.beginPath()
-    gCtx.moveTo(x2 + 27, y1 + 5)
-    gCtx.lineTo(x2 + 15, y1 + 5)
-    gCtx.strokeStyle = '#000000'
-    gCtx.lineWidth = 2
-    gCtx.stroke()
+        // plus
 
-    gCtx.beginPath()
-    gCtx.moveTo(x2 + 21, y1 - 1)
-    gCtx.lineTo(x2 + 21, y1 + 11)
-    gCtx.strokeStyle = '#000000'
-    gCtx.lineWidth = 2
-    gCtx.stroke()
+        gCtx.fillRect(x2 + 11, y1 - 5, 20, 20)
+        gBoundBox.boxPlus = { x1: x2 + 11, x2: x2 + 11 + 20, y1: y1 - 5, y2: y1 - 5 + 20 } //save plus box bounding size
+
+        gCtx.beginPath()
+        gCtx.moveTo(x2 + 27, y1 + 5)
+        gCtx.lineTo(x2 + 15, y1 + 5)
+        gCtx.strokeStyle = '#000000'
+        gCtx.lineWidth = 2
+        gCtx.stroke()
+
+        gCtx.beginPath()
+        gCtx.moveTo(x2 + 21, y1 - 1)
+        gCtx.lineTo(x2 + 21, y1 + 11)
+        gCtx.strokeStyle = '#000000'
+        gCtx.lineWidth = 2
+        gCtx.stroke()
 
 
-    // delete circle
-    gCtx.beginPath();
-    gCtx.arc(element.pos.x + 5, element.pos.y + element.size.h, 10, 0, Math.PI * 2, false)
-    gCtx.fillStyle = '#E53935'
-    gCtx.fill()
+        // delete circle
+        gCtx.beginPath();
+        gCtx.arc(element.pos.x + 5, element.pos.y + element.size.h, 10, 0, Math.PI * 2, false)
+        gCtx.fillStyle = '#E53935'
+        gCtx.fill()
 
-    //save delete box bounding size
-    const startCorX = element.pos.x - 5
-    const startCorY = element.pos.y + element.size.h - 5
-    const endCorX = element.pos.x + 15
-    const endCorY = element.pos.y + element.size.h + 15
-    gBoundBox.boxDel = { x1: startCorX, x2: endCorX, y1: startCorY, y2: endCorY }
+        //save delete box bounding size
+        const startCorX = element.pos.x - 5
+        const startCorY = element.pos.y + element.size.h - 5
+        const endCorX = element.pos.x + 15
+        const endCorY = element.pos.y + element.size.h + 15
+        gBoundBox.boxDel = { x1: startCorX, x2: endCorX, y1: startCorY, y2: endCorY }
 
-    // X line 1
-    gCtx.beginPath()
-    gCtx.moveTo(element.pos.x + 5 - 5, element.pos.y + element.size.h - 5)
-    gCtx.lineTo(element.pos.x + 5 + 5, element.pos.y + element.size.h + 5)
-    gCtx.strokeStyle = '#FFFFFF'
-    gCtx.lineWidth = 2
-    gCtx.stroke()
+        // X line 1
+        gCtx.beginPath()
+        gCtx.moveTo(element.pos.x + 5 - 5, element.pos.y + element.size.h - 5)
+        gCtx.lineTo(element.pos.x + 5 + 5, element.pos.y + element.size.h + 5)
+        gCtx.strokeStyle = '#FFFFFF'
+        gCtx.lineWidth = 2
+        gCtx.stroke()
 
-    // X line 2
-    gCtx.beginPath()
-    gCtx.moveTo(element.pos.x + 5 - 5, element.pos.y + element.size.h + 5)
-    gCtx.lineTo(element.pos.x + 5 + 5, element.pos.y + element.size.h - 5)
-    gCtx.strokeStyle = '#FFFFFF'
-    gCtx.lineWidth = 2
-    gCtx.stroke()
+        // X line 2
+        gCtx.beginPath()
+        gCtx.moveTo(element.pos.x + 5 - 5, element.pos.y + element.size.h + 5)
+        gCtx.lineTo(element.pos.x + 5 + 5, element.pos.y + element.size.h - 5)
+        gCtx.strokeStyle = '#FFFFFF'
+        gCtx.lineWidth = 2
+        gCtx.stroke()
 
+    }
 }
 
 
@@ -661,8 +675,7 @@ function resizeCanvas() {
 
 
 // drag & drop functions
-function getElementInPos(ev) {
-    const pos = getEvPos(ev)
+function getElementInPos(pos) {
     const meme = getCurrMeme()
     const elements = meme.elements
 
@@ -678,11 +691,12 @@ function getElementInPos(ev) {
     return clickedElement
 }
 
-function getClickedActionBox(ev) {
-    const pos = getEvPos(ev)
+function getActionBoxInPos(pos) {
     let clickedActionBox
 
     for (let box in gBoundBox) {
+        if (!gBoundBox[box]) continue
+
         let isClicked = false
 
         const { x1, x2, y1, y2 } = gBoundBox[box]
@@ -770,6 +784,7 @@ function onAddText(ev) {
 
     updateSelectedElement(elementIdx)
     onMemeChange()
+    clearAllHoverStates()
 
 }
 
@@ -829,6 +844,7 @@ function onPlaceSticker(elStickerCard) {
     updateSelectedElement(elementId)
     onMemeChange()
     onCloseStickersContainer()
+    clearAllHoverStates()
 }
 
 // mobile display
