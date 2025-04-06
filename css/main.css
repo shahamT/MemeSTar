@@ -26,6 +26,7 @@
 @import url(components/flash-msg.css);
 @import url(components/g-modal.css);
 @import url(components/inline-loading.css);
+@import url(components/empty-states.css);
 
 /* editor */
 @import url(components/editor-screen.css);

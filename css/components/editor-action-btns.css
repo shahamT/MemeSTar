@@ -54,7 +54,8 @@
 
 .action-btn.delete-element-btn.disabled{
     border-color: rgb(var(--clr-disabled-base), 0.5);
-    cursor: default;  
+    cursor: default;
+    pointer-events: none;
 }
 
 .action-btn.delete-element-btn.disabled:hover{

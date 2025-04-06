@@ -190,6 +190,7 @@ function renderSavedMemesGallery() {
     const elGallery = document.querySelector('.saved-memes-gallery')
     let strHtml = ''
 
+    if (memes.length > 0){
     memes.forEach((meme, idx) => {
         strHtml += `<div class="meme-card"><img data-idx="${idx}" src="${meme.memeLink}">
                     <div class="meme-card-btns">
@@ -200,7 +201,9 @@ function renderSavedMemesGallery() {
                     </div>
                     </div>
                     `
-    })
+    })} else {
+         strHtml += `<div class="empty-state-container" ><img class="empty-state-img" src="img/empty-states/saved-memes-empty-state.png"></div>`
+    }
 
     elGallery.innerHTML = strHtml
 }

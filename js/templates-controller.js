@@ -160,14 +160,17 @@ function onKeywordClick(elKeyword) {
 function renderGallery() {
 
     const temps = getTempsForDisplay(gFilterParams)
-
     const elGallery = document.querySelector('.templates-gallery')
     let strHtml = ''
-
-    temps.forEach(temp => {
-        strHtml += `<div class="template-card" ><img data-id="${temp.id}" src="${temp.url}"></div>
+    
+    if (temps.length > 0) {
+        temps.forEach(temp => {
+            strHtml += `<div class="template-card" ><img data-id="${temp.id}" src="${temp.url}"></div>
         `
-    })
+        })
+    } else {
+         strHtml += `<div class="empty-state-container" ><img class="empty-state-img" src="img/empty-states/meme-templates-empty-state.png"></div>`
+    }
 
     elGallery.innerHTML = strHtml
 }

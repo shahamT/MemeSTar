@@ -28,6 +28,7 @@
 }
 
 .main-header a:hover {
+    color: rgb(var(--clr-accent-base));
     background-color: rgba(var(--clr-light-base), 0.1);
 }
 

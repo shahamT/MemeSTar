@@ -187,7 +187,7 @@ function addCanvasEventListeners() {
 
 function onDown(ev) {
     // checking if element was clicked
-    const elementIdx = getClickedElement(ev)
+    const elementIdx = getElementInPos(ev)
     if (elementIdx !== -1) {
         updateSelectedElement(elementIdx)
         saveUserPrefsToStorage()
@@ -205,18 +205,23 @@ function onDown(ev) {
 
         switch (actionBox) {
             case 'boxPlus':
-                element.fontSize += 2
+                if (element.fontSize >= 120) return
+                element.fontSize = +element.fontSize + 2
                 break
             case 'boxMinus':
-                element.fontSize -= 2
+                if (element.fontSize <= 5) return
+
+                element.fontSize = +element.fontSize - 2
                 break
             case 'boxDel':
                 onDeleteElement()
                 break
         }
+        saveUserPrefsToStorage()
 
     } else {
         updateSelectedElement(null)
+        setDeleteButtonState()
         gEditMode = 'none'
     }
 
@@ -228,6 +233,53 @@ function onDown(ev) {
 }
 
 function onMove(ev) {
+        // // checking if element was clicked
+        // const elementIdx = getElementInPos(ev)
+        // if (elementIdx !== -1) {
+        //     updateSelectedElement(elementIdx)
+        //     saveUserPrefsToStorage()
+    
+        //     const element = getSelectedElement()
+        //     element.isDragged = true
+        //     const pos = getEvPos(ev)
+        //     gLastPos = pos
+        //     setToolsContainersState(element)
+    
+        // } else if (getClickedActionBox(ev)) {
+        //     // checking if delete box was clicked
+        //     const actionBox = getClickedActionBox(ev)
+        //     const element = getSelectedElement()
+    
+        //     switch (actionBox) {
+        //         case 'boxPlus':
+        //             if (element.fontSize >= 120) return
+        //             element.fontSize = +element.fontSize + 2
+        //             break
+        //         case 'boxMinus':
+        //             if (element.fontSize <= 5) return
+    
+        //             element.fontSize = +element.fontSize - 2
+        //             break
+        //         case 'boxDel':
+        //             onDeleteElement()
+        //             break
+        //     }
+        //     saveUserPrefsToStorage()
+    
+        // } else {
+        //     updateSelectedElement(null)
+        //     setDeleteButtonState()
+        //     gEditMode = 'none'
+        // }
+    
+    
+    
+    
+    
+    
+    
+    // dragging functionality
+    
     const element = getSelectedElement()
     if (element === null) return
     if (!element.isDragged) return
@@ -563,7 +615,8 @@ function showTextInputs() {
 
 function setDeleteButtonState() {
     const elDeleteElement = document.querySelector('.action-btns [name="delete-element"]')
-    if (getLastElementIdx() >= 0) {
+    // if (getLastElementIdx() >= 0) {
+    if (getSelectedElement()) {
         elDeleteElement.classList.remove('disabled')
     } else elDeleteElement.classList.add('disabled')
 
@@ -608,7 +661,7 @@ function resizeCanvas() {
 
 
 // drag & drop functions
-function getClickedElement(ev) {
+function getElementInPos(ev) {
     const pos = getEvPos(ev)
     const meme = getCurrMeme()
     const elements = meme.elements
@@ -738,6 +791,46 @@ function addStickersEventListeners() {
 
 }
 
+function renderStickersGallery() {
+
+    const stickers = getStickersForDisplay(gStickersFilterParams)
+
+    const elGallery = document.querySelector('.stickers-gallery')
+    let strHtml = ''
+
+    if (stickers.length > 0) {
+        stickers.forEach((sticker) => {
+            strHtml += `<div class="sticker-card"><img data-id="${sticker.id}" src="${sticker.url}">
+                    </div>`
+        })
+    } else {
+        strHtml += `<div class="empty-state-container" ><img class="empty-state-img" src="img/empty-states/stickerss-empty-state.png"></div>`
+    }
+
+    elGallery.innerHTML = strHtml
+}
+
+function onAddSticker(ev) {
+    gEditMode = 'sticker'
+    setTextInputsState()
+    hideTextTools()
+    showStickersGallery()
+}
+
+
+function onPlaceSticker(elStickerCard) {
+    const img = elStickerCard.querySelector('img')
+    const stickerId = +img.dataset.id
+    const sticker = getStickerById(stickerId)
+
+    //add element and get it's current idx and update selected element idx
+    const elementId = addElement('sticker', sticker.url)
+
+    updateSelectedElement(elementId)
+    onMemeChange()
+    onCloseStickersContainer()
+}
+
 // mobile display
 function onOpenStickersContainer() {
     const elStickersContainer = document.querySelector('.stickers-gallery-container')
@@ -763,44 +856,10 @@ function hideStickersGallery() {
 
 }
 
-function onAddSticker(ev) {
-    gEditMode = 'sticker'
-    setTextInputsState()
-    hideTextTools()
-    showStickersGallery()
-}
 
-function renderStickersGallery() {
+// upload stickers
 
-    const stickers = getStickersForDisplay(gStickersFilterParams)
-
-    const elGallery = document.querySelector('.stickers-gallery')
-    let strHtml = ''
-
-    stickers.forEach((sticker) => {
-        strHtml += `<div class="sticker-card"><img data-id="${sticker.id}" src="${sticker.url}">
-                    </div>`
-    })
-    elGallery.innerHTML = strHtml
-}
-
-function onPlaceSticker(elStickerCard) {
-    const img = elStickerCard.querySelector('img')
-    const stickerId = +img.dataset.id
-    const sticker = getStickerById(stickerId)
-
-    //add element and get it's current idx and update selected element idx
-    const elementId = addElement('sticker', sticker.url)
-
-    updateSelectedElement(elementId)
-    onMemeChange()
-    onCloseStickersContainer()
-}
-
-
-// opload stickers
-
-function addStickersUplaodEventListeners(){
+function addStickersUplaodEventListeners() {
     // stickers upload
     const elUploadContainer = document.querySelector('.sticker-upload-area')
     elUploadContainer.addEventListener('click', () => onStickerUploadAreaClick())
@@ -812,11 +871,11 @@ function addStickersUplaodEventListeners(){
 function onStickerUploadAreaClick() {
     const elFileInput = document.querySelector('.sticker-upload')
     elFileInput.click()
-    
+
 }
 
 function onUploadSticker(ev) {
-    
+
     const elIcon = document.querySelector('.upload-icon.sticker')
     elIcon.classList.add('inline-loader')
     loadImageFromInput(ev, handleUploadedSricker)
@@ -832,7 +891,7 @@ function handleStickerUploaded(link) {
     addSticker(link)
     renderStickersGallery()
     addStickersEventListeners()
-    showFlashMsg(`success`,`Sticker was uploaded!`)
+    showFlashMsg(`success`, `Sticker was uploaded!`)
 
     // const paramObj = {
     //     param: 'selectedTempId',

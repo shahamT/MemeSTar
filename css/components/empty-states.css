@@ -1,0 +1,6 @@
+.empty-state-container{
+    max-width: 400px;
+    padding-inline: var(--px-spacing-md);
+    align-self: center;
+    justify-self: center;
+}
